@@ -1,0 +1,3 @@
+cmake_minimum_required(VERSION 4.3.1)
+project(raft)
+add_executable(${PROJECT_NAME} src/main.cpp src/raft_node.cpp)
