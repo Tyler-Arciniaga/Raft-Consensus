@@ -1,5 +1,6 @@
 #include <cstdint>
 #include <iostream>
+#include <random>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -45,7 +46,7 @@ struct RequestVoteReply {};
 
 class RaftNode {
 public:
-  RaftNode(size_t nodeID);
+  RaftNode(size_t nodeID, std::random_device rd);
 
   AppendEntriesReply AppendEntries(AppendEntriesArgs args);
   RequestVoteReply RequestVote(RequestVoteReply args);
@@ -72,14 +73,40 @@ private:
       matchIndex; // index of highest log entry known to be replicated for each
                   // server (used by leader)
 
+  std::mt19937 rng; // mt19937 used to determine random numbers for the
+                    // randomized election timeout
+  std::uniform_int_distribution<int> dist;
+
+  // switch state logger functions
   void SwitchStateToFollower();
   void SwitchStateToCandidate();
   void SwitchStateToLeader();
+
+  // node state machine functions
+  void WaitForAppendEntries();
 };
 
-RaftNode::RaftNode(size_t nodeID)
+// RaftNode constructor
+RaftNode::RaftNode(size_t nodeID, std::random_device rd)
     : nodeID(nodeID), state(NodeState::Follower), currentTerm(0),
-      commitIndex(0), lastApplied(0) {};
+      commitIndex(0), lastApplied(0) {
+
+  Log.resize(
+      25); // give the node's log an initial size so that we can index directly
+           // into the log without having to push new elements in
+
+  rng = std::mt19937(rd());
+  dist = std::uniform_int_distribution<int>(150, 300);
+
+  WaitForAppendEntries();
+};
+
+// base state for RaftNode, called after init process and is default state of
+// all Follower nodes
+void RaftNode::WaitForAppendEntries() {
+  int random_timeout = dist(rng);
+  std::cout << nodeID << ": " << random_timeout << "\n";
+}
 
 void RaftNode::SwitchStateToFollower() {
   print_switch_state_statement(nodeID, state, NodeState::Follower);
