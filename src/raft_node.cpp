@@ -37,12 +37,31 @@ RaftNode::RaftNode(size_t nodeID, std::random_device &rd)
       commitIndex(0), lastApplied(0), randomizer(Randomizer(rd)),
       cv(std::condition_variable{}), follower_mtx(std::mutex{}) {
 
-  Log.resize(
-      25); // give the node's log an initial size so that we can index directly
-           // into the log without having to push new elements in
-
   void HandleFollowerState();
 };
+
+// RaftNode RPC functions
+RequestVoteReply RaftNode::RequestVote(RequestVoteArgs args) {
+  if (currentTerm > args.candidate_term) {
+    return RequestVoteReply{currentTerm, false};
+  } // immediately reject RequestVote if local node's term is higher than
+    // candidate's term
+
+  if (votedFor == UINT32_MAX || votedFor == args.candidateID) {
+    size_t lastLogIndex = Log.size() - 1;
+    if (Log[lastLogIndex].termReceived != args.lastLogTerm) {
+      return RequestVoteReply{currentTerm, Log[lastLogIndex].termReceived <
+                                               args.lastLogTerm};
+    } // first compare term of both log's last entry
+
+    // finally compare length of both log's if the last entries had the same
+    // term
+    return RequestVoteReply{currentTerm, lastLogIndex < args.lastLogIndex};
+  }
+
+  // local node has already voted in this election
+  return RequestVoteReply{currentTerm, false};
+}
 
 // main follower state function, has infinite loop only broken if current
 // election timer countdown reached before AppendEntry RPC can notify condition
@@ -58,8 +77,13 @@ void RaftNode::HandleFollowerState() {
     }
   }
 
+  currentTerm++;
   SwitchStateToCandidate();
+  HandleCandidateState();
 }
+
+// TODO
+void RaftNode::HandleCandidateState() {}
 
 void RaftNode::SwitchStateToFollower() {
   print_switch_state_statement(nodeID, state, NodeState::Follower);

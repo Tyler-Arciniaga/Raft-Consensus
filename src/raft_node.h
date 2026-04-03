@@ -2,6 +2,7 @@
 
 #include "randomizer.h"
 #include <condition_variable>
+#include <cstdint>
 #include <mutex>
 #include <random>
 #include <string>
@@ -19,17 +20,28 @@ struct LogEntry {
 struct AppendEntriesArgs {};
 struct AppendEntriesReply {};
 
-struct RequestVoteArgs {};
-struct RequestVoteReply {};
+struct RequestVoteArgs {
+  uint64_t candidate_term;
+  size_t candidateID;
+  size_t lastLogIndex;  // index of candidate's last log entry
+  uint64_t lastLogTerm; // term of candidate's last log entry
+};
+struct RequestVoteReply {
+  uint64_t
+      term; // currentTerm (used for candidate to possibly update it's term)
+  bool voteGranted;
+};
 
 class RaftNode {
 public:
   RaftNode(size_t nodeID, std::random_device &rd);
 
+  // RPC functions
   AppendEntriesReply AppendEntries(AppendEntriesArgs args);
-  RequestVoteReply RequestVote(RequestVoteReply args);
+  RequestVoteReply RequestVote(RequestVoteArgs args);
 
 private:
+  // Member Variables
   NodeState state;
   size_t nodeID;
 
@@ -57,6 +69,7 @@ private:
   std::condition_variable cv;
   bool received_heartbeat;
 
+  // Member functions
   // switch state logger functions
   void SwitchStateToFollower();
   void SwitchStateToCandidate();
@@ -64,5 +77,6 @@ private:
 
   // node state machine functions
   void HandleFollowerState();
+  void HandleCandidateState();
   void WaitForAppendEntries();
 };
