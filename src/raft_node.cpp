@@ -1,6 +1,9 @@
 #include "raft_node.h"
+#include <chrono>
+#include <condition_variable>
 #include <cstdint>
 #include <iostream>
+#include <mutex>
 #include <string>
 
 std::string print_state(NodeState state) {
@@ -31,20 +34,31 @@ void print_switch_state_statement(uint64_t nodeID, NodeState oldState,
 // RaftNode constructor
 RaftNode::RaftNode(size_t nodeID, std::random_device &rd)
     : nodeID(nodeID), state(NodeState::Follower), currentTerm(0),
-      commitIndex(0), lastApplied(0), randomizer(Randomizer(rd)) {
+      commitIndex(0), lastApplied(0), randomizer(Randomizer(rd)),
+      cv(std::condition_variable{}), follower_mtx(std::mutex{}) {
 
   Log.resize(
       25); // give the node's log an initial size so that we can index directly
            // into the log without having to push new elements in
 
-  WaitForAppendEntries();
+  void HandleFollowerState();
 };
 
-// base state for RaftNode, called after init process and is default state of
-// all Follower nodes
-void RaftNode::WaitForAppendEntries() {
-  int random_timeout = randomizer.GetRandomElectionTimeout();
-  std::cout << nodeID << ": " << random_timeout << "\n";
+// main follower state function, has infinite loop only broken if current
+// election timer countdown reached before AppendEntry RPC can notify condition
+// variable
+void RaftNode::HandleFollowerState() {
+  std::unique_lock<std::mutex> lock(follower_mtx);
+
+  while (true) {
+    int new_countdown_duration = randomizer.GetRandomElectionTimeout();
+    if (cv.wait_for(lock, std::chrono::milliseconds(new_countdown_duration)) ==
+        std::cv_status::timeout) {
+      break;
+    }
+  }
+
+  SwitchStateToCandidate();
 }
 
 void RaftNode::SwitchStateToFollower() {

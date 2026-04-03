@@ -1,6 +1,8 @@
 #pragma once
 
 #include "randomizer.h"
+#include <condition_variable>
+#include <mutex>
 #include <random>
 #include <string>
 enum NodeState { Follower = 0, Candidate, Leader };
@@ -51,11 +53,16 @@ private:
 
   Randomizer randomizer;
 
+  std::mutex follower_mtx;
+  std::condition_variable cv;
+  bool received_heartbeat;
+
   // switch state logger functions
   void SwitchStateToFollower();
   void SwitchStateToCandidate();
   void SwitchStateToLeader();
 
   // node state machine functions
+  void HandleFollowerState();
   void WaitForAppendEntries();
 };
