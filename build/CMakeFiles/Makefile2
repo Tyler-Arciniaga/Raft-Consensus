@@ -85,12 +85,12 @@ clean: CMakeFiles/raft.dir/clean
 CMakeFiles/raft.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=1,2,3 "Built target raft"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=1,2,3,4 "Built target raft"
 .PHONY : CMakeFiles/raft.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/raft.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/raft.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles 0
 .PHONY : CMakeFiles/raft.dir/rule
@@ -102,7 +102,7 @@ raft: CMakeFiles/raft.dir/rule
 # codegen rule for target.
 CMakeFiles/raft.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=1,2,3 "Finished codegen for target raft"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=1,2,3,4 "Finished codegen for target raft"
 .PHONY : CMakeFiles/raft.dir/codegen
 
 # clean rule for target.

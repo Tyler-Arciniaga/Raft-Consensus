@@ -184,6 +184,30 @@ src/raft_node.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/raft_node.cpp.s
 .PHONY : src/raft_node.cpp.s
 
+src/randomizer.o: src/randomizer.cpp.o
+.PHONY : src/randomizer.o
+
+# target to build an object file
+src/randomizer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/randomizer.cpp.o
+.PHONY : src/randomizer.cpp.o
+
+src/randomizer.i: src/randomizer.cpp.i
+.PHONY : src/randomizer.i
+
+# target to preprocess a source file
+src/randomizer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/randomizer.cpp.i
+.PHONY : src/randomizer.cpp.i
+
+src/randomizer.s: src/randomizer.cpp.s
+.PHONY : src/randomizer.s
+
+# target to generate assembly for a file
+src/randomizer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/randomizer.cpp.s
+.PHONY : src/randomizer.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -200,6 +224,9 @@ help:
 	@echo "... src/raft_node.o"
 	@echo "... src/raft_node.i"
 	@echo "... src/raft_node.s"
+	@echo "... src/randomizer.o"
+	@echo "... src/randomizer.i"
+	@echo "... src/randomizer.s"
 .PHONY : help
 
 

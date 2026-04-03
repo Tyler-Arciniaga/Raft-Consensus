@@ -29,16 +29,13 @@ void print_switch_state_statement(uint64_t nodeID, NodeState oldState,
 // RaftNode logic
 
 // RaftNode constructor
-RaftNode::RaftNode(size_t nodeID, std::random_device rd)
+RaftNode::RaftNode(size_t nodeID, std::random_device &rd)
     : nodeID(nodeID), state(NodeState::Follower), currentTerm(0),
-      commitIndex(0), lastApplied(0) {
+      commitIndex(0), lastApplied(0), randomizer(Randomizer(rd)) {
 
   Log.resize(
       25); // give the node's log an initial size so that we can index directly
            // into the log without having to push new elements in
-
-  rng = std::mt19937(rd());
-  dist = std::uniform_int_distribution<int>(150, 300);
 
   WaitForAppendEntries();
 };
@@ -46,7 +43,7 @@ RaftNode::RaftNode(size_t nodeID, std::random_device rd)
 // base state for RaftNode, called after init process and is default state of
 // all Follower nodes
 void RaftNode::WaitForAppendEntries() {
-  int random_timeout = dist(rng);
+  int random_timeout = randomizer.GetRandomElectionTimeout();
   std::cout << nodeID << ": " << random_timeout << "\n";
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "randomizer.h"
 #include <random>
 #include <string>
 enum NodeState { Follower = 0, Candidate, Leader };
@@ -21,7 +22,7 @@ struct RequestVoteReply {};
 
 class RaftNode {
 public:
-  RaftNode(size_t nodeID, std::random_device rd);
+  RaftNode(size_t nodeID, std::random_device &rd);
 
   AppendEntriesReply AppendEntries(AppendEntriesArgs args);
   RequestVoteReply RequestVote(RequestVoteReply args);
@@ -48,9 +49,7 @@ private:
       matchIndex; // index of highest log entry known to be replicated for each
                   // server (used by leader)
 
-  std::mt19937 rng; // mt19937 used to determine random numbers for the
-                    // randomized election timeout
-  std::uniform_int_distribution<int> dist;
+  Randomizer randomizer;
 
   // switch state logger functions
   void SwitchStateToFollower();
