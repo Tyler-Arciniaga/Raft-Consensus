@@ -1,11 +1,13 @@
 #pragma once
 
 #include "randomizer.h"
+#include "rpc.h"
 #include <condition_variable>
 #include <cstdint>
 #include <mutex>
 #include <random>
 #include <string>
+
 enum NodeState { Follower = 0, Candidate, Leader };
 
 enum ServerAction { Add = 0, Remove };
@@ -15,21 +17,6 @@ struct LogEntry {
   std::string key;
   int value;
   uint64_t termReceived;
-};
-
-struct AppendEntriesArgs {};
-struct AppendEntriesReply {};
-
-struct RequestVoteArgs {
-  uint64_t candidate_term;
-  size_t candidateID;
-  size_t lastLogIndex;  // index of candidate's last log entry
-  uint64_t lastLogTerm; // term of candidate's last log entry
-};
-struct RequestVoteReply {
-  uint64_t
-      term; // currentTerm (used for candidate to possibly update it's term)
-  bool voteGranted;
 };
 
 class RaftNode {
