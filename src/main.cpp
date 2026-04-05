@@ -1,3 +1,4 @@
+#include "network.h"
 #include "raft_node.h"
 #include <chrono>
 #include <iostream>
@@ -6,9 +7,10 @@
 int main(int argc, char *argv[]) {
   std::cout << "Hello Raft!\n";
 
+  SimulatedNetwork simNetwork;
   std::random_device rd;
   for (size_t i = 0; i < 5; i++) {
-    RaftNode(i, rd);
+    RaftNode(i, rd, simNetwork);
   }
 
   std::this_thread::sleep_for(std::chrono::seconds(2));

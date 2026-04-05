@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/raft.dir/src/main.cpp.o"
   "CMakeFiles/raft.dir/src/main.cpp.o.d"
+  "CMakeFiles/raft.dir/src/network.cpp.o"
+  "CMakeFiles/raft.dir/src/network.cpp.o.d"
   "CMakeFiles/raft.dir/src/raft_node.cpp.o"
   "CMakeFiles/raft.dir/src/raft_node.cpp.o.d"
   "CMakeFiles/raft.dir/src/randomizer.cpp.o"

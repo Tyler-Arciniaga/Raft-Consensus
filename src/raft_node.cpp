@@ -1,10 +1,12 @@
 #include "raft_node.h"
+#include "rpc.h"
 #include <chrono>
 #include <condition_variable>
 #include <cstdint>
 #include <iostream>
 #include <mutex>
 #include <string>
+#include <thread>
 
 std::string print_state(NodeState state) {
   std::string state_string;
@@ -32,10 +34,10 @@ void print_switch_state_statement(uint64_t nodeID, NodeState oldState,
 // RaftNode logic
 
 // RaftNode constructor
-RaftNode::RaftNode(size_t nodeID, std::random_device &rd)
+RaftNode::RaftNode(size_t nodeID, std::random_device &rd, Network &network)
     : nodeID(nodeID), state(NodeState::Follower), currentTerm(0),
       commitIndex(0), lastApplied(0), randomizer(Randomizer(rd)),
-      cv(std::condition_variable{}), follower_mtx(std::mutex{}) {
+      network(network) {
 
   void HandleFollowerState();
 };
@@ -47,6 +49,16 @@ RequestVoteReply RaftNode::RequestVote(RequestVoteArgs args) {
   } // immediately reject RequestVote if local node's term is higher than
     // candidate's term
 
+  if (currentTerm < args.candidate_term) {
+    currentTerm = args.candidate_term;
+
+    if (state != NodeState::Follower) {
+      SwitchStateToFollower();
+    }
+
+    votedFor = UINT32_MAX;
+  }
+
   if (votedFor == UINT32_MAX || votedFor == args.candidateID) {
     size_t lastLogIndex = Log.size() - 1;
     if (Log[lastLogIndex].termReceived != args.lastLogTerm) {
@@ -57,17 +69,20 @@ RequestVoteReply RaftNode::RequestVote(RequestVoteArgs args) {
     // finally compare length of both log's if the last entries had the same
     // term
     return RequestVoteReply{currentTerm, lastLogIndex < args.lastLogIndex};
+  } else {
+    // local node has already voted in this election
+    return RequestVoteReply{currentTerm, false};
   }
-
-  // local node has already voted in this election
-  return RequestVoteReply{currentTerm, false};
 }
 
 // main follower state function, has infinite loop only broken if current
 // election timer countdown reached before AppendEntry RPC can notify condition
 // variable
 void RaftNode::HandleFollowerState() {
+  std::mutex follower_mtx;
   std::unique_lock<std::mutex> lock(follower_mtx);
+  std::condition_variable cv;
+  // TODO spin off a new thread to handle receiving AppendEntries RPC
 
   while (true) {
     int new_countdown_duration = randomizer.GetRandomElectionTimeout();
@@ -82,8 +97,63 @@ void RaftNode::HandleFollowerState() {
   HandleCandidateState();
 }
 
-// TODO
-void RaftNode::HandleCandidateState() {}
+void RaftNode::SendRequestVoteRPC(size_t targetID, uint32_t &voteCounter,
+                                  std::mutex &counterMtx,
+                                  std::condition_variable &cv) {
+  RequestVoteArgs arg{currentTerm, nodeID, Log.size(),
+                      Log[Log.size() - 1].termReceived};
+
+  // TODO implement retry logic if network cannot reach target node
+  auto reply = network.sendRequestVote(targetID, arg);
+
+  if (reply.voteGranted) {
+    {
+      std::lock_guard<std::mutex> lock(counterMtx);
+      voteCounter++;
+    }
+    cv.notify_one();
+  }
+}
+
+void RaftNode::HandleCandidateState() {
+  while (true) {
+    uint32_t voteCounter = 1;
+    std::mutex counterMtx;
+    std::condition_variable cv;
+
+    for (auto targetID : peers) {
+      if (targetID != nodeID) {
+        std::thread t(&RaftNode::SendRequestVoteRPC, this, targetID,
+                      std::ref(voteCounter), std::ref(counterMtx),
+                      std::ref(cv));
+      }
+    }
+
+    // sleep candidate's main thread until either a certain deadline is reached
+    // (election timeout) or candidate receives majority votes
+    std::unique_lock<std::mutex> lock(counterMtx);
+    bool electionResult = cv.wait_until(
+        lock,
+        std::chrono::steady_clock::now() +
+            std::chrono::milliseconds(randomizer.GetRandomElectionTimeout()),
+        [this, &voteCounter] {
+          return voteCounter > uint32_t(peers.size() / 2);
+        });
+
+    if (electionResult) {
+      break;
+    } else {
+      currentTerm++;
+      continue;
+    }
+  }
+
+  SwitchStateToLeader();
+  HandleLeaderState();
+}
+
+// TODO implement leader state logic
+void RaftNode::HandleLeaderState() {}
 
 void RaftNode::SwitchStateToFollower() {
   print_switch_state_statement(nodeID, state, NodeState::Follower);

@@ -160,6 +160,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/network.o: src/network.cpp.o
+.PHONY : src/network.o
+
+# target to build an object file
+src/network.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/network.cpp.o
+.PHONY : src/network.cpp.o
+
+src/network.i: src/network.cpp.i
+.PHONY : src/network.i
+
+# target to preprocess a source file
+src/network.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/network.cpp.i
+.PHONY : src/network.cpp.i
+
+src/network.s: src/network.cpp.s
+.PHONY : src/network.s
+
+# target to generate assembly for a file
+src/network.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/network.cpp.s
+.PHONY : src/network.cpp.s
+
 src/raft_node.o: src/raft_node.cpp.o
 .PHONY : src/raft_node.o
 
@@ -221,6 +245,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/network.o"
+	@echo "... src/network.i"
+	@echo "... src/network.s"
 	@echo "... src/raft_node.o"
 	@echo "... src/raft_node.i"
 	@echo "... src/raft_node.s"

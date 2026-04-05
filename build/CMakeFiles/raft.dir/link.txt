@@ -1,1 +1,1 @@
-/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/raft.dir/src/main.cpp.o CMakeFiles/raft.dir/src/raft_node.cpp.o CMakeFiles/raft.dir/src/randomizer.cpp.o -o raft
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/raft.dir/src/main.cpp.o CMakeFiles/raft.dir/src/raft_node.cpp.o CMakeFiles/raft.dir/src/network.cpp.o CMakeFiles/raft.dir/src/randomizer.cpp.o -o raft

@@ -5,9 +5,9 @@
 class Network {
 public:
   virtual RequestVoteReply sendRequestVote(size_t targetID,
-                                           RequestVoteArgs args);
+                                           RequestVoteArgs args) = 0;
   virtual AppendEntriesReply sendAppendEntries(size_t targetID,
-                                               AppendEntriesArgs args);
+                                               AppendEntriesArgs args) = 0;
 };
 
 class SimulatedNetwork : public Network {
