@@ -37,12 +37,11 @@ void print_switch_state_statement(uint64_t nodeID, NodeState oldState,
 RaftNode::RaftNode(size_t nodeID, std::random_device &rd, Network &network)
     : nodeID(nodeID), state(NodeState::Follower), currentTerm(0),
       commitIndex(0), lastApplied(0), randomizer(Randomizer(rd)),
-      network(network) {
-
-  void HandleFollowerState();
-};
+      network(network) {};
 
 // RaftNode RPC functions
+void RaftNode::StartNode() { HandleFollowerState(); }
+
 RequestVoteReply RaftNode::RequestVote(RequestVoteArgs args) {
   if (currentTerm > args.candidate_term) {
     return RequestVoteReply{currentTerm, false};
@@ -100,7 +99,7 @@ void RaftNode::HandleFollowerState() {
 void RaftNode::SendRequestVoteRPC(size_t targetID, uint32_t &voteCounter,
                                   std::mutex &counterMtx,
                                   std::condition_variable &cv) {
-  RequestVoteArgs arg{currentTerm, nodeID, Log.size(),
+  RequestVoteArgs arg{currentTerm, nodeID, Log.size() - 1,
                       Log[Log.size() - 1].termReceived};
 
   // TODO implement retry logic if network cannot reach target node
@@ -176,17 +175,17 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
 // TODO implement leader state logic
 void RaftNode::HandleLeaderState() {
   std::atomic<bool> stop;
-  std::vector<std::thread> heartbeatThreads;
+  std::vector<std::thread *> heartbeatThreads;
   for (auto targetID : peers) {
     if (targetID != nodeID) {
       std::thread t(&RaftNode::SendHeartbeatRPCs, this, targetID,
                     std::ref(stop));
-      heartbeatThreads.push_back(t);
+      heartbeatThreads.push_back(&t);
     }
   }
 
   for (auto &t : heartbeatThreads) {
-    t.join();
+    t->join();
   }
 
   SwitchStateToFollower();
