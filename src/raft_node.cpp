@@ -115,6 +115,7 @@ void RaftNode::SendRequestVoteRPC(size_t targetID, uint32_t &voteCounter,
   }
 }
 
+// TODO handle receiving an AppendEntries RPC from another node
 void RaftNode::HandleCandidateState() {
   while (true) {
     uint32_t voteCounter = 1;
@@ -152,8 +153,45 @@ void RaftNode::HandleCandidateState() {
   HandleLeaderState();
 }
 
+void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
+  auto arg = AppendEntriesArgs{currentTerm,
+                               nodeID,
+                               Log.size() - 1,
+                               Log[Log.size() - 1].termReceived,
+                               std::vector<LogEntry>{},
+                               commitIndex};
+
+  // TODO think I may need to add atomic safety to updating currentTerm
+  while (!stop.load()) {
+    auto reply = network.sendAppendEntries(targetID, arg);
+    if (reply.term > currentTerm) {
+      currentTerm = reply.term;
+      return;
+    }
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+  }
+}
+
 // TODO implement leader state logic
-void RaftNode::HandleLeaderState() {}
+void RaftNode::HandleLeaderState() {
+  std::atomic<bool> stop;
+  std::vector<std::thread> heartbeatThreads;
+  for (auto targetID : peers) {
+    if (targetID != nodeID) {
+      std::thread t(&RaftNode::SendHeartbeatRPCs, this, targetID,
+                    std::ref(stop));
+      heartbeatThreads.push_back(t);
+    }
+  }
+
+  for (auto &t : heartbeatThreads) {
+    t.join();
+  }
+
+  SwitchStateToFollower();
+  HandleFollowerState();
+}
 
 void RaftNode::SwitchStateToFollower() {
   print_switch_state_statement(nodeID, state, NodeState::Follower);

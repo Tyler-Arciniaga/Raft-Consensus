@@ -11,15 +11,6 @@
 
 enum NodeState { Follower = 0, Candidate, Leader };
 
-enum ServerAction { Add = 0, Remove };
-
-struct LogEntry {
-  ServerAction action;
-  std::string key;
-  int value;
-  uint64_t termReceived;
-};
-
 class RaftNode {
 public:
   RaftNode(size_t nodeID, std::random_device &rd, Network &network);
@@ -70,4 +61,5 @@ private:
 
   void SendRequestVoteRPC(size_t targetID, uint32_t &voteCounter,
                           std::mutex &counterMtx, std::condition_variable &cv);
+  void SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop);
 };
