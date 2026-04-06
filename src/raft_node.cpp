@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <iostream>
 #include <mutex>
+#include <stdexcept>
 #include <string>
 #include <thread>
 
@@ -40,7 +41,23 @@ RaftNode::RaftNode(size_t nodeID, std::random_device &rd, Network &network)
       network(network) {};
 
 // RaftNode RPC functions
-void RaftNode::StartNode() { HandleFollowerState(); }
+void RaftNode::StartNode() {
+  while (true) {
+    switch (state) {
+    case NodeState::Follower:
+      HandleFollowerState();
+      break;
+    case NodeState::Candidate:
+      HandleCandidateState();
+      break;
+    case NodeState::Leader:
+      HandleLeaderState();
+      break;
+    default:
+      throw std::runtime_error("undefined state encountered!");
+    }
+  }
+}
 
 RequestVoteReply RaftNode::RequestVote(RequestVoteArgs args) {
   if (currentTerm > args.candidate_term) {
@@ -93,7 +110,6 @@ void RaftNode::HandleFollowerState() {
 
   currentTerm++;
   SwitchStateToCandidate();
-  HandleCandidateState();
 }
 
 void RaftNode::SendRequestVoteRPC(size_t targetID, uint32_t &voteCounter,
@@ -149,7 +165,6 @@ void RaftNode::HandleCandidateState() {
   }
 
   SwitchStateToLeader();
-  HandleLeaderState();
 }
 
 void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
@@ -189,7 +204,6 @@ void RaftNode::HandleLeaderState() {
   }
 
   SwitchStateToFollower();
-  HandleFollowerState();
 }
 
 void RaftNode::SwitchStateToFollower() {

@@ -15,6 +15,7 @@ class RaftNode {
 public:
   RaftNode(size_t nodeID, std::random_device &rd, Network &network);
 
+  void StartNode();
   // RPC functions
   AppendEntriesReply AppendEntries(AppendEntriesArgs args);
   RequestVoteReply RequestVote(RequestVoteArgs args);
@@ -24,7 +25,8 @@ private:
   NodeState state;
   size_t nodeID;
   std::vector<size_t> peers{
-      0, 1, 2}; // TODO currently using hardcoded number of nodes/peers vector
+      0, 1, 2, 3,
+      4}; // TODO currently using hardcoded number of nodes/peers vector
 
   std::vector<LogEntry> Log;
   std::unordered_map<std::string, int>
