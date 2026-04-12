@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <vector>
 
-enum ServerAction { Add = 0, Remove };
+enum class ServerAction { Add = 0, Remove };
 
 struct LogEntry {
   ServerAction action;
@@ -35,6 +35,7 @@ struct RequestVoteArgs {
   size_t lastLogIndex;  // index of candidate's last log entry
   uint64_t lastLogTerm; // term of candidate's last log entry
 };
+
 struct RequestVoteReply {
   uint64_t
       term; // currentTerm (used for candidate to possibly update it's term)

@@ -9,7 +9,7 @@
 #include <random>
 #include <string>
 
-enum NodeState { Follower = 0, Candidate, Leader };
+enum class NodeState { Follower = 0, Candidate, Leader };
 
 class RaftNode {
 public:
@@ -45,6 +45,8 @@ private:
   std::vector<uint32_t>
       matchIndex; // index of highest log entry known to be replicated for each
                   // server (used by leader)
+
+  // std::mutex mtx;
 
   Randomizer randomizer;
 

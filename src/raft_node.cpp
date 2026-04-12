@@ -36,9 +36,9 @@ void print_switch_state_statement(uint64_t nodeID, NodeState oldState,
 
 // RaftNode constructor
 RaftNode::RaftNode(size_t nodeID, std::random_device &rd, Network &network)
-    : nodeID(nodeID), state(NodeState::Follower), currentTerm(0),
-      commitIndex(0), lastApplied(0), randomizer(Randomizer(rd)),
-      network(network) {};
+    : nodeID(nodeID), state(NodeState::Follower), Log(std::vector<LogEntry>{}),
+      currentTerm(0), commitIndex(0), lastApplied(0),
+      randomizer(Randomizer(rd)), network(network) {};
 
 // RaftNode RPC functions
 void RaftNode::StartNode() {
@@ -77,9 +77,10 @@ RequestVoteReply RaftNode::RequestVote(RequestVoteArgs args) {
 
   if (votedFor == UINT32_MAX || votedFor == args.candidateID) {
     size_t lastLogIndex = Log.size() - 1;
-    if (Log[lastLogIndex].termReceived != args.lastLogTerm) {
-      return RequestVoteReply{currentTerm, Log[lastLogIndex].termReceived <
-                                               args.lastLogTerm};
+    uint64_t lastTermReceived =
+        (Log.size() == 0) ? 0 : Log[lastLogIndex].termReceived;
+    if (lastTermReceived != args.lastLogTerm) {
+      return RequestVoteReply{currentTerm, lastTermReceived < args.lastLogTerm};
     } // first compare term of both log's last entry
 
     // finally compare length of both log's if the last entries had the same
@@ -115,8 +116,10 @@ void RaftNode::HandleFollowerState() {
 void RaftNode::SendRequestVoteRPC(size_t targetID, uint32_t &voteCounter,
                                   std::mutex &counterMtx,
                                   std::condition_variable &cv) {
-  RequestVoteArgs arg{currentTerm, nodeID, Log.size() - 1,
-                      Log[Log.size() - 1].termReceived};
+  uint64_t lastLogTerm =
+      (Log.size() == 0) ? 0 : Log[Log.size() - 1].termReceived;
+  size_t lastLogIndex = (Log.size() == 0) ? 0 : Log.size() - 1;
+  RequestVoteArgs arg{currentTerm, nodeID, lastLogIndex, lastLogTerm};
 
   // TODO implement retry logic if network cannot reach target node
   auto reply = network.sendRequestVote(targetID, arg);
@@ -137,11 +140,12 @@ void RaftNode::HandleCandidateState() {
     std::mutex counterMtx;
     std::condition_variable cv;
 
+    std::vector<std::thread> voteReqThreads;
     for (auto targetID : peers) {
       if (targetID != nodeID) {
-        std::thread t(&RaftNode::SendRequestVoteRPC, this, targetID,
-                      std::ref(voteCounter), std::ref(counterMtx),
-                      std::ref(cv));
+        voteReqThreads.emplace_back(std::thread(
+            &RaftNode::SendRequestVoteRPC, this, targetID,
+            std::ref(voteCounter), std::ref(counterMtx), std::ref(cv)));
       }
     }
 
@@ -155,6 +159,13 @@ void RaftNode::HandleCandidateState() {
         [this, &voteCounter] {
           return voteCounter > uint32_t(peers.size() / 2);
         });
+
+    // TODO not sure about this, but just for now i'll have main thread clean up
+    // request threads (maybe here is where I have atomic stop bool be called to
+    // force req threads to exit)
+    for (auto &t : voteReqThreads) {
+      t.join();
+    }
 
     if (electionResult) {
       break;

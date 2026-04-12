@@ -6,7 +6,7 @@ CXX_DEFINES =
 
 CXX_INCLUDES = 
 
-CXX_FLAGSarm64 =  -arch arm64
+CXX_FLAGSarm64 =  -arch arm64 -fsanitize=address,undefined -g
 
-CXX_FLAGS =  -arch arm64
+CXX_FLAGS =  -arch arm64 -fsanitize=address,undefined -g
 
