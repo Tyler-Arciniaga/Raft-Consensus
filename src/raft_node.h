@@ -1,5 +1,6 @@
 #pragma once
 
+#include "logger.h"
 #include "network.h"
 #include "randomizer.h"
 #include "rpc.h"

@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <iostream>
 #include <mutex>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 #include <thread>
@@ -28,8 +29,11 @@ std::string print_state(NodeState state) {
 
 void print_switch_state_statement(uint64_t nodeID, NodeState oldState,
                                   NodeState newState) {
-  std::cout << "Switching node " << nodeID << " from " << print_state(oldState)
-            << " to " << print_state(newState) << "\n";
+  std::ostringstream os;
+  os << "Switching node " << nodeID << " from " << print_state(oldState)
+     << " to " << print_state(newState) << "\n";
+
+  Logger::getLogger().log(os.str());
 }
 
 // RaftNode logic
