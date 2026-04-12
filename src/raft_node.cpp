@@ -63,7 +63,11 @@ void RaftNode::StartNode() {
   }
 }
 
+// TODO MAJOR!!! probably need a lock on this for currentTerm
 RequestVoteReply RaftNode::RequestVote(RequestVoteArgs args) {
+  std::lock_guard<std::mutex> lock(
+      mtx); // hold lock for the duration of this RPC
+
   if (currentTerm > args.candidate_term) {
     return RequestVoteReply{currentTerm, false};
   } // immediately reject RequestVote if local node's term is higher than
@@ -80,16 +84,15 @@ RequestVoteReply RaftNode::RequestVote(RequestVoteArgs args) {
   }
 
   if (votedFor == UINT32_MAX || votedFor == args.candidateID) {
-    size_t lastLogIndex = Log.size() - 1;
+    size_t lastLogIndex = (Log.size() == 0) ? 0 : Log.size() - 1;
     uint64_t lastTermReceived =
         (Log.size() == 0) ? 0 : Log[lastLogIndex].termReceived;
     if (lastTermReceived != args.lastLogTerm) {
       return RequestVoteReply{currentTerm, lastTermReceived < args.lastLogTerm};
-    } // first compare term of both log's last entry
+    } // first compare term of both log last entries
 
-    // finally compare length of both log's if the last entries had the same
-    // term
-    return RequestVoteReply{currentTerm, lastLogIndex < args.lastLogIndex};
+    // if terms of last entry are same, compare length of both logs
+    return RequestVoteReply{currentTerm, lastLogIndex <= args.lastLogIndex};
   } else {
     // local node has already voted in this election
     return RequestVoteReply{currentTerm, false};
@@ -100,8 +103,7 @@ RequestVoteReply RaftNode::RequestVote(RequestVoteArgs args) {
 // election timer countdown reached before AppendEntry RPC can notify condition
 // variable
 void RaftNode::HandleFollowerState() {
-  std::mutex follower_mtx;
-  std::unique_lock<std::mutex> lock(follower_mtx);
+  std::unique_lock<std::mutex> lock(mtx);
   std::condition_variable cv;
   // TODO spin off a new thread to handle receiving AppendEntries RPC
 
@@ -113,7 +115,6 @@ void RaftNode::HandleFollowerState() {
     }
   }
 
-  currentTerm++;
   SwitchStateToCandidate();
 }
 
@@ -129,6 +130,8 @@ void RaftNode::SendRequestVoteRPC(size_t targetID, uint32_t &voteCounter,
   auto reply = network.sendRequestVote(targetID, arg);
 
   if (reply.voteGranted) {
+    Logger::getLogger().log(std::to_string(nodeID) + " from " +
+                            std::to_string(targetID) + "\n");
     {
       std::lock_guard<std::mutex> lock(counterMtx);
       voteCounter++;
@@ -139,21 +142,26 @@ void RaftNode::SendRequestVoteRPC(size_t targetID, uint32_t &voteCounter,
 
 // TODO handle receiving an AppendEntries RPC from another node
 void RaftNode::HandleCandidateState() {
+  {
+    std::lock_guard<std::mutex> lock(mtx);
+    currentTerm++;
+  }
+
   while (true) {
     uint32_t voteCounter = 1;
     std::mutex counterMtx;
     std::condition_variable cv;
 
-    std::vector<std::thread> voteReqThreads;
     for (auto targetID : peers) {
       if (targetID != nodeID) {
-        voteReqThreads.emplace_back(std::thread(
-            &RaftNode::SendRequestVoteRPC, this, targetID,
-            std::ref(voteCounter), std::ref(counterMtx), std::ref(cv)));
+        std::thread t(&RaftNode::SendRequestVoteRPC, this, targetID,
+                      std::ref(voteCounter), std::ref(counterMtx),
+                      std::ref(cv));
+        t.detach();
       }
     }
 
-    // sleep candidate's main thread until either a certain deadline is reached
+    // sleep candidate's main thread until either deadline is reached
     // (election timeout) or candidate receives majority votes
     std::unique_lock<std::mutex> lock(counterMtx);
     bool electionResult = cv.wait_until(
@@ -164,17 +172,14 @@ void RaftNode::HandleCandidateState() {
           return voteCounter > uint32_t(peers.size() / 2);
         });
 
-    // TODO not sure about this, but just for now i'll have main thread clean up
-    // request threads (maybe here is where I have atomic stop bool be called to
-    // force req threads to exit)
-    for (auto &t : voteReqThreads) {
-      t.join();
-    }
+    // Logger::getLogger().log(std::to_string(electionResult) + "\n");
+
+    // TODO consider setting an atomic stop bool to make all threads quit (in
+    // case any sendRequestVote threads are still retrying)
 
     if (electionResult) {
       break;
     } else {
-      currentTerm++;
       continue;
     }
   }
@@ -183,12 +188,12 @@ void RaftNode::HandleCandidateState() {
 }
 
 void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
-  auto arg = AppendEntriesArgs{currentTerm,
-                               nodeID,
-                               Log.size() - 1,
-                               Log[Log.size() - 1].termReceived,
-                               std::vector<LogEntry>{},
-                               commitIndex};
+  size_t prevLogIndex = (Log.size() == 0) ? 0 : Log.size() - 1;
+  uint64_t prevLogTerm =
+      (Log.size() == 0) ? 0 : Log[Log.size() - 1].termReceived;
+  auto arg = AppendEntriesArgs{
+      currentTerm, nodeID, prevLogIndex, prevLogTerm, std::vector<LogEntry>{},
+      commitIndex};
 
   // TODO think I may need to add atomic safety to updating currentTerm
   while (!stop.load()) {
@@ -202,20 +207,18 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
   }
 }
 
-// TODO implement leader state logic
 void RaftNode::HandleLeaderState() {
   std::atomic<bool> stop;
-  std::vector<std::thread *> heartbeatThreads;
+  std::vector<std::thread> heartbeatThreads;
   for (auto targetID : peers) {
     if (targetID != nodeID) {
-      std::thread t(&RaftNode::SendHeartbeatRPCs, this, targetID,
-                    std::ref(stop));
-      heartbeatThreads.push_back(&t);
+      heartbeatThreads.emplace_back(&RaftNode::SendHeartbeatRPCs, this,
+                                    targetID, std::ref(stop));
     }
   }
 
   for (auto &t : heartbeatThreads) {
-    t->join();
+    t.join();
   }
 
   SwitchStateToFollower();

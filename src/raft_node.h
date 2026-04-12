@@ -47,7 +47,7 @@ private:
       matchIndex; // index of highest log entry known to be replicated for each
                   // server (used by leader)
 
-  // std::mutex mtx;
+  std::mutex mtx;
 
   Randomizer randomizer;
 
