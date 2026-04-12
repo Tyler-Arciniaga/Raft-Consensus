@@ -2,6 +2,7 @@
 #include "raft_node.h"
 #include <chrono>
 #include <iostream>
+#include <memory>
 #include <thread>
 
 int main(int argc, char *argv[]) {
@@ -9,18 +10,15 @@ int main(int argc, char *argv[]) {
 
   SimulatedNetwork simNetwork;
   std::random_device rd;
-  std::vector<RaftNode> nodes;
-  nodes.reserve(
-      5); // reserve vector space upfront to ensure no vector reallocation
-          // (which would dangle the pointers in simNetwork)
+  std::vector<std::unique_ptr<RaftNode>> nodes;
 
   for (size_t i = 0; i < 5; i++) {
-    nodes.emplace_back(RaftNode(i, rd, simNetwork));
-    simNetwork.AddNode(&nodes.back());
+    nodes.emplace_back(std::make_unique<RaftNode>(i, rd, simNetwork));
+    simNetwork.AddNode(nodes.back().get());
   }
 
   for (size_t i = 0; i < nodes.size(); i++) {
-    std::thread t(&RaftNode::StartNode, nodes[i]);
+    std::thread t(&RaftNode::StartNode, nodes[i].get());
     t.detach();
   }
 
