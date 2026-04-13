@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <mutex>
 #include <vector>
 
 enum class ServerAction { Add = 0, Remove };
@@ -40,4 +41,10 @@ struct RequestVoteReply {
   uint64_t
       term; // currentTerm (used for candidate to possibly update it's term)
   bool voteGranted;
+};
+
+struct VoteState {
+  std::mutex mtx;
+  std::condition_variable cv;
+  size_t votesReceived = 1;
 };

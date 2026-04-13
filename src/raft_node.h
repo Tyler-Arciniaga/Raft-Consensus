@@ -18,8 +18,8 @@ public:
 
   void StartNode();
   // RPC functions
-  AppendEntriesReply AppendEntries(AppendEntriesArgs args);
-  RequestVoteReply RequestVote(RequestVoteArgs args);
+  AppendEntriesReply AppendEntries(const AppendEntriesArgs &args);
+  RequestVoteReply RequestVote(const RequestVoteArgs &args);
 
 private:
   // Member Variables
@@ -48,6 +48,7 @@ private:
                   // server (used by leader)
 
   std::mutex mtx;
+  std::condition_variable heartbeat_cv;
 
   Randomizer randomizer;
 
@@ -64,7 +65,7 @@ private:
   void HandleCandidateState();
   void HandleLeaderState();
 
-  void SendRequestVoteRPC(size_t targetID, uint32_t &voteCounter,
-                          std::mutex &counterMtx, std::condition_variable &cv);
+  void SendRequestVoteRPC(size_t targetID,
+                          std::shared_ptr<VoteState> voteState);
   void SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop);
 };

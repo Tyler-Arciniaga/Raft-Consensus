@@ -63,8 +63,7 @@ void RaftNode::StartNode() {
   }
 }
 
-// TODO MAJOR!!! probably need a lock on this for currentTerm
-RequestVoteReply RaftNode::RequestVote(RequestVoteArgs args) {
+RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
   std::lock_guard<std::mutex> lock(
       mtx); // hold lock for the duration of this RPC
 
@@ -83,15 +82,22 @@ RequestVoteReply RaftNode::RequestVote(RequestVoteArgs args) {
     votedFor = UINT32_MAX;
   }
 
+  // Compare logs, refresh election timer if vote is granted
   if (votedFor == UINT32_MAX || votedFor == args.candidateID) {
     size_t lastLogIndex = (Log.size() == 0) ? 0 : Log.size() - 1;
     uint64_t lastTermReceived =
         (Log.size() == 0) ? 0 : Log[lastLogIndex].termReceived;
     if (lastTermReceived != args.lastLogTerm) {
+      if (lastTermReceived < args.lastLogTerm) {
+        heartbeat_cv.notify_one();
+      }
       return RequestVoteReply{currentTerm, lastTermReceived < args.lastLogTerm};
     } // first compare term of both log last entries
 
     // if terms of last entry are same, compare length of both logs
+    if (lastLogIndex <= args.lastLogIndex) {
+      heartbeat_cv.notify_one();
+    }
     return RequestVoteReply{currentTerm, lastLogIndex <= args.lastLogIndex};
   } else {
     // local node has already voted in this election
@@ -99,17 +105,24 @@ RequestVoteReply RaftNode::RequestVote(RequestVoteArgs args) {
   }
 }
 
+AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
+  // TODO implement AppendEntriesRPC logic
+
+  heartbeat_cv.notify_one();
+  return AppendEntriesReply{};
+}
+
 // main follower state function, has infinite loop only broken if current
 // election timer countdown reached before AppendEntry RPC can notify condition
 // variable
 void RaftNode::HandleFollowerState() {
   std::unique_lock<std::mutex> lock(mtx);
-  std::condition_variable cv;
   // TODO spin off a new thread to handle receiving AppendEntries RPC
 
   while (true) {
     int new_countdown_duration = randomizer.GetRandomElectionTimeout();
-    if (cv.wait_for(lock, std::chrono::milliseconds(new_countdown_duration)) ==
+    if (heartbeat_cv.wait_for(
+            lock, std::chrono::milliseconds(new_countdown_duration)) ==
         std::cv_status::timeout) {
       break;
     }
@@ -118,12 +131,11 @@ void RaftNode::HandleFollowerState() {
   SwitchStateToCandidate();
 }
 
-void RaftNode::SendRequestVoteRPC(size_t targetID, uint32_t &voteCounter,
-                                  std::mutex &counterMtx,
-                                  std::condition_variable &cv) {
+void RaftNode::SendRequestVoteRPC(size_t targetID,
+                                  std::shared_ptr<VoteState> voteState) {
   uint64_t lastLogTerm =
       (Log.size() == 0) ? 0 : Log[Log.size() - 1].termReceived;
-  size_t lastLogIndex = (Log.size() == 0) ? 0 : Log.size() - 1;
+  size_t lastLogIndex = Log.size();
   RequestVoteArgs arg{currentTerm, nodeID, lastLogIndex, lastLogTerm};
 
   // TODO implement retry logic if network cannot reach target node
@@ -133,10 +145,10 @@ void RaftNode::SendRequestVoteRPC(size_t targetID, uint32_t &voteCounter,
     Logger::getLogger().log(std::to_string(nodeID) + " from " +
                             std::to_string(targetID) + "\n");
     {
-      std::lock_guard<std::mutex> lock(counterMtx);
-      voteCounter++;
+      std::lock_guard<std::mutex> lock(voteState->mtx);
+      voteState->votesReceived++;
     }
-    cv.notify_one();
+    voteState->cv.notify_one();
   }
 }
 
@@ -148,34 +160,32 @@ void RaftNode::HandleCandidateState() {
   }
 
   while (true) {
-    uint32_t voteCounter = 1;
-    std::mutex counterMtx;
-    std::condition_variable cv;
+    votedFor = nodeID;
 
+    auto voteState = std::make_shared<VoteState>();
+
+    std::vector<std::thread> reqVoteThreads;
     for (auto targetID : peers) {
       if (targetID != nodeID) {
-        std::thread t(&RaftNode::SendRequestVoteRPC, this, targetID,
-                      std::ref(voteCounter), std::ref(counterMtx),
-                      std::ref(cv));
-        t.detach();
+        reqVoteThreads.emplace_back(&RaftNode::SendRequestVoteRPC, this,
+                                    targetID, voteState);
       }
     }
 
     // sleep candidate's main thread until either deadline is reached
     // (election timeout) or candidate receives majority votes
-    std::unique_lock<std::mutex> lock(counterMtx);
-    bool electionResult = cv.wait_until(
+    std::unique_lock<std::mutex> lock(voteState->mtx);
+    bool electionResult = voteState->cv.wait_until(
         lock,
         std::chrono::steady_clock::now() +
             std::chrono::milliseconds(randomizer.GetRandomElectionTimeout()),
-        [this, &voteCounter] {
-          return voteCounter > uint32_t(peers.size() / 2);
+        [this, voteState] {
+          return voteState->votesReceived > uint32_t(peers.size() / 2);
         });
 
-    // Logger::getLogger().log(std::to_string(electionResult) + "\n");
-
-    // TODO consider setting an atomic stop bool to make all threads quit (in
-    // case any sendRequestVote threads are still retrying)
+    for (auto &t : reqVoteThreads) {
+      t.detach();
+    }
 
     if (electionResult) {
       break;
@@ -196,6 +206,8 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
       commitIndex};
 
   // TODO think I may need to add atomic safety to updating currentTerm
+  // TODO might need to use shared_ptr since stop might eventually be changed to
+  // go out of scope before thread finishes
   while (!stop.load()) {
     auto reply = network.sendAppendEntries(targetID, arg);
     if (reply.term > currentTerm) {
@@ -208,7 +220,7 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
 }
 
 void RaftNode::HandleLeaderState() {
-  std::atomic<bool> stop;
+  std::atomic<bool> stop{false};
   std::vector<std::thread> heartbeatThreads;
   for (auto targetID : peers) {
     if (targetID != nodeID) {
@@ -217,7 +229,13 @@ void RaftNode::HandleLeaderState() {
     }
   }
 
-  for (auto &t : heartbeatThreads) {
+  // wait until first heartbeat thread returns (found a higher term), then set
+  // stop signal and join all other threads
+  heartbeatThreads[0].join();
+  stop = true;
+
+  for (size_t i = 1; i < heartbeatThreads.size(); i++) {
+    auto &t = heartbeatThreads[i];
     t.join();
   }
 
