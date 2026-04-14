@@ -9,9 +9,9 @@ class RaftNode; // forward declaration to break dependency loop between RaftNode
 class Network {
 public:
   virtual RequestVoteReply sendRequestVote(size_t targetID,
-                                           RequestVoteArgs args) = 0;
-  virtual AppendEntriesReply sendAppendEntries(size_t targetID,
-                                               AppendEntriesArgs args) = 0;
+                                           const RequestVoteArgs &args) = 0;
+  virtual AppendEntriesReply
+  sendAppendEntries(size_t targetID, const AppendEntriesArgs &args) = 0;
 };
 
 class SimulatedNetwork : public Network {
@@ -23,8 +23,10 @@ private:
   std::vector<RaftNode *> nodes;
 
 public:
-  RequestVoteReply sendRequestVote(size_t targetID, RequestVoteArgs args);
-  AppendEntriesReply sendAppendEntries(size_t targetID, AppendEntriesArgs args);
+  RequestVoteReply sendRequestVote(size_t targetID,
+                                   const RequestVoteArgs &args);
+  AppendEntriesReply sendAppendEntries(size_t targetID,
+                                       const AppendEntriesArgs &args);
 
   void AddNode(RaftNode *node);
 };

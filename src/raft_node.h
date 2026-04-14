@@ -24,7 +24,7 @@ public:
 private:
   // Member Variables
   NodeState state;
-  size_t nodeID;
+  const size_t nodeID;
   std::vector<size_t> peers{
       0, 1, 2, 3,
       4}; // TODO currently using hardcoded number of nodes/peers vector
@@ -67,5 +67,5 @@ private:
 
   void SendRequestVoteRPC(size_t targetID,
                           std::shared_ptr<VoteState> voteState);
-  void SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop);
+  void SendHeartbeatRPCs(size_t targetID, const std::atomic<bool> &stop);
 };

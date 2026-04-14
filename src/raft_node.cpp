@@ -197,7 +197,8 @@ void RaftNode::HandleCandidateState() {
   SwitchStateToLeader();
 }
 
-void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
+void RaftNode::SendHeartbeatRPCs(size_t targetID,
+                                 const std::atomic<bool> &stop) {
   size_t prevLogIndex = (Log.size() == 0) ? 0 : Log.size() - 1;
   uint64_t prevLogTerm =
       (Log.size() == 0) ? 0 : Log[Log.size() - 1].termReceived;
