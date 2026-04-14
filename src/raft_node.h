@@ -17,6 +17,7 @@ public:
   RaftNode(size_t nodeID, std::random_device &rd, Network &network);
 
   void StartNode();
+
   // RPC functions
   AppendEntriesReply AppendEntries(const AppendEntriesArgs &args);
   RequestVoteReply RequestVote(const RequestVoteArgs &args);
@@ -55,7 +56,7 @@ private:
   Network &network;
 
   // Member functions
-  // switch state logger functions
+  // switch state functions
   void SwitchStateToFollower();
   void SwitchStateToCandidate();
   void SwitchStateToLeader();

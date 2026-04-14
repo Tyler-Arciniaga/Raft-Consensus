@@ -30,7 +30,7 @@ std::string print_state(NodeState state) {
 void print_switch_state_statement(uint64_t nodeID, NodeState oldState,
                                   NodeState newState) {
   std::ostringstream os;
-  os << "Switching node " << nodeID << " from " << print_state(oldState)
+  os << "--> Switching node " << nodeID << " from " << print_state(oldState)
      << " to " << print_state(newState) << "\n";
 
   Logger::getLogger().log(os.str());
@@ -84,21 +84,28 @@ RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
 
   // Compare logs, refresh election timer if vote is granted
   if (votedFor == UINT32_MAX || votedFor == args.candidateID) {
+    RequestVoteReply reply;
     size_t lastLogIndex = (Log.size() == 0) ? 0 : Log.size() - 1;
     uint64_t lastTermReceived =
         (Log.size() == 0) ? 0 : Log[lastLogIndex].termReceived;
-    if (lastTermReceived != args.lastLogTerm) {
-      if (lastTermReceived < args.lastLogTerm) {
-        heartbeat_cv.notify_one();
-      }
-      return RequestVoteReply{currentTerm, lastTermReceived < args.lastLogTerm};
-    } // first compare term of both log last entries
 
-    // if terms of last entry are same, compare length of both logs
-    if (lastLogIndex <= args.lastLogIndex) {
-      heartbeat_cv.notify_one();
+    if (lastTermReceived != args.lastLogTerm) {
+      // first compare term of both log last entries
+      reply =
+          RequestVoteReply{currentTerm, lastTermReceived < args.lastLogTerm};
+    } else {
+      // if terms of last entry are equal, compare length of both logs
+      reply = RequestVoteReply{currentTerm, lastLogIndex <= args.lastLogIndex};
     }
-    return RequestVoteReply{currentTerm, lastLogIndex <= args.lastLogIndex};
+
+    if (reply.voteGranted) {
+      votedFor = args.candidateID;
+      heartbeat_cv.notify_one();
+      Logger::getLogger().log("node " + std::to_string(nodeID) +
+                              " sends yes vote to node " +
+                              std::to_string(args.candidateID) + "\n");
+    }
+    return reply;
   } else {
     // local node has already voted in this election
     return RequestVoteReply{currentTerm, false};
@@ -108,6 +115,9 @@ RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
 AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
   // TODO implement AppendEntriesRPC logic
 
+  Logger::getLogger().log("node " + std::to_string(nodeID) +
+                          " receives heartbeat from node " +
+                          std::to_string(args.leaderID) + "\n");
   heartbeat_cv.notify_one();
   return AppendEntriesReply{};
 }
@@ -117,7 +127,6 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
 // variable
 void RaftNode::HandleFollowerState() {
   std::unique_lock<std::mutex> lock(mtx);
-  // TODO spin off a new thread to handle receiving AppendEntries RPC
 
   while (true) {
     int new_countdown_duration = randomizer.GetRandomElectionTimeout();
@@ -142,7 +151,8 @@ void RaftNode::SendRequestVoteRPC(size_t targetID,
   auto reply = network.sendRequestVote(targetID, arg);
 
   if (reply.voteGranted) {
-    Logger::getLogger().log(std::to_string(nodeID) + " from " +
+    Logger::getLogger().log("node " + std::to_string(nodeID) +
+                            " received yes vote from node " +
                             std::to_string(targetID) + "\n");
     {
       std::lock_guard<std::mutex> lock(voteState->mtx);
@@ -152,7 +162,7 @@ void RaftNode::SendRequestVoteRPC(size_t targetID,
   }
 }
 
-// TODO handle receiving an AppendEntries RPC from another node
+// TODO handle receiving an AppendEntries RPC from pre-existing Leader node
 void RaftNode::HandleCandidateState() {
   {
     std::lock_guard<std::mutex> lock(mtx);
@@ -210,13 +220,16 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID,
   // TODO might need to use shared_ptr since stop might eventually be changed to
   // go out of scope before thread finishes
   while (!stop.load()) {
+    Logger::getLogger().log("node " + std::to_string(nodeID) +
+                            " sending heartbeat to node " +
+                            std::to_string(targetID) + "\n");
     auto reply = network.sendAppendEntries(targetID, arg);
     if (reply.term > currentTerm) {
       currentTerm = reply.term;
       return;
     }
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
 }
 

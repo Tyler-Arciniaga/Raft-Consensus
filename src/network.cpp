@@ -13,7 +13,9 @@ SimulatedNetwork::sendRequestVote(size_t targetID,
 AppendEntriesReply
 SimulatedNetwork::sendAppendEntries(size_t targetID,
                                     const AppendEntriesArgs &args) {
-  return AppendEntriesReply{};
+  auto targetNode = nodes[targetID];
+  auto reply = targetNode->AppendEntries(args);
+  return reply;
 }
 
 void SimulatedNetwork::AddNode(RaftNode *node) { nodes.push_back(node); }

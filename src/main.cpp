@@ -1,13 +1,10 @@
 #include "network.h"
 #include "raft_node.h"
 #include <chrono>
-#include <iostream>
 #include <memory>
 #include <thread>
 
 int main(int argc, char *argv[]) {
-  std::cout << "Hello Raft!\n";
-
   SimulatedNetwork simNetwork;
   std::random_device rd;
   std::vector<std::unique_ptr<RaftNode>> nodes;
