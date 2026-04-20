@@ -24,9 +24,9 @@ private:
 
 public:
   RequestVoteReply sendRequestVote(size_t targetID,
-                                   const RequestVoteArgs &args);
+                                   const RequestVoteArgs &args) override;
   AppendEntriesReply sendAppendEntries(size_t targetID,
-                                       const AppendEntriesArgs &args);
+                                       const AppendEntriesArgs &args) override;
 
   void AddNode(RaftNode *node);
 };
