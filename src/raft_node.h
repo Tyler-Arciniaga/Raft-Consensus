@@ -66,7 +66,7 @@ private:
   void HandleCandidateState();
   void HandleLeaderState();
 
-  void SendRequestVoteRPC(size_t targetID,
-                          std::shared_ptr<VoteState> voteState);
-  void SendHeartbeatRPCs(size_t targetID, const std::atomic<bool> &stop);
+  void SendRequestVoteRPC(size_t targetID, VoteState &voteState,
+                          const std::atomic<bool> &stop);
+  void SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop);
 };

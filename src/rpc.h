@@ -46,5 +46,5 @@ struct RequestVoteReply {
 struct VoteState {
   std::mutex mtx;
   std::condition_variable cv;
-  size_t votesReceived = 1;
+  std::atomic<size_t> votesReceived{1};
 };
