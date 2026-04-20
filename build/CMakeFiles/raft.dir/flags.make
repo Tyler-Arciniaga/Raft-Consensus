@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src
 
 CXX_FLAGSarm64 =  -arch arm64 -fsanitize=address,undefined -g
 

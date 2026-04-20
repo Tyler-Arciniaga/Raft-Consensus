@@ -1,0 +1,5 @@
+if(EXISTS "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests[1]_tests.cmake")
+  include("/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests[1]_tests.cmake")
+else()
+  add_test(raft_tests_NOT_BUILT raft_tests_NOT_BUILT)
+endif()

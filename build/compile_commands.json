@@ -1,0 +1,74 @@
+[
+{
+  "directory": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build",
+  "command": "/usr/bin/c++  -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src  -arch arm64 -fsanitize=address,undefined -g -o CMakeFiles/raft.dir/src/main.cpp.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/main.cpp",
+  "file": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/main.cpp",
+  "output": "CMakeFiles/raft.dir/src/main.cpp.o"
+},
+{
+  "directory": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build",
+  "command": "/usr/bin/c++  -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src  -arch arm64 -fsanitize=address,undefined -g -o CMakeFiles/raft.dir/src/raft_node.cpp.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/raft_node.cpp",
+  "file": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/raft_node.cpp",
+  "output": "CMakeFiles/raft.dir/src/raft_node.cpp.o"
+},
+{
+  "directory": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build",
+  "command": "/usr/bin/c++  -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src  -arch arm64 -fsanitize=address,undefined -g -o CMakeFiles/raft.dir/src/network.cpp.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/network.cpp",
+  "file": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/network.cpp",
+  "output": "CMakeFiles/raft.dir/src/network.cpp.o"
+},
+{
+  "directory": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build",
+  "command": "/usr/bin/c++  -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src  -arch arm64 -fsanitize=address,undefined -g -o CMakeFiles/raft.dir/src/randomizer.cpp.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/randomizer.cpp",
+  "file": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/randomizer.cpp",
+  "output": "CMakeFiles/raft.dir/src/randomizer.cpp.o"
+},
+{
+  "directory": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build",
+  "command": "/usr/bin/c++  -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/include -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest  -arch arm64 -fsanitize=thread,undefined -o CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/tests/raft_node_test.cpp",
+  "file": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/tests/raft_node_test.cpp",
+  "output": "CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.o"
+},
+{
+  "directory": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build",
+  "command": "/usr/bin/c++  -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/include -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest  -arch arm64 -fsanitize=thread,undefined -o CMakeFiles/raft_tests.dir/src/raft_node.cpp.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/raft_node.cpp",
+  "file": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/raft_node.cpp",
+  "output": "CMakeFiles/raft_tests.dir/src/raft_node.cpp.o"
+},
+{
+  "directory": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build",
+  "command": "/usr/bin/c++  -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/include -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest  -arch arm64 -fsanitize=thread,undefined -o CMakeFiles/raft_tests.dir/src/network.cpp.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/network.cpp",
+  "file": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/network.cpp",
+  "output": "CMakeFiles/raft_tests.dir/src/network.cpp.o"
+},
+{
+  "directory": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build",
+  "command": "/usr/bin/c++  -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/include -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest  -arch arm64 -fsanitize=thread,undefined -o CMakeFiles/raft_tests.dir/src/randomizer.cpp.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/randomizer.cpp",
+  "file": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/randomizer.cpp",
+  "output": "CMakeFiles/raft_tests.dir/src/randomizer.cpp.o"
+},
+{
+  "directory": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-build/googlemock",
+  "command": "/usr/bin/c++  -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googlemock/include -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googlemock -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/include -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest  -arch arm64  -DGTEST_HAS_PTHREAD=1   -o CMakeFiles/gmock.dir/src/gmock-all.cc.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "file": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o"
+},
+{
+  "directory": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-build/googlemock",
+  "command": "/usr/bin/c++  -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googlemock/include -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googlemock -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/include -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest  -arch arm64  -DGTEST_HAS_PTHREAD=1   -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "file": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
+},
+{
+  "directory": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-build/googletest",
+  "command": "/usr/bin/c++  -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/include -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest  -arch arm64  -DGTEST_HAS_PTHREAD=1   -o CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "file": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
+},
+{
+  "directory": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-build/googletest",
+  "command": "/usr/bin/c++  -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/include -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest  -arch arm64  -DGTEST_HAS_PTHREAD=1   -o CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "file": "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
+}
+]

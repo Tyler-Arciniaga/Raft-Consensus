@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

@@ -226,7 +226,6 @@ void RaftNode::HandleCandidateState() {
 }
 
 void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
-  // TODO think I may need to add atomic safety to updating currentTerm
   size_t prevLogIndex;
   uint64_t prevLogTerm;
   AppendEntriesArgs arg;
@@ -279,6 +278,11 @@ void RaftNode::HandleLeaderState() {
 
   SwitchStateToFollower();
 }
+
+// TODO complete me
+void RaftNode::StopNode() {}
+
+void RaftNode::SetPeers(const std::vector<size_t> p) { peers = p; }
 
 void RaftNode::SwitchStateToFollower() {
   print_switch_state_statement(nodeID, state, NodeState::Follower);

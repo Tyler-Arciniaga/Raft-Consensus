@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/opt/homebrew/bin/ctest $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -85,19 +95,57 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"gmock\" \"gtest\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/opt/homebrew/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/opt/homebrew/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles 0
 .PHONY : all
-
-# The main codegen target
-codegen: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 codegen
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles 0
-.PHONY : codegen
 
 # The main clean target
 clean:
@@ -136,6 +184,71 @@ raft/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/build
 .PHONY : raft/fast
 
+#=============================================================================
+# Target rules for targets named raft_tests
+
+# Build rule for target.
+raft_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 raft_tests
+.PHONY : raft_tests
+
+# fast build rule for target.
+raft_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/build
+.PHONY : raft_tests/fast
+
+#=============================================================================
+# Target rules for targets named gmock
+
+# Build rule for target.
+gmock: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock
+.PHONY : gmock
+
+# fast build rule for target.
+gmock/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build
+.PHONY : gmock/fast
+
+#=============================================================================
+# Target rules for targets named gmock_main
+
+# Build rule for target.
+gmock_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock_main
+.PHONY : gmock_main
+
+# fast build rule for target.
+gmock_main/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build
+.PHONY : gmock_main/fast
+
+#=============================================================================
+# Target rules for targets named gtest
+
+# Build rule for target.
+gtest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest
+.PHONY : gtest
+
+# fast build rule for target.
+gtest/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build
+.PHONY : gtest/fast
+
+#=============================================================================
+# Target rules for targets named gtest_main
+
+# Build rule for target.
+gtest_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest_main
+.PHONY : gtest_main
+
+# fast build rule for target.
+gtest_main/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build
+.PHONY : gtest_main/fast
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -166,6 +279,7 @@ src/network.o: src/network.cpp.o
 # target to build an object file
 src/network.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/network.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/src/network.cpp.o
 .PHONY : src/network.cpp.o
 
 src/network.i: src/network.cpp.i
@@ -174,6 +288,7 @@ src/network.i: src/network.cpp.i
 # target to preprocess a source file
 src/network.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/network.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/src/network.cpp.i
 .PHONY : src/network.cpp.i
 
 src/network.s: src/network.cpp.s
@@ -182,6 +297,7 @@ src/network.s: src/network.cpp.s
 # target to generate assembly for a file
 src/network.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/network.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/src/network.cpp.s
 .PHONY : src/network.cpp.s
 
 src/raft_node.o: src/raft_node.cpp.o
@@ -190,6 +306,7 @@ src/raft_node.o: src/raft_node.cpp.o
 # target to build an object file
 src/raft_node.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/raft_node.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/src/raft_node.cpp.o
 .PHONY : src/raft_node.cpp.o
 
 src/raft_node.i: src/raft_node.cpp.i
@@ -198,6 +315,7 @@ src/raft_node.i: src/raft_node.cpp.i
 # target to preprocess a source file
 src/raft_node.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/raft_node.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/src/raft_node.cpp.i
 .PHONY : src/raft_node.cpp.i
 
 src/raft_node.s: src/raft_node.cpp.s
@@ -206,6 +324,7 @@ src/raft_node.s: src/raft_node.cpp.s
 # target to generate assembly for a file
 src/raft_node.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/raft_node.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/src/raft_node.cpp.s
 .PHONY : src/raft_node.cpp.s
 
 src/randomizer.o: src/randomizer.cpp.o
@@ -214,6 +333,7 @@ src/randomizer.o: src/randomizer.cpp.o
 # target to build an object file
 src/randomizer.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/randomizer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/src/randomizer.cpp.o
 .PHONY : src/randomizer.cpp.o
 
 src/randomizer.i: src/randomizer.cpp.i
@@ -222,6 +342,7 @@ src/randomizer.i: src/randomizer.cpp.i
 # target to preprocess a source file
 src/randomizer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/randomizer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/src/randomizer.cpp.i
 .PHONY : src/randomizer.cpp.i
 
 src/randomizer.s: src/randomizer.cpp.s
@@ -230,7 +351,32 @@ src/randomizer.s: src/randomizer.cpp.s
 # target to generate assembly for a file
 src/randomizer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft.dir/build.make CMakeFiles/raft.dir/src/randomizer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/src/randomizer.cpp.s
 .PHONY : src/randomizer.cpp.s
+
+tests/raft_node_test.o: tests/raft_node_test.cpp.o
+.PHONY : tests/raft_node_test.o
+
+# target to build an object file
+tests/raft_node_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.o
+.PHONY : tests/raft_node_test.cpp.o
+
+tests/raft_node_test.i: tests/raft_node_test.cpp.i
+.PHONY : tests/raft_node_test.i
+
+# target to preprocess a source file
+tests/raft_node_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.i
+.PHONY : tests/raft_node_test.cpp.i
+
+tests/raft_node_test.s: tests/raft_node_test.cpp.s
+.PHONY : tests/raft_node_test.s
+
+# target to generate assembly for a file
+tests/raft_node_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.s
+.PHONY : tests/raft_node_test.cpp.s
 
 # Help Target
 help:
@@ -238,10 +384,19 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... codegen"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... test"
+	@echo "... gmock"
+	@echo "... gmock_main"
+	@echo "... gtest"
+	@echo "... gtest_main"
 	@echo "... raft"
+	@echo "... raft_tests"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
@@ -254,6 +409,9 @@ help:
 	@echo "... src/randomizer.o"
 	@echo "... src/randomizer.i"
 	@echo "... src/randomizer.s"
+	@echo "... tests/raft_node_test.o"
+	@echo "... tests/raft_node_test.i"
+	@echo "... tests/raft_node_test.s"
 .PHONY : help
 
 
