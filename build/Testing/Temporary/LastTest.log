@@ -1,10 +1,10 @@
-Start testing: Apr 20 22:55 EDT
+Start testing: Apr 21 12:51 EDT
 ----------------------------------------------------------
-1/2 Testing: Smoke.Builds
-1/2 Test: Smoke.Builds
+1/3 Testing: Smoke.Builds
+1/3 Test: Smoke.Builds
 Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=Smoke.Builds" "--gtest_also_run_disabled_tests"
 Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
-"Smoke.Builds" start time: Apr 20 22:55 EDT
+"Smoke.Builds" start time: Apr 21 12:51 EDT
 Output:
 ----------------------------------------------------------
 Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
@@ -20,18 +20,18 @@ Note: Google Test filter = Smoke.Builds
 [==========] 1 test from 1 test suite ran. (0 ms total)
 [  PASSED  ] 1 test.
 <end of output>
-Test time =   0.15 sec
+Test time =   0.27 sec
 ----------------------------------------------------------
 Test Passed.
-"Smoke.Builds" end time: Apr 20 22:55 EDT
+"Smoke.Builds" end time: Apr 21 12:51 EDT
 "Smoke.Builds" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-2/2 Testing: ElectionTest.ElectsExactlyOneLeader
-2/2 Test: ElectionTest.ElectsExactlyOneLeader
+2/3 Testing: ElectionTest.ElectsExactlyOneLeader
+2/3 Test: ElectionTest.ElectsExactlyOneLeader
 Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.ElectsExactlyOneLeader" "--gtest_also_run_disabled_tests"
 Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
-"ElectionTest.ElectsExactlyOneLeader" start time: Apr 20 22:55 EDT
+"ElectionTest.ElectsExactlyOneLeader" start time: Apr 21 12:51 EDT
 Output:
 ----------------------------------------------------------
 Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
@@ -40,61 +40,782 @@ Note: Google Test filter = ElectionTest.ElectsExactlyOneLeader
 [----------] Global test environment set-up.
 [----------] 1 test from ElectionTest
 [ RUN      ] ElectionTest.ElectsExactlyOneLeader
-[2570254505] --> Switching node 0 from Follower to Candidate
-[2570254505] node 1 sends yes vote to node 0
-[2570254505] node 0 received yes vote from node 1
-[2570254505] node 2 sends yes vote to node 0
-[2570254505] node 1 sends yes vote to node 0
-[2570254505] node 0 received yes vote from node 1
-[2570254505] node 0 received yes vote from node 2
-[2570254506] node 1 sends yes vote to node 0
-[2570254506] node 0 received yes vote from node 1
-[2570254506] node 2 sends yes vote to node 0
-[2570254506] node 0 received yes vote from node 2
-[2570254506] node 1 sends yes vote to node 0
-[2570254506] node 2 sends yes vote to node 0
-[2570254506] node 0 received yes vote from node 2
-[2570254506] node 3 sends yes vote to node 0
-[2570254506] node 2 sends yes vote to node 0
-[2570254506] node 0 received yes vote from node 2
-[2570254506] node 4 sends yes vote to node 0
-[2570254506] node 0 received yes vote from node 3
-[2570254506] node 0 received yes vote from node 1
-[2570254506] node 0 received yes vote from node 4
-[2570254506] --> Switching node 0 from Candidate to Leader
-[2570254506] node 0 sending heartbeat to node 1
-[2570254506] node 1 receives heartbeat from node 0
-[2570254506] node 0 sending heartbeat to node 2
-[2570254506] node 2 receives heartbeat from node 0
-[2570254506] node 0 sending heartbeat to node 3
-[2570254506] node 3 receives heartbeat from node 0
-[2570254507] node 0 sending heartbeat to node 4
-[2570254507] node 4 receives heartbeat from node 0
-[2570254611] node 0 sending heartbeat to node 1
-[2570254612] node 0 sending heartbeat to node 2
-[2570254612] node 0 sending heartbeat to node 3
-[2570254612] node 0 sending heartbeat to node 4
-[2570254612] node 2 receives heartbeat from node 0
-[2570254612] node 1 receives heartbeat from node 0
-[2570254612] node 3 receives heartbeat from node 0
-[2570254612] node 4 receives heartbeat from node 0
-[2570254633] shutting down node 2...
-[2570254633] shutting down node 4...
-[2570254633] shutting down node 3...
-[2570254634] shutting down node 1...
-[2570254717] shutting down node 0...
-[       OK ] ElectionTest.ElectsExactlyOneLeader (589 ms)
-[----------] 1 test from ElectionTest (589 ms total)
+[2620417617] --> Switching node 4 from Follower to Candidate
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417617] node 4 received yes vote from node 0
+[2620417617] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417618] node 4 received yes vote from node 0
+[2620417618] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417619] node 0 sends yes vote to node 4
+[2620417619] node 4 received yes vote from node 0
+[2620417620] node 0 sends yes vote to node 4
+[2620417620] node 4 received yes vote from node 0
+[2620417620] node 0 sends yes vote to node 4
+[2620417620] node 4 received yes vote from node 0
+[2620417620] node 0 sends yes vote to node 4
+[2620417620] node 4 received yes vote from node 0
+[2620417620] node 0 sends yes vote to node 4
+[2620417620] node 4 received yes vote from node 0
+[2620417620] node 0 sends yes vote to node 4
+[2620417620] node 4 received yes vote from node 0
+[2620417620] node 0 sends yes vote to node 4
+[2620417620] node 4 received yes vote from node 0
+[2620417620] node 0 sends yes vote to node 4
+[2620417620] node 4 received yes vote from node 0
+[2620417620] node 0 sends yes vote to node 4
+[2620417620] node 4 received yes vote from node 0
+[2620417620] node 0 sends yes vote to node 4
+[2620417620] node 4 received yes vote from node 0
+[2620417620] node 0 sends yes vote to node 4
+[2620417620] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417621] node 4 received yes vote from node 0
+[2620417621] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417622] node 0 sends yes vote to node 4
+[2620417622] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417623] node 0 sends yes vote to node 4
+[2620417623] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417624] node 4 received yes vote from node 0
+[2620417624] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417625] node 0 sends yes vote to node 4
+[2620417625] node 4 received yes vote from node 0
+[2620417626] node 0 sends yes vote to node 4
+[2620417626] node 4 received yes vote from node 0
+[2620417626] node 0 sends yes vote to node 4
+[2620417626] node 4 received yes vote from node 0
+[2620417626] node 0 sends yes vote to node 4
+[2620417626] node 4 received yes vote from node 0
+[2620417626] node 1 sends yes vote to node 4
+[2620417626] node 0 sends yes vote to node 4
+[2620417626] node 4 received yes vote from node 1
+[2620417626] node 4 received yes vote from node 0
+[2620417626] node 1 sends yes vote to node 4
+[2620417626] node 0 sends yes vote to node 4
+[2620417626] node 2 sends yes vote to node 4
+[2620417626] node 4 received yes vote from node 1
+[2620417626] node 4 received yes vote from node 0
+[2620417626] node 4 received yes vote from node 2
+[2620417626] node 1 sends yes vote to node 4
+[2620417626] node 0 sends yes vote to node 4
+[2620417626] node 2 sends yes vote to node 4
+[2620417626] node 4 received yes vote from node 1
+[2620417626] node 4 received yes vote from node 0
+[2620417626] node 4 received yes vote from node 2
+[2620417626] node 1 sends yes vote to node 4
+[2620417626] node 0 sends yes vote to node 4
+[2620417626] node 2 sends yes vote to node 4
+[2620417626] node 4 received yes vote from node 1
+[2620417626] node 3 sends yes vote to node 4
+[2620417626] node 4 received yes vote from node 0
+[2620417626] node 4 received yes vote from node 2
+[2620417626] node 1 sends yes vote to node 4
+[2620417626] node 4 received yes vote from node 3
+[2620417626] node 0 sends yes vote to node 4
+[2620417626] node 4 received yes vote from node 1
+[2620417626] node 4 received yes vote from node 0
+[2620417626] --> Switching node 4 from Candidate to Leader
+[2620417626] node 4 sending heartbeat to node 0
+[2620417626] node 0 receives heartbeat from node 4
+[2620417626] node 4 sending heartbeat to node 1
+[2620417626] node 1 receives heartbeat from node 4
+[2620417627] node 4 sending heartbeat to node 2
+[2620417627] node 2 receives heartbeat from node 4
+[2620417627] node 4 sending heartbeat to node 3
+[2620417627] node 3 receives heartbeat from node 4
+[2620417728] node 4 sending heartbeat to node 1
+[2620417728] node 4 sending heartbeat to node 2
+[2620417728] node 1 receives heartbeat from node 4
+[2620417728] node 2 receives heartbeat from node 4
+[2620417730] shutting down node 0...
+[2620417730] shutting down node 1...
+[2620417730] shutting down node 2...
+[2620417730] shutting down node 3...
+[2620417833] shutting down node 4...
+[       OK ] ElectionTest.ElectsExactlyOneLeader (610 ms)
+[----------] 1 test from ElectionTest (610 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (589 ms total)
+[==========] 1 test from 1 test suite ran. (610 ms total)
 [  PASSED  ] 1 test.
 <end of output>
-Test time =   0.76 sec
+Test time =   0.86 sec
 ----------------------------------------------------------
 Test Passed.
-"ElectionTest.ElectsExactlyOneLeader" end time: Apr 20 22:55 EDT
+"ElectionTest.ElectsExactlyOneLeader" end time: Apr 21 12:51 EDT
 "ElectionTest.ElectsExactlyOneLeader" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Apr 20 22:55 EDT
+3/3 Testing: ElectionTest.HandlesSingleLeaderLoss
+3/3 Test: ElectionTest.HandlesSingleLeaderLoss
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.HandlesSingleLeaderLoss" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.HandlesSingleLeaderLoss" start time: Apr 21 12:51 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.HandlesSingleLeaderLoss
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.HandlesSingleLeaderLoss
+[2620418417] --> Switching node 4 from Follower to Candidate
+[2620418417] node 0 sends yes vote to node 4
+[2620418417] node 4 received yes vote from node 0
+[2620418418] node 1 sends yes vote to node 4
+[2620418418] node 0 sends yes vote to node 4
+[2620418418] node 4 received yes vote from node 0
+[2620418418] node 4 received yes vote from node 1
+[2620418418] node 1 sends yes vote to node 4
+[2620418418] node 0 sends yes vote to node 4
+[2620418418] node 4 received yes vote from node 0
+[2620418418] node 0 sends yes vote to node 4
+[2620418418] node 4 received yes vote from node 0
+[2620418418] node 0 sends yes vote to node 4
+[2620418418] node 2 sends yes vote to node 4
+[2620418418] node 4 received yes vote from node 1
+[2620418418] node 1 sends yes vote to node 4
+[2620418418] node 4 received yes vote from node 0
+[2620418418] node 4 received yes vote from node 1
+[2620418418] node 1 sends yes vote to node 4
+[2620418418] node 4 received yes vote from node 1
+[2620418418] node 1 sends yes vote to node 4
+[2620418418] node 4 received yes vote from node 1
+[2620418418] node 0 sends yes vote to node 4
+[2620418418] node 4 received yes vote from node 0
+[2620418418] node 1 sends yes vote to node 4
+[2620418418] node 3 sends yes vote to node 4
+[2620418418] node 4 received yes vote from node 3
+[2620418418] node 4 received yes vote from node 2
+[2620418418] node 4 received yes vote from node 1
+[2620418418] node 3 sends yes vote to node 4
+[2620418418] node 1 sends yes vote to node 4
+[2620418418] node 0 sends yes vote to node 4
+[2620418418] node 2 sends yes vote to node 4
+[2620418418] node 4 received yes vote from node 2
+[2620418418] node 4 received yes vote from node 1
+[2620418418] node 4 received yes vote from node 0
+[2620418419] node 4 received yes vote from node 3
+[2620418419] --> Switching node 4 from Candidate to Leader
+[2620418419] node 4 sending heartbeat to node 0
+[2620418419] node 0 receives heartbeat from node 4
+[2620418419] node 4 sending heartbeat to node 1
+[2620418419] node 1 receives heartbeat from node 4
+[2620418419] node 4 sending heartbeat to node 2
+[2620418419] node 2 receives heartbeat from node 4
+[2620418419] node 4 sending heartbeat to node 3
+[2620418419] node 3 receives heartbeat from node 4
+[2620418521] node 4 sending heartbeat to node 2
+[2620418521] node 4 sending heartbeat to node 0
+[2620418521] node 2 receives heartbeat from node 4
+[2620418521] node 0 receives heartbeat from node 4
+[2620418524] node 4 sending heartbeat to node 1
+[2620418524] node 4 sending heartbeat to node 3
+[2620418524] node 1 receives heartbeat from node 4
+[2620418524] node 3 receives heartbeat from node 4
+[2620418627] shutting down node 4...
+[2620418861] --> Switching node 0 from Follower to Candidate
+[2620418861] node 1 sends yes vote to node 0
+[2620418861] node 0 received yes vote from node 1
+[2620418861] node 1 sends yes vote to node 0
+[2620418861] node 2 sends yes vote to node 0
+[2620418861] node 0 received yes vote from node 1
+[2620418861] node 0 received yes vote from node 2
+[2620418861] node 2 sends yes vote to node 0
+[2620418861] node 1 sends yes vote to node 0
+[2620418861] node 3 sends yes vote to node 0
+[2620418861] node 0 received yes vote from node 2
+[2620418861] node 2 sends yes vote to node 0
+[2620418861] node 0 received yes vote from node 3
+[2620418861] node 0 received yes vote from node 1
+[2620418861] node 0 received yes vote from node 2
+[2620418861] --> Switching node 4 from Leader to Follower
+[2620418861] node 1 sends yes vote to node 0
+[2620418861] node 0 received yes vote from node 1
+[2620418861] node 4 sends yes vote to node 0
+[2620418861] node 3 sends yes vote to node 0
+[2620418861] node 0 received yes vote from node 4
+[2620418861] node 0 received yes vote from node 3
+[2620418862] --> Switching node 0 from Candidate to Leader
+[2620418862] node 0 sending heartbeat to node 1
+[2620418862] node 1 receives heartbeat from node 0
+[2620418862] node 0 sending heartbeat to node 2
+[2620418862] node 2 receives heartbeat from node 0
+[2620418862] node 0 sending heartbeat to node 3
+[2620418862] node 3 receives heartbeat from node 0
+[2620418862] node 0 sending heartbeat to node 4
+[2620418862] node 4 receives heartbeat from node 0
+[2620418964] node 0 sending heartbeat to node 3
+[2620418964] node 3 receives heartbeat from node 0
+[2620418964] node 0 sending heartbeat to node 2
+[2620418964] node 0 sending heartbeat to node 4
+[2620418964] node 4 receives heartbeat from node 0
+[2620418964] node 2 receives heartbeat from node 0
+[2620418967] node 0 sending heartbeat to node 1
+[2620418967] node 1 receives heartbeat from node 0
+[2620419067] node 0 sending heartbeat to node 2
+[2620419067] node 0 sending heartbeat to node 3
+[2620419067] node 2 receives heartbeat from node 0
+[2620419067] node 3 receives heartbeat from node 0
+[2620419069] node 0 sending heartbeat to node 4
+[2620419069] node 4 receives heartbeat from node 0
+[2620419072] node 0 sending heartbeat to node 1
+[2620419072] node 1 receives heartbeat from node 0
+[2620419100] shutting down node 2...
+[2620419100] shutting down node 1...
+[2620419100] shutting down node 3...
+[2620419177] shutting down node 0...
+[       OK ] ElectionTest.HandlesSingleLeaderLoss (1088 ms)
+[----------] 1 test from ElectionTest (1089 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1089 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   1.34 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.HandlesSingleLeaderLoss" end time: Apr 21 12:51 EDT
+"ElectionTest.HandlesSingleLeaderLoss" time elapsed: 00:00:01
+----------------------------------------------------------
+
+End testing: Apr 21 12:51 EDT

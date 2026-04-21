@@ -47,7 +47,6 @@ TEST_F(ElectionTest, ElectsExactlyOneLeader) {
   std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
   int leaderCounter = 0;
-
   for (auto &node : nodes) {
     if (node.get()->GetState() == NodeState::Leader) {
       leaderCounter++;
@@ -55,4 +54,32 @@ TEST_F(ElectionTest, ElectsExactlyOneLeader) {
   }
 
   EXPECT_EQ(leaderCounter, 1);
+}
+
+TEST_F(ElectionTest, HandlesSingleLeaderLoss) {
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
+  int leaderCounter = 0;
+  size_t leader_index;
+  for (size_t i = 0; i < nodes.size(); i++) {
+    if (nodes[i].get()->GetState() == NodeState::Leader) {
+      leaderCounter++;
+      leader_index = i;
+    }
+  }
+
+  EXPECT_EQ(leaderCounter, 1);
+
+  nodes[leader_index].get()->StopNode();
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
+  int new_leader_counter = 0;
+  for (size_t i = 0; i < nodes.size(); i++) {
+    if (nodes[i].get()->GetState() == NodeState::Leader) {
+      new_leader_counter++;
+    }
+  }
+
+  EXPECT_EQ(new_leader_counter, 1);
 }
