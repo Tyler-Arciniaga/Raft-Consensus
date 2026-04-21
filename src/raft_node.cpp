@@ -1,4 +1,5 @@
 #include "raft_node.h"
+#include "logger.h"
 #include "rpc.h"
 #include <chrono>
 #include <condition_variable>
@@ -40,14 +41,20 @@ void print_switch_state_statement(uint64_t nodeID, NodeState oldState,
 
 // RaftNode constructor
 RaftNode::RaftNode(size_t nodeID, std::random_device &rd, Network &network)
-    : nodeID(nodeID), state(NodeState::Follower), Log(std::vector<LogEntry>{}),
-      currentTerm(0), commitIndex(0), lastApplied(0),
-      randomizer(Randomizer(rd)), network(network) {};
+    : nodeID(nodeID), Log(std::vector<LogEntry>{}), currentTerm(0),
+      commitIndex(0), lastApplied(0), randomizer(Randomizer(rd)),
+      network(network) {};
 
 // RaftNode RPC functions
 void RaftNode::StartNode() {
   while (true) {
-    switch (state) {
+    if (node_shutdown.load()) {
+      Logger::getLogger().log("shutting down node " + std::to_string(nodeID) +
+                              "...\n");
+      return;
+    }
+
+    switch (state.load()) {
     case NodeState::Follower:
       HandleFollowerState();
       break;
@@ -75,7 +82,7 @@ RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
   if (currentTerm < args.candidate_term) {
     currentTerm = args.candidate_term;
 
-    if (state != NodeState::Follower) {
+    if (state.load() != NodeState::Follower) {
       SwitchStateToFollower();
     }
 
@@ -113,7 +120,7 @@ RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
 }
 
 AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
-  // TODO implement AppendEntriesRPC logic
+  //  TODO implement AppendEntriesRPC logic
   // if entries sent is empty, this is a heartbeat
   if (args.entries.size() == 0) {
     Logger::getLogger().log("node " + std::to_string(nodeID) +
@@ -125,7 +132,7 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
   std::lock_guard<std::mutex> lock(mtx);
   // if currently a candidate and recieve AppendEntries from pre existing leader
   // with high enough term immediately demote to follower
-  if (args.leader_term >= currentTerm && state == NodeState::Candidate) {
+  if (args.leader_term >= currentTerm && state.load() == NodeState::Candidate) {
     SwitchStateToFollower();
   }
 
@@ -144,6 +151,10 @@ void RaftNode::HandleFollowerState() {
             lock, std::chrono::milliseconds(new_countdown_duration)) ==
         std::cv_status::timeout) {
       break;
+    }
+
+    if (node_shutdown.load()) {
+      return;
     }
   }
 
@@ -171,7 +182,6 @@ void RaftNode::SendRequestVoteRPC(size_t targetID, VoteState &voteState,
   }
 }
 
-// TODO handle receiving an AppendEntries RPC from pre-existing Leader node
 void RaftNode::HandleCandidateState() {
   while (true) {
     {
@@ -200,7 +210,7 @@ void RaftNode::HandleCandidateState() {
         std::chrono::steady_clock::now() +
             std::chrono::milliseconds(randomizer.GetRandomElectionTimeout()),
         [this, &voteState, &stop] {
-          if (state == NodeState::Follower ||
+          if (node_shutdown.load() || state.load() == NodeState::Follower ||
               voteState.votesReceived > uint32_t(peers.size() / 2)) {
             stop = true;
             return true;
@@ -212,7 +222,12 @@ void RaftNode::HandleCandidateState() {
       t.join();
     }
 
-    if (state == NodeState::Follower) {
+    // clean exit for node shutdown
+    if (node_shutdown.load()) {
+      return;
+    }
+
+    if (state.load() == NodeState::Follower) {
       return;
     }
 
@@ -230,6 +245,11 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
   uint64_t prevLogTerm;
   AppendEntriesArgs arg;
   while (!stop.load()) {
+    if (node_shutdown.load()) {
+      stop = true;
+      return;
+    }
+
     {
       std::lock_guard<std::mutex> lock(mtx);
 
@@ -271,18 +291,25 @@ void RaftNode::HandleLeaderState() {
     }
   }
 
-  for (size_t i = 1; i < heartbeatThreads.size(); i++) {
-    auto &t = heartbeatThreads[i];
+  for (auto &t : heartbeatThreads) {
     t.join();
+  }
+
+  if (node_shutdown.load()) {
+    return;
   }
 
   SwitchStateToFollower();
 }
 
-// TODO complete me
-void RaftNode::StopNode() {}
+void RaftNode::StopNode() {
+  node_shutdown = true;
+  heartbeat_cv.notify_one();
+}
 
 void RaftNode::SetPeers(const std::vector<size_t> p) { peers = p; }
+
+NodeState RaftNode::GetState() { return state.load(); }
 
 void RaftNode::SwitchStateToFollower() {
   print_switch_state_statement(nodeID, state, NodeState::Follower);

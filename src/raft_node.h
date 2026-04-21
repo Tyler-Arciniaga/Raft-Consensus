@@ -1,6 +1,5 @@
 #pragma once
 
-#include "logger.h"
 #include "network.h"
 #include "randomizer.h"
 #include "rpc.h"
@@ -20,13 +19,14 @@ public:
   void StopNode();
   void SetPeers(const std::vector<size_t> p);
 
+  NodeState GetState();
   // RPC functions
   AppendEntriesReply AppendEntries(const AppendEntriesArgs &args);
   RequestVoteReply RequestVote(const RequestVoteArgs &args);
 
 private:
   // Member Variables
-  NodeState state;
+  std::atomic<NodeState> state{NodeState::Follower};
   const size_t nodeID;
   std::vector<size_t> peers;
 
@@ -50,6 +50,7 @@ private:
 
   std::mutex mtx;
   std::condition_variable heartbeat_cv;
+  std::atomic<bool> node_shutdown{false};
 
   Randomizer randomizer;
 
