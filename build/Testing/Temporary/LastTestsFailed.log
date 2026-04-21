@@ -1,1 +1,1 @@
-2:ElectionTest.ElectsExactlyOneLeader
+3:ElectionTest.HandlesSingleLeaderLoss

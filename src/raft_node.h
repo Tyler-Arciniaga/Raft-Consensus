@@ -19,7 +19,11 @@ public:
   void StopNode();
   void SetPeers(const std::vector<size_t> p);
 
-  NodeState GetState();
+  NodeState GetState() const;
+  void SetState(NodeState new_state);
+  uint64_t GetTerm();
+  void SetTerm(uint64_t new_term);
+
   // RPC functions
   AppendEntriesReply AppendEntries(const AppendEntriesArgs &args);
   RequestVoteReply RequestVote(const RequestVoteArgs &args);

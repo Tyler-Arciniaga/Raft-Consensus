@@ -188,6 +188,9 @@ void RaftNode::HandleCandidateState() {
       std::lock_guard<std::mutex> lock(mtx);
       currentTerm++;
       votedFor = nodeID;
+      Logger::getLogger().log("--> node " + std::to_string(nodeID) +
+                              " starting an election (term = " +
+                              std::to_string(currentTerm) + ")...\n");
     }
 
     VoteState voteState;
@@ -309,7 +312,31 @@ void RaftNode::StopNode() {
 
 void RaftNode::SetPeers(const std::vector<size_t> p) { peers = p; }
 
-NodeState RaftNode::GetState() { return state.load(); }
+NodeState RaftNode::GetState() const { return state.load(); }
+
+void RaftNode::SetState(NodeState new_state) {
+  switch (new_state) {
+  case NodeState::Follower:
+    SwitchStateToFollower();
+    return;
+  case NodeState::Candidate:
+    SwitchStateToCandidate();
+    return;
+  case NodeState::Leader:
+    SwitchStateToLeader();
+    return;
+  }
+}
+
+uint64_t RaftNode::GetTerm() {
+  std::lock_guard<std::mutex> lock(mtx);
+  return currentTerm;
+}
+
+void RaftNode::SetTerm(uint64_t new_term) {
+  std::lock_guard<std::mutex> lock(mtx);
+  currentTerm = new_term;
+}
 
 void RaftNode::SwitchStateToFollower() {
   print_switch_state_statement(nodeID, state, NodeState::Follower);
