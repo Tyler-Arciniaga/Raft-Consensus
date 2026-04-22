@@ -124,5 +124,36 @@ TEST_F(ElectionTest, HandlesFalseCandidateDemotion) {
   }
 
   auto res2 = WaitForCondition(cond, 1000);
-  ASSERT_TRUE(res) << "no single leader after false candidate election occurs";
+  ASSERT_TRUE(res) << "no single leader after single false candidate";
+}
+
+TEST_F(ElectionTest, HandlesMultiFalseCandidates) {
+  auto cond = [this] { return ExactlyOneLeader(); };
+
+  auto res = WaitForCondition(cond, 1000);
+  ASSERT_TRUE(res) << "no single leader elected after 1 sec";
+
+  for (auto &node : nodes) {
+    if (node->GetState() == NodeState::Follower) {
+      node->SetState(NodeState::Candidate);
+    }
+  }
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  auto res2 = WaitForCondition(cond, 1000);
+  ASSERT_TRUE(res2) << "no single leader after multiple false candidates";
+}
+
+TEST_F(ElectionTest, HandlesMultiCandidateElection) {
+  for (auto &node : nodes) {
+    if (node->GetState() == NodeState::Follower) {
+      node->SetState(NodeState::Candidate);
+    }
+  }
+
+  auto cond = [this] { return ExactlyOneLeader(); };
+
+  auto res = WaitForCondition(cond, 1000);
+  ASSERT_TRUE(res) << "multi candidate election does not resolve to single "
+                      "leader after 1 sec";
 }
