@@ -354,29 +354,53 @@ src/randomizer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/src/randomizer.cpp.s
 .PHONY : src/randomizer.cpp.s
 
-tests/raft_node_test.o: tests/raft_node_test.cpp.o
-.PHONY : tests/raft_node_test.o
+tests/election_test.o: tests/election_test.cpp.o
+.PHONY : tests/election_test.o
 
 # target to build an object file
-tests/raft_node_test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.o
-.PHONY : tests/raft_node_test.cpp.o
+tests/election_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/election_test.cpp.o
+.PHONY : tests/election_test.cpp.o
 
-tests/raft_node_test.i: tests/raft_node_test.cpp.i
-.PHONY : tests/raft_node_test.i
+tests/election_test.i: tests/election_test.cpp.i
+.PHONY : tests/election_test.i
 
 # target to preprocess a source file
-tests/raft_node_test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.i
-.PHONY : tests/raft_node_test.cpp.i
+tests/election_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/election_test.cpp.i
+.PHONY : tests/election_test.cpp.i
 
-tests/raft_node_test.s: tests/raft_node_test.cpp.s
-.PHONY : tests/raft_node_test.s
+tests/election_test.s: tests/election_test.cpp.s
+.PHONY : tests/election_test.s
 
 # target to generate assembly for a file
-tests/raft_node_test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.s
-.PHONY : tests/raft_node_test.cpp.s
+tests/election_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/election_test.cpp.s
+.PHONY : tests/election_test.cpp.s
+
+tests/log_replication_test.o: tests/log_replication_test.cpp.o
+.PHONY : tests/log_replication_test.o
+
+# target to build an object file
+tests/log_replication_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.o
+.PHONY : tests/log_replication_test.cpp.o
+
+tests/log_replication_test.i: tests/log_replication_test.cpp.i
+.PHONY : tests/log_replication_test.i
+
+# target to preprocess a source file
+tests/log_replication_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.i
+.PHONY : tests/log_replication_test.cpp.i
+
+tests/log_replication_test.s: tests/log_replication_test.cpp.s
+.PHONY : tests/log_replication_test.s
+
+# target to generate assembly for a file
+tests/log_replication_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.s
+.PHONY : tests/log_replication_test.cpp.s
 
 # Help Target
 help:
@@ -409,9 +433,12 @@ help:
 	@echo "... src/randomizer.o"
 	@echo "... src/randomizer.i"
 	@echo "... src/randomizer.s"
-	@echo "... tests/raft_node_test.o"
-	@echo "... tests/raft_node_test.i"
-	@echo "... tests/raft_node_test.s"
+	@echo "... tests/election_test.o"
+	@echo "... tests/election_test.i"
+	@echo "... tests/election_test.s"
+	@echo "... tests/log_replication_test.o"
+	@echo "... tests/log_replication_test.i"
+	@echo "... tests/log_replication_test.s"
 .PHONY : help
 
 

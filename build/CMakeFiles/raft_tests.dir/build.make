@@ -72,24 +72,38 @@ include CMakeFiles/raft_tests.dir/flags.make
 CMakeFiles/raft_tests.dir/codegen:
 .PHONY : CMakeFiles/raft_tests.dir/codegen
 
-CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.o: CMakeFiles/raft_tests.dir/flags.make
-CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.o: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/tests/raft_node_test.cpp
-CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.o: CMakeFiles/raft_tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.o -MF CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.o.d -o CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/tests/raft_node_test.cpp
+CMakeFiles/raft_tests.dir/tests/election_test.cpp.o: CMakeFiles/raft_tests.dir/flags.make
+CMakeFiles/raft_tests.dir/tests/election_test.cpp.o: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/tests/election_test.cpp
+CMakeFiles/raft_tests.dir/tests/election_test.cpp.o: CMakeFiles/raft_tests.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/raft_tests.dir/tests/election_test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/raft_tests.dir/tests/election_test.cpp.o -MF CMakeFiles/raft_tests.dir/tests/election_test.cpp.o.d -o CMakeFiles/raft_tests.dir/tests/election_test.cpp.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/tests/election_test.cpp
 
-CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/tylerarciniaga/Documents/dev/Raft_Consensus/tests/raft_node_test.cpp > CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.i
+CMakeFiles/raft_tests.dir/tests/election_test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/raft_tests.dir/tests/election_test.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/tylerarciniaga/Documents/dev/Raft_Consensus/tests/election_test.cpp > CMakeFiles/raft_tests.dir/tests/election_test.cpp.i
 
-CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/tylerarciniaga/Documents/dev/Raft_Consensus/tests/raft_node_test.cpp -o CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.s
+CMakeFiles/raft_tests.dir/tests/election_test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/raft_tests.dir/tests/election_test.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/tylerarciniaga/Documents/dev/Raft_Consensus/tests/election_test.cpp -o CMakeFiles/raft_tests.dir/tests/election_test.cpp.s
+
+CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.o: CMakeFiles/raft_tests.dir/flags.make
+CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.o: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/tests/log_replication_test.cpp
+CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.o: CMakeFiles/raft_tests.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.o -MF CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.o.d -o CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/tests/log_replication_test.cpp
+
+CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/tylerarciniaga/Documents/dev/Raft_Consensus/tests/log_replication_test.cpp > CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.i
+
+CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/tylerarciniaga/Documents/dev/Raft_Consensus/tests/log_replication_test.cpp -o CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.s
 
 CMakeFiles/raft_tests.dir/src/raft_node.cpp.o: CMakeFiles/raft_tests.dir/flags.make
 CMakeFiles/raft_tests.dir/src/raft_node.cpp.o: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/raft_node.cpp
 CMakeFiles/raft_tests.dir/src/raft_node.cpp.o: CMakeFiles/raft_tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/raft_tests.dir/src/raft_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/raft_tests.dir/src/raft_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/raft_tests.dir/src/raft_node.cpp.o -MF CMakeFiles/raft_tests.dir/src/raft_node.cpp.o.d -o CMakeFiles/raft_tests.dir/src/raft_node.cpp.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/raft_node.cpp
 
 CMakeFiles/raft_tests.dir/src/raft_node.cpp.i: cmake_force
@@ -103,7 +117,7 @@ CMakeFiles/raft_tests.dir/src/raft_node.cpp.s: cmake_force
 CMakeFiles/raft_tests.dir/src/network.cpp.o: CMakeFiles/raft_tests.dir/flags.make
 CMakeFiles/raft_tests.dir/src/network.cpp.o: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/network.cpp
 CMakeFiles/raft_tests.dir/src/network.cpp.o: CMakeFiles/raft_tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/raft_tests.dir/src/network.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/raft_tests.dir/src/network.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/raft_tests.dir/src/network.cpp.o -MF CMakeFiles/raft_tests.dir/src/network.cpp.o.d -o CMakeFiles/raft_tests.dir/src/network.cpp.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/network.cpp
 
 CMakeFiles/raft_tests.dir/src/network.cpp.i: cmake_force
@@ -117,7 +131,7 @@ CMakeFiles/raft_tests.dir/src/network.cpp.s: cmake_force
 CMakeFiles/raft_tests.dir/src/randomizer.cpp.o: CMakeFiles/raft_tests.dir/flags.make
 CMakeFiles/raft_tests.dir/src/randomizer.cpp.o: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/randomizer.cpp
 CMakeFiles/raft_tests.dir/src/randomizer.cpp.o: CMakeFiles/raft_tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/raft_tests.dir/src/randomizer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/raft_tests.dir/src/randomizer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/raft_tests.dir/src/randomizer.cpp.o -MF CMakeFiles/raft_tests.dir/src/randomizer.cpp.o.d -o CMakeFiles/raft_tests.dir/src/randomizer.cpp.o -c /Users/tylerarciniaga/Documents/dev/Raft_Consensus/src/randomizer.cpp
 
 CMakeFiles/raft_tests.dir/src/randomizer.cpp.i: cmake_force
@@ -130,7 +144,8 @@ CMakeFiles/raft_tests.dir/src/randomizer.cpp.s: cmake_force
 
 # Object files for target raft_tests
 raft_tests_OBJECTS = \
-"CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.o" \
+"CMakeFiles/raft_tests.dir/tests/election_test.cpp.o" \
+"CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.o" \
 "CMakeFiles/raft_tests.dir/src/raft_node.cpp.o" \
 "CMakeFiles/raft_tests.dir/src/network.cpp.o" \
 "CMakeFiles/raft_tests.dir/src/randomizer.cpp.o"
@@ -138,7 +153,8 @@ raft_tests_OBJECTS = \
 # External object files for target raft_tests
 raft_tests_EXTERNAL_OBJECTS =
 
-raft_tests: CMakeFiles/raft_tests.dir/tests/raft_node_test.cpp.o
+raft_tests: CMakeFiles/raft_tests.dir/tests/election_test.cpp.o
+raft_tests: CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.o
 raft_tests: CMakeFiles/raft_tests.dir/src/raft_node.cpp.o
 raft_tests: CMakeFiles/raft_tests.dir/src/network.cpp.o
 raft_tests: CMakeFiles/raft_tests.dir/src/randomizer.cpp.o
@@ -146,7 +162,7 @@ raft_tests: CMakeFiles/raft_tests.dir/build.make
 raft_tests: lib/libgtest_main.a
 raft_tests: lib/libgtest.a
 raft_tests: CMakeFiles/raft_tests.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable raft_tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable raft_tests"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/raft_tests.dir/link.txt --verbose=$(VERBOSE)
 	/opt/homebrew/bin/cmake -D TEST_TARGET=raft_tests -D TEST_EXECUTABLE=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests -D TEST_EXECUTOR= -D TEST_WORKING_DIR=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D TEST_FILTER= -D NO_PRETTY_TYPES=FALSE -D NO_PRETTY_VALUES=FALSE -D TEST_LIST=raft_tests_TESTS -D CTEST_FILE=/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests[1]_tests.cmake -D TEST_DISCOVERY_TIMEOUT=5 -D TEST_DISCOVERY_EXTRA_ARGS= -D TEST_XML_OUTPUT_DIR= -P /opt/homebrew/share/cmake/Modules/GoogleTestAddTests.cmake
 

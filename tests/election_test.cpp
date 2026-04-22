@@ -157,3 +157,31 @@ TEST_F(ElectionTest, HandlesMultiCandidateElection) {
   ASSERT_TRUE(res) << "multi candidate election does not resolve to single "
                       "leader after 1 sec";
 }
+
+TEST_F(ElectionTest, NodesResolveToSameTerm) {
+  auto single_leader_cond = [this] { return ExactlyOneLeader(); };
+
+  auto single_term_cond = [this] {
+    uint64_t leader_term = UINT64_MAX;
+    for (auto &node : nodes) {
+      if (node->GetState() == NodeState::Leader) {
+        leader_term = node->GetTerm();
+        break;
+      }
+    }
+
+    for (auto &node : nodes) {
+      if (node->GetTerm() != leader_term) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  auto res = WaitForCondition(single_leader_cond, 1000);
+  ASSERT_TRUE(res) << "no single leader after election resolves";
+
+  auto res2 = WaitForCondition(single_term_cond, 2000);
+  ASSERT_TRUE(res2) << "all nodes don't eventually resolve to leader's term";
+}

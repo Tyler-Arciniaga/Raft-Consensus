@@ -7,11 +7,24 @@
 
 enum class ServerAction { Add = 0, Remove };
 
+struct ServerRequest {
+  ServerAction action;
+  std::string key;
+  int value;
+};
+
 struct LogEntry {
   ServerAction action;
   std::string key;
   int value;
   uint64_t termReceived;
+
+  bool operator==(const LogEntry &other) {
+    return (action == other.action && key == other.key &&
+            value == other.value && termReceived == other.termReceived);
+  }
+
+  bool operator!=(const LogEntry &other) { return !(operator==(other)); }
 };
 
 struct AppendEntriesArgs {

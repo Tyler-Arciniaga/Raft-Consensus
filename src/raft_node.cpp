@@ -69,6 +69,9 @@ void RaftNode::StartNode() {
   }
 }
 
+// TODO impl me!
+bool RaftNode::SendRequest(const ServerRequest &req) { return true; }
+
 RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
   std::lock_guard<std::mutex> lock(
       mtx); // hold lock for the duration of this RPC
@@ -360,6 +363,11 @@ uint64_t RaftNode::GetTerm() {
 void RaftNode::SetTerm(uint64_t new_term) {
   std::lock_guard<std::mutex> lock(mtx);
   currentTerm = new_term;
+}
+
+std::vector<LogEntry> RaftNode::GetLog() {
+  std::lock_guard<std::mutex> lock(mtx);
+  return Log;
 }
 
 void RaftNode::SwitchStateToFollower() {

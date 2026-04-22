@@ -23,10 +23,14 @@ public:
   void SetState(NodeState new_state);
   uint64_t GetTerm();
   void SetTerm(uint64_t new_term);
+  std::vector<LogEntry> GetLog();
 
   // RPC functions
   AppendEntriesReply AppendEntries(const AppendEntriesArgs &args);
   RequestVoteReply RequestVote(const RequestVoteArgs &args);
+
+  // Request function
+  bool SendRequest(const ServerRequest &req);
 
 private:
   // Member Variables
