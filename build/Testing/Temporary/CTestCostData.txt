@@ -1,6 +1,6 @@
 raft_tests 1 0.796854
-Smoke.Builds 32 0.00458289
-ElectionTest.ElectsExactlyOneLeader 20 0.0296253
-ElectionTest.HandlesSingleLeaderLoss 17 0.0384064
-ElectionTest.HandlesFalseCandidateDemotion 13 0.0450698
+Smoke.Builds 38 0.00647612
+ElectionTest.ElectsExactlyOneLeader 26 0.0370844
+ElectionTest.HandlesSingleLeaderLoss 21 0.0344046
+ElectionTest.HandlesFalseCandidateDemotion 19 0.0368911
 ---

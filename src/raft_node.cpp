@@ -41,16 +41,15 @@ void print_switch_state_statement(uint64_t nodeID, NodeState oldState,
 
 // RaftNode constructor
 RaftNode::RaftNode(size_t nodeID, std::random_device &rd, Network &network)
-    : nodeID(nodeID), Log(std::vector<LogEntry>{}), currentTerm(0),
-      commitIndex(0), lastApplied(0), randomizer(Randomizer(rd)),
+    : nodeID(nodeID), Log(std::vector<LogEntry>{}), randomizer(Randomizer(rd)),
       network(network) {};
 
 // RaftNode RPC functions
 void RaftNode::StartNode() {
   while (true) {
     if (node_shutdown.load()) {
-      Logger::getLogger().log("shutting down node " + std::to_string(nodeID) +
-                              "...\n");
+      Logger::getLogger().log("(SHUTDOWN) shutting down node " +
+                              std::to_string(nodeID) + "...\n");
       return;
     }
 
@@ -82,8 +81,11 @@ RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
   if (currentTerm < args.candidate_term) {
     currentTerm = args.candidate_term;
 
+    // if node is leader or candidate and discovers higher term, immediately
+    // demote to follower
     if (state.load() != NodeState::Follower) {
       SwitchStateToFollower();
+      voting_cv.notify_one();
     }
 
     votedFor = UINT32_MAX;
@@ -108,7 +110,7 @@ RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
     if (reply.voteGranted) {
       votedFor = args.candidateID;
       heartbeat_cv.notify_one();
-      Logger::getLogger().log("node " + std::to_string(nodeID) +
+      Logger::getLogger().log("(VOTE) node " + std::to_string(nodeID) +
                               " sends yes vote to node " +
                               std::to_string(args.candidateID) + "\n");
     }
@@ -123,17 +125,20 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
   //  TODO implement AppendEntriesRPC logic
   // if entries sent is empty, this is a heartbeat
   if (args.entries.size() == 0) {
-    Logger::getLogger().log("node " + std::to_string(nodeID) +
+    Logger::getLogger().log("(HEARTBEAT) node " + std::to_string(nodeID) +
                             " receives heartbeat from node " +
                             std::to_string(args.leaderID) + "\n");
     heartbeat_cv.notify_one();
   }
 
-  std::lock_guard<std::mutex> lock(mtx);
-  // if currently a candidate and recieve AppendEntries from pre existing leader
-  // with high enough term immediately demote to follower
-  if (args.leader_term >= currentTerm && state.load() == NodeState::Candidate) {
-    SwitchStateToFollower();
+  {
+    std::lock_guard<std::mutex> lock(mtx);
+    // if currently a candidate and recieve AppendEntries from pre existing
+    // leader with high enough term immediately demote to follower
+    if (args.leader_term >= currentTerm &&
+        state.load() != NodeState::Follower) {
+      SwitchStateToFollower();
+    }
   }
 
   return AppendEntriesReply{};
@@ -163,21 +168,34 @@ void RaftNode::HandleFollowerState() {
 
 void RaftNode::SendRequestVoteRPC(size_t targetID, VoteState &voteState,
                                   const std::atomic<bool> &stop) {
-  uint64_t lastLogTerm =
-      (Log.size() == 0) ? 0 : Log[Log.size() - 1].termReceived;
-  size_t lastLogIndex = Log.size();
-  RequestVoteArgs arg{currentTerm, nodeID, lastLogIndex, lastLogTerm};
+  RequestVoteArgs arg;
+  {
+    std::lock_guard<std::mutex> lock(mtx);
+    uint64_t lastLogTerm =
+        (Log.size() == 0) ? 0 : Log[Log.size() - 1].termReceived;
+    size_t lastLogIndex = Log.size();
+    arg = RequestVoteArgs{currentTerm, nodeID, lastLogIndex, lastLogTerm};
+  }
 
-  // TODO implement retry logic if network cannot reach target node
   while (!stop.load()) {
     auto reply = network.sendRequestVote(targetID, arg);
 
     if (reply.voteGranted) {
-      Logger::getLogger().log("node " + std::to_string(nodeID) +
+      Logger::getLogger().log("(VOTE) node " + std::to_string(nodeID) +
                               " received yes vote from node " +
                               std::to_string(targetID) + "\n");
       voteState.votesReceived++;
       voteState.cv.notify_one();
+      return;
+    }
+
+    {
+      std::lock_guard<std::mutex> lock(mtx);
+      if (reply.term > currentTerm) {
+        currentTerm = reply.term;
+        SwitchStateToFollower();
+        return;
+      }
     }
   }
 }
@@ -193,7 +211,7 @@ void RaftNode::HandleCandidateState() {
                               std::to_string(currentTerm) + ")...\n");
     }
 
-    VoteState voteState;
+    VoteState voteState(voting_cv);
     std::atomic<bool> stop{false};
 
     std::vector<std::thread> reqVoteThreads;
@@ -230,12 +248,16 @@ void RaftNode::HandleCandidateState() {
       return;
     }
 
-    if (state.load() == NodeState::Follower) {
-      return;
-    }
-
     if (electionResult) {
-      SwitchStateToLeader();
+      // atomic check and act operation on node state,
+      // check if node is still candidate, if so promote to leader
+      // otherwise may have been demoted to follower
+      std::lock_guard<std::mutex> lock(mtx);
+      if (state.load() == NodeState::Candidate) {
+        SwitchStateToLeader();
+        return;
+      }
+
       return;
     } else {
       continue;
@@ -248,7 +270,7 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
   uint64_t prevLogTerm;
   AppendEntriesArgs arg;
   while (!stop.load()) {
-    if (node_shutdown.load()) {
+    if (node_shutdown.load() || state.load() != NodeState::Leader) {
       stop = true;
       return;
     }
@@ -266,18 +288,20 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
                               commitIndex};
     }
 
-    Logger::getLogger().log("node " + std::to_string(nodeID) +
+    Logger::getLogger().log("(HEARTBEAT) node " + std::to_string(nodeID) +
                             " sending heartbeat to node " +
                             std::to_string(targetID) + "\n");
     auto reply = network.sendAppendEntries(targetID, arg);
-    if (reply.term > currentTerm) {
-      {
-        std::lock_guard<std::mutex> lock(mtx);
-        currentTerm = reply.term;
-      }
+    {
+      std::lock_guard<std::mutex> lock(mtx);
+      if (reply.term > currentTerm) {
+        {
+          currentTerm = reply.term;
+        }
 
-      stop = true;
-      return;
+        stop = true;
+        return;
+      }
     }
 
     std::this_thread::sleep_for(std::chrono::milliseconds(100));

@@ -38,13 +38,13 @@ private:
   std::unordered_map<std::string, int>
       data; // map used to represent node's state machine
 
-  uint64_t currentTerm; // last term server has seen
-  uint32_t votedFor;    // candidateID that received vote in current term
-                        // (UINT32_MAX if none)
+  uint64_t currentTerm = 0; // last term server has seen
+  uint32_t votedFor;        // candidateID that received vote in current term
+                            // (UINT32_MAX if none)
 
-  size_t commitIndex; // index of highest log entry known to be committed
-  size_t lastApplied; // index of highest log entry known to be applied to local
-                      // state machine
+  size_t commitIndex = 0; // index of highest log entry known to be committed
+  size_t lastApplied = 0; // index of highest log entry known to be applied to
+                          // local state machine
 
   std::vector<uint32_t> nextIndex; // index of next log entry to send for each
                                    // of the servers (used by leader)
@@ -54,6 +54,7 @@ private:
 
   std::mutex mtx;
   std::condition_variable heartbeat_cv;
+  std::condition_variable voting_cv;
   std::atomic<bool> node_shutdown{false};
 
   Randomizer randomizer;
