@@ -1,0 +1,402 @@
+Start testing: Apr 24 18:12 EDT
+----------------------------------------------------------
+1/9 Testing: Smoke.Builds
+1/9 Test: Smoke.Builds
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=Smoke.Builds" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"Smoke.Builds" start time: Apr 24 18:12 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = Smoke.Builds
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from Smoke
+[ RUN      ] Smoke.Builds
+[       OK ] Smoke.Builds (0 ms)
+[----------] 1 test from Smoke (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.15 sec
+----------------------------------------------------------
+Test Passed.
+"Smoke.Builds" end time: Apr 24 18:12 EDT
+"Smoke.Builds" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/9 Testing: ElectionTest.ElectsExactlyOneLeader
+2/9 Test: ElectionTest.ElectsExactlyOneLeader
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.ElectsExactlyOneLeader" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.ElectsExactlyOneLeader" start time: Apr 24 18:12 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.ElectsExactlyOneLeader
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.ElectsExactlyOneLeader
+[2898834771] --> Switching node 4 from Follower to Candidate
+[2898834771] --> node 4 starting an election (term = 1)...
+[2898834772] (VOTE) node 0 sends yes vote to node 4
+[2898834772] (VOTE) node 4 received yes vote from node 0
+[2898834772] (VOTE) node 1 sends yes vote to node 4
+[2898834772] (VOTE) node 4 received yes vote from node 1
+[2898834772] (VOTE) node 2 sends yes vote to node 4
+[2898834772] (VOTE) node 4 received yes vote from node 2
+[2898834772] (VOTE) node 3 sends yes vote to node 4
+[2898834772] (VOTE) node 4 received yes vote from node 3
+[2898834772] --> Switching node 4 from Candidate to Leader
+[2898834773] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2898834773] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2898834773] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2898834773] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2898834773] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2898834773] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2898834773] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2898834773] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2898834810] (SHUTDOWN) shutting down node 0...
+[2898834810] (SHUTDOWN) shutting down node 1...
+[2898834810] (SHUTDOWN) shutting down node 2...
+[2898834810] (SHUTDOWN) shutting down node 3...
+[2898834810] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.ElectsExactlyOneLeader (436 ms)
+[----------] 1 test from ElectionTest (436 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (436 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.62 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.ElectsExactlyOneLeader" end time: Apr 24 18:12 EDT
+"ElectionTest.ElectsExactlyOneLeader" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/9 Testing: ElectionTest.HandlesSingleLeaderLoss
+3/9 Test: ElectionTest.HandlesSingleLeaderLoss
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.HandlesSingleLeaderLoss" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.HandlesSingleLeaderLoss" start time: Apr 24 18:12 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.HandlesSingleLeaderLoss
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.HandlesSingleLeaderLoss
+[2898835415] --> Switching node 3 from Follower to Candidate
+[2898835415] --> node 3 starting an election (term = 1)...
+[2898835415] (VOTE) node 0 sends yes vote to node 3
+[2898835415] (VOTE) node 1 sends yes vote to node 3
+[2898835415] (VOTE) node 3 received yes vote from node 0
+[2898835415] (VOTE) node 3 received yes vote from node 1
+[2898835416] (VOTE) node 2 sends yes vote to node 3
+[2898835416] (VOTE) node 3 received yes vote from node 2
+[2898835416] (VOTE) node 4 sends yes vote to node 3
+[2898835416] (VOTE) node 3 received yes vote from node 4
+[2898835416] --> Switching node 3 from Candidate to Leader
+[2898835416] (HEARTBEAT) node 3 sending heartbeat to node 0
+[2898835416] (HEARTBEAT) node 0 receives heartbeat from node 3
+[2898835416] (HEARTBEAT) node 3 sending heartbeat to node 1
+[2898835416] (HEARTBEAT) node 1 receives heartbeat from node 3
+[2898835416] (HEARTBEAT) node 3 sending heartbeat to node 2
+[2898835416] (HEARTBEAT) node 2 receives heartbeat from node 3
+[2898835416] (HEARTBEAT) node 3 sending heartbeat to node 4
+[2898835416] (HEARTBEAT) node 4 receives heartbeat from node 3
+[2898835433] (SHUTDOWN) shutting down node 3...
+[2898835433] (SHUTDOWN) shutting down node 0...
+[2898835433] (SHUTDOWN) shutting down node 1...
+[2898835433] (SHUTDOWN) shutting down node 2...
+[2898835433] (SHUTDOWN) shutting down node 3...
+[2898835433] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.HandlesSingleLeaderLoss (469 ms)
+[----------] 1 test from ElectionTest (469 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (469 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.63 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.HandlesSingleLeaderLoss" end time: Apr 24 18:12 EDT
+"ElectionTest.HandlesSingleLeaderLoss" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/9 Testing: ElectionTest.HandlesFalseCandidateDemotion
+4/9 Test: ElectionTest.HandlesFalseCandidateDemotion
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.HandlesFalseCandidateDemotion" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.HandlesFalseCandidateDemotion" start time: Apr 24 18:12 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.HandlesFalseCandidateDemotion
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.HandlesFalseCandidateDemotion
+[2898836001] --> Switching node 3 from Follower to Candidate
+[2898836001] --> node 3 starting an election (term = 1)...
+[2898836002] (VOTE) node 0 sends yes vote to node 3
+[2898836002] (VOTE) node 1 sends yes vote to node 3
+[2898836002] (VOTE) node 3 received yes vote from node 0
+[2898836002] (VOTE) node 3 received yes vote from node 1
+[2898836002] (VOTE) node 2 sends yes vote to node 3
+[2898836002] (VOTE) node 3 received yes vote from node 2
+[2898836002] (VOTE) node 4 sends yes vote to node 3
+[2898836002] (VOTE) node 3 received yes vote from node 4
+[2898836002] --> Switching node 4 from Follower to Candidate
+[2898836002] --> node 4 starting an election (term = 2)...
+[2898836002] --> Switching node 3 from Candidate to Leader
+[2898836002] (VOTE) node 0 sends yes vote to node 4
+[2898836002] (VOTE) node 1 sends yes vote to node 4
+[2898836003] (VOTE) node 4 received yes vote from node 1
+[2898836003] (HEARTBEAT) node 3 sending heartbeat to node 0
+[2898836003] (HEARTBEAT) node 0 receives heartbeat from node 3
+[2898836003] (VOTE) node 4 received yes vote from node 0
+[2898836003] (VOTE) node 2 sends yes vote to node 4
+[2898836003] (VOTE) node 4 received yes vote from node 2
+[2898836003] (HEARTBEAT) node 3 sending heartbeat to node 1
+[2898836003] (HEARTBEAT) node 1 receives heartbeat from node 3
+[2898836003] --> Switching node 3 from Leader to Follower
+[2898836003] (VOTE) node 3 sends yes vote to node 4
+[2898836003] (VOTE) node 4 received yes vote from node 3
+[2898836003] --> Switching node 4 from Candidate to Leader
+[2898836003] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2898836003] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2898836004] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2898836004] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2898836004] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2898836004] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2898836004] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2898836004] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2898836019] --> Switching node 0 from Follower to Candidate
+[2898836019] (SHUTDOWN) shutting down node 0...
+[2898836019] (SHUTDOWN) shutting down node 1...
+[2898836020] (SHUTDOWN) shutting down node 2...
+[2898836020] (SHUTDOWN) shutting down node 3...
+[2898836020] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.HandlesFalseCandidateDemotion (420 ms)
+[----------] 1 test from ElectionTest (420 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (420 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.60 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.HandlesFalseCandidateDemotion" end time: Apr 24 18:12 EDT
+"ElectionTest.HandlesFalseCandidateDemotion" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/9 Testing: ElectionTest.HandlesMultiFalseCandidates
+5/9 Test: ElectionTest.HandlesMultiFalseCandidates
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.HandlesMultiFalseCandidates" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.HandlesMultiFalseCandidates" start time: Apr 24 18:12 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.HandlesMultiFalseCandidates
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.HandlesMultiFalseCandidates
+[2898836664] --> Switching node 0 from Follower to Candidate
+[2898836664] --> node 0 starting an election (term = 1)...
+[2898836664] (VOTE) node 1 sends yes vote to node 0
+[2898836664] (VOTE) node 2 sends yes vote to node 0
+[2898836664] (VOTE) node 0 received yes vote from node 2
+[2898836664] (VOTE) node 0 received yes vote from node 1
+[2898836664] (VOTE) node 3 sends yes vote to node 0
+[2898836664] (VOTE) node 0 received yes vote from node 3
+[2898836664] (VOTE) node 4 sends yes vote to node 0
+[2898836664] (VOTE) node 0 received yes vote from node 4
+[2898836664] --> Switching node 0 from Candidate to Leader
+[2898836665] (HEARTBEAT) node 0 sending heartbeat to node 1
+[2898836665] (HEARTBEAT) node 1 receives heartbeat from node 0
+[2898836665] (HEARTBEAT) node 0 sending heartbeat to node 2
+[2898836665] (HEARTBEAT) node 2 receives heartbeat from node 0
+[2898836665] (HEARTBEAT) node 0 sending heartbeat to node 3
+[2898836665] (HEARTBEAT) node 3 receives heartbeat from node 0
+[2898836665] (HEARTBEAT) node 0 sending heartbeat to node 4
+[2898836665] (HEARTBEAT) node 4 receives heartbeat from node 0
+[2898836666] --> Switching node 1 from Follower to Candidate
+[2898836666] --> Switching node 2 from Follower to Candidate
+[2898836666] --> Switching node 3 from Follower to Candidate
+[2898836666] --> Switching node 4 from Follower to Candidate
+[2898836770] (HEARTBEAT) node 0 sending heartbeat to node 1
+[2898836770] (HEARTBEAT) node 0 sending heartbeat to node 2
+[2898836770] (HEARTBEAT) node 0 sending heartbeat to node 3
+[2898836770] --> Switching node 2 from Candidate to Follower
+[2898836770] --> Switching node 3 from Candidate to Follower
+[2898836770] (HEARTBEAT) node 0 sending heartbeat to node 4
+[2898836770] --> Switching node 1 from Candidate to Follower
+[2898836770] (HEARTBEAT) node 2 receives heartbeat from node 0
+[2898836770] (HEARTBEAT) node 3 receives heartbeat from node 0
+[2898836770] --> Switching node 4 from Candidate to Follower
+[2898836770] (HEARTBEAT) node 1 receives heartbeat from node 0
+[2898836770] (HEARTBEAT) node 4 receives heartbeat from node 0
+[2898836870] (HEARTBEAT) node 0 sending heartbeat to node 2
+[2898836870] (HEARTBEAT) node 2 receives heartbeat from node 0
+[2898836871] (HEARTBEAT) node 0 sending heartbeat to node 3
+[2898836871] (HEARTBEAT) node 3 receives heartbeat from node 0
+[2898836872] (HEARTBEAT) node 0 sending heartbeat to node 4
+[2898836872] (HEARTBEAT) node 4 receives heartbeat from node 0
+[2898836875] (HEARTBEAT) node 0 sending heartbeat to node 1
+[2898836875] (HEARTBEAT) node 1 receives heartbeat from node 0
+[2898836973] (HEARTBEAT) node 0 sending heartbeat to node 3
+[2898836973] (HEARTBEAT) node 0 sending heartbeat to node 2
+[2898836973] (HEARTBEAT) node 2 receives heartbeat from node 0
+[2898836973] (HEARTBEAT) node 3 receives heartbeat from node 0
+[2898836976] (HEARTBEAT) node 0 sending heartbeat to node 4
+[2898836976] (HEARTBEAT) node 4 receives heartbeat from node 0
+[2898836979] (HEARTBEAT) node 0 sending heartbeat to node 1
+[2898836979] (HEARTBEAT) node 1 receives heartbeat from node 0
+[2898837078] (HEARTBEAT) node 0 sending heartbeat to node 2
+[2898837078] (HEARTBEAT) node 0 sending heartbeat to node 3
+[2898837078] (HEARTBEAT) node 0 sending heartbeat to node 4
+[2898837078] (HEARTBEAT) node 2 receives heartbeat from node 0
+[2898837078] (HEARTBEAT) node 3 receives heartbeat from node 0
+[2898837078] (HEARTBEAT) node 4 receives heartbeat from node 0
+[2898837084] (HEARTBEAT) node 0 sending heartbeat to node 1
+[2898837084] (HEARTBEAT) node 1 receives heartbeat from node 0
+[2898837171] (SHUTDOWN) shutting down node 0...
+[2898837171] (SHUTDOWN) shutting down node 1...
+[2898837171] (SHUTDOWN) shutting down node 2...
+[2898837171] (SHUTDOWN) shutting down node 3...
+[2898837171] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.HandlesMultiFalseCandidates (904 ms)
+[----------] 1 test from ElectionTest (905 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (905 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   1.08 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.HandlesMultiFalseCandidates" end time: Apr 24 18:12 EDT
+"ElectionTest.HandlesMultiFalseCandidates" time elapsed: 00:00:01
+----------------------------------------------------------
+
+6/9 Testing: ElectionTest.HandlesMultiCandidateElection
+6/9 Test: ElectionTest.HandlesMultiCandidateElection
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.HandlesMultiCandidateElection" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.HandlesMultiCandidateElection" start time: Apr 24 18:12 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.HandlesMultiCandidateElection
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.HandlesMultiCandidateElection
+[2898837364] --> Switching node 0 from Follower to Candidate
+[2898837364] --> Switching node 1 from Follower to Candidate
+[2898837364] --> Switching node 2 from Follower to Candidate
+[2898837364] --> Switching node 3 from Follower to Candidate
+[2898837364] --> Switching node 4 from Follower to Candidate
+[2898837704] --> Switching node 0 from Candidate to Candidate
+[2898837704] --> node 0 starting an election (term = 1)...
+[2898837705] --> Switching node 2 from Candidate to Follower
+[2898837705] --> Switching node 1 from Candidate to Follower
+[2898837705] (VOTE) node 2 sends yes vote to node 0
+[2898837705] (VOTE) node 1 sends yes vote to node 0
+[2898837705] (VOTE) node 0 received yes vote from node 2
+[2898837705] (VOTE) node 0 received yes vote from node 1
+[2898837705] --> Switching node 3 from Candidate to Follower
+[2898837705] (VOTE) node 3 sends yes vote to node 0
+[2898837705] (VOTE) node 0 received yes vote from node 3
+[2898837705] --> Switching node 4 from Candidate to Follower
+[2898837705] (VOTE) node 4 sends yes vote to node 0
+[2898837705] (VOTE) node 0 received yes vote from node 4
+[2898837705] --> Switching node 0 from Candidate to Leader
+[2898837705] (HEARTBEAT) node 0 sending heartbeat to node 1
+[2898837705] (HEARTBEAT) node 1 receives heartbeat from node 0
+[2898837706] (HEARTBEAT) node 0 sending heartbeat to node 2
+[2898837706] (HEARTBEAT) node 2 receives heartbeat from node 0
+[2898837706] (HEARTBEAT) node 0 sending heartbeat to node 3
+[2898837706] (HEARTBEAT) node 3 receives heartbeat from node 0
+[2898837706] (HEARTBEAT) node 0 sending heartbeat to node 4
+[2898837706] (HEARTBEAT) node 4 receives heartbeat from node 0
+[2898837746] (SHUTDOWN) shutting down node 0...
+[2898837747] (SHUTDOWN) shutting down node 1...
+[2898837747] (SHUTDOWN) shutting down node 2...
+[2898837747] (SHUTDOWN) shutting down node 3...
+[2898837747] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.HandlesMultiCandidateElection (447 ms)
+[----------] 1 test from ElectionTest (447 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (447 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.61 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.HandlesMultiCandidateElection" end time: Apr 24 18:12 EDT
+"ElectionTest.HandlesMultiCandidateElection" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/9 Testing: ElectionTest.NodesResolveToSameTerm
+7/9 Test: ElectionTest.NodesResolveToSameTerm
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.NodesResolveToSameTerm" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.NodesResolveToSameTerm" start time: Apr 24 18:12 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.NodesResolveToSameTerm
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.NodesResolveToSameTerm
+[2898838276] --> Switching node 1 from Follower to Candidate
+[2898838276] --> node 1 starting an election (term = 1)...
+[2898838277] (VOTE) node 0 sends yes vote to node 1
+[2898838277] (VOTE) node 1 received yes vote from node 0
+[2898838277] (VOTE) node 2 sends yes vote to node 1
+[2898838277] (VOTE) node 1 received yes vote from node 2
+[2898838277] (VOTE) node 3 sends yes vote to node 1
+[2898838277] (VOTE) node 1 received yes vote from node 3
+[2898838277] (VOTE) node 4 sends yes vote to node 1
+[2898838277] (VOTE) node 1 received yes vote from node 4
+[2898838278] --> Switching node 1 from Candidate to Leader
+[2898838278] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2898838278] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2898838278] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2898838278] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2898838278] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2898838278] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2898838278] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2898838278] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2898838297] (SHUTDOWN) shutting down node 0...
+[2898838297] (SHUTDOWN) shutting down node 1...
+[2898838297] (SHUTDOWN) shutting down node 2...
+[2898838298] (SHUTDOWN) shutting down node 3...
+[2898838298] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.NodesResolveToSameTerm (414 ms)
+[----------] 1 test from ElectionTest (414 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (414 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.59 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.NodesResolveToSameTerm" end time: Apr 24 18:12 EDT
+"ElectionTest.NodesResolveToSameTerm" time elapsed: 00:00:00
+----------------------------------------------------------
+

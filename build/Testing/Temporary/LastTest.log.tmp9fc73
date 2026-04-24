@@ -1,0 +1,80 @@
+Start testing: Apr 24 17:57 EDT
+----------------------------------------------------------
+1/9 Testing: Smoke.Builds
+1/9 Test: Smoke.Builds
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=Smoke.Builds" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"Smoke.Builds" start time: Apr 24 17:57 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = Smoke.Builds
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from Smoke
+[ RUN      ] Smoke.Builds
+[       OK ] Smoke.Builds (0 ms)
+[----------] 1 test from Smoke (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.19 sec
+----------------------------------------------------------
+Test Passed.
+"Smoke.Builds" end time: Apr 24 17:57 EDT
+"Smoke.Builds" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/9 Testing: ElectionTest.ElectsExactlyOneLeader
+2/9 Test: ElectionTest.ElectsExactlyOneLeader
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.ElectsExactlyOneLeader" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.ElectsExactlyOneLeader" start time: Apr 24 17:57 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.ElectsExactlyOneLeader
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.ElectsExactlyOneLeader
+[2897948285] --> Switching node 4 from Follower to Candidate
+[2897948285] --> node 4 starting an election (term = 1)...
+[2897948286] (VOTE) node 0 sends yes vote to node 4
+[2897948286] (VOTE) node 4 received yes vote from node 0
+[2897948286] (VOTE) node 1 sends yes vote to node 4
+[2897948286] (VOTE) node 4 received yes vote from node 1
+[2897948286] (VOTE) node 2 sends yes vote to node 4
+[2897948286] (VOTE) node 4 received yes vote from node 2
+[2897948286] (VOTE) node 3 sends yes vote to node 4
+[2897948286] (VOTE) node 4 received yes vote from node 3
+[2897948286] --> Switching node 4 from Candidate to Leader
+[2897948287] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2897948287] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2897948287] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2897948287] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2897948287] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2897948287] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2897948287] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2897948287] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2897948320] (SHUTDOWN) shutting down node 0...
+[2897948320] (SHUTDOWN) shutting down node 3...
+[2897948320] (SHUTDOWN) shutting down node 2...
+[2897948320] (SHUTDOWN) shutting down node 1...
+[2897948392] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.ElectsExactlyOneLeader (446 ms)
+[----------] 1 test from ElectionTest (446 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (446 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.64 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.ElectsExactlyOneLeader" end time: Apr 24 17:57 EDT
+"ElectionTest.ElectsExactlyOneLeader" time elapsed: 00:00:00
+----------------------------------------------------------
+

@@ -86,7 +86,8 @@ TEST_F(LogReplicationTest, ReplicatesSingleRequest) {
     }
   }
 
-  auto req = ServerRequest{ServerAction::Add, "x", 5};
+  auto req =
+      std::vector<ServerRequest>{ServerRequest{ServerAction::Add, "x", 5}};
   leader_node->SendRequest(req);
 
   auto expected_entry =
@@ -109,6 +110,28 @@ TEST_F(LogReplicationTest, ReplicatesSingleRequest) {
   auto res2 = WaitForCondition(cond, 2000);
   ASSERT_TRUE(res2)
       << "some nodes fail to eventually reach consistent log after 2 sec";
+}
+
+TEST_F(LogReplicationTest, CommitsSingleRequest) {
+  auto res = WaitForCondition([this] { return ExactlyOneLeader(); }, 1000);
+  ASSERT_TRUE(res) << "single leader is not elected after 1 sec";
+
+  RaftNode *leader_node;
+  for (auto &node : nodes) {
+    if (node->GetState() == NodeState::Leader) {
+      leader_node = node.get();
+      break;
+    }
+  }
+
+  auto req =
+      std::vector<ServerRequest>{ServerRequest{ServerAction::Add, "x", 5}};
+  leader_node->SendRequest(req);
+
+  auto cond = [&] { return leader_node->GetCommitIndex() == 1; };
+
+  auto res2 = WaitForCondition(cond, 2000);
+  ASSERT_TRUE(res2) << "leader's commit index was not updated";
 }
 
 // TODO test instances where node shuts down and then resumes after entry was

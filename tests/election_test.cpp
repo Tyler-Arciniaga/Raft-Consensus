@@ -86,6 +86,12 @@ TEST_F(ElectionTest, ElectsExactlyOneLeader) {
 
   auto res = WaitForCondition(cond, 1000);
   ASSERT_TRUE(res) << "no single leader elected after 1 sec";
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+
+  auto res2 = WaitForCondition(cond, 1000);
+  ASSERT_TRUE(res2)
+      << "exactly one leader invariant no longer remains true after ~3 sec";
 }
 
 TEST_F(ElectionTest, HandlesSingleLeaderLoss) {
@@ -108,6 +114,12 @@ TEST_F(ElectionTest, HandlesSingleLeaderLoss) {
 
   auto res2 = WaitForCondition(cond, 1000);
   ASSERT_TRUE(res2) << "no single leader elected after previous leader dies";
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+
+  auto res3 = WaitForCondition(cond, 1000);
+  ASSERT_TRUE(res3)
+      << "exactly one leader invariant no longer remains true after ~3 sec";
 }
 
 TEST_F(ElectionTest, HandlesFalseCandidateDemotion) {

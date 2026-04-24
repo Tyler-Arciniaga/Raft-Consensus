@@ -23,6 +23,7 @@ public:
   void SetState(NodeState new_state);
   uint64_t GetTerm();
   void SetTerm(uint64_t new_term);
+  size_t GetCommitIndex();
   std::vector<LogEntry> GetLog();
 
   // RPC functions
@@ -30,7 +31,7 @@ public:
   RequestVoteReply RequestVote(const RequestVoteArgs &args);
 
   // Request function
-  bool SendRequest(const ServerRequest &req);
+  bool SendRequest(const std::vector<ServerRequest> &reqs);
 
 private:
   // Member Variables
@@ -76,11 +77,16 @@ private:
   void HandleCandidateState();
   void HandleLeaderState();
 
+  inline void RefreshVolatileLeaderState();
+
   void SendRequestVoteRPC(size_t targetID, VoteState &voteState,
                           const std::atomic<bool> &stop);
-  void SendAppendEntiresRPC(const AppendEntriesArgs &arg, size_t targetID,
-                            std::atomic<bool> &stop);
+  void SendAppendEntriesRPC(const AppendEntriesArgs &arg, size_t targetID,
+                            std::condition_variable &cv);
   void SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop);
 
-  inline void AppendToLog(const LogEntry &entry);
+  bool TryAdvancingCommitIndex();
+
+  inline std::vector<LogEntry>
+  AppendToLog(const std::vector<ServerRequest> &reqs);
 };

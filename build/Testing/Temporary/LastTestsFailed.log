@@ -1,1 +1,2 @@
 8:LogReplicationTest.ReplicatesSingleRequest
+9:LogReplicationTest.CommitsSingleRequest

@@ -40,16 +40,16 @@ void print_switch_state_statement(uint64_t nodeID, NodeState oldState,
 // RaftNode logic
 
 // RaftNode constructor
+// NOTE: Log is initialized with a dummy sentinel entry to make the math work
+// out better, it is never committed or applied to node's state machine
 RaftNode::RaftNode(size_t nodeID, std::random_device &rd, Network &network)
-    : nodeID(nodeID), Log(std::vector<LogEntry>{}), randomizer(Randomizer(rd)),
-      network(network) {};
+    : nodeID(nodeID), Log(std::vector<LogEntry>{LogEntry{.termReceived = 0}}),
+      randomizer(Randomizer(rd)), network(network) {};
 
 // RaftNode RPC functions
 void RaftNode::StartNode() {
   while (true) {
     if (node_shutdown.load()) {
-      Logger::getLogger().log("(SHUTDOWN) shutting down node " +
-                              std::to_string(nodeID) + "...\n");
       return;
     }
 
@@ -70,49 +70,60 @@ void RaftNode::StartNode() {
 }
 
 // TODO continue to flesh this out more as you add more tests (TDD)
-void RaftNode::SendAppendEntiresRPC(const AppendEntriesArgs &arg,
-                                    size_t targetID, std::atomic<bool> &stop) {
-  while (true) {
+void RaftNode::SendAppendEntriesRPC(const AppendEntriesArgs &arg,
+                                    size_t targetID,
+                                    std::condition_variable &cv) {
+  while (true && state == NodeState::Leader) {
     Logger::getLogger().log("(LOG) node " + std::to_string(nodeID) +
                             " sending AppendEntriesRPC to node " +
                             std::to_string(targetID) + "\n");
 
     auto reply = network.sendAppendEntries(targetID, arg);
     if (reply.sucesss) {
+      std::lock_guard<std::mutex> lock(mtx);
+
+      auto lastSentIndex = arg.prevLogIndex + arg.entries.size();
+      matchIndex[targetID] = lastSentIndex;
+      nextIndex[targetID] = lastSentIndex + 1;
+
+      cv.notify_one();
       return;
     }
+
+    // TODO handle case where reply has unsuccessful status
+    return; // placeholder
   }
 }
 
 // For now assume this is only ever called on Leader node
 // TODO impl me!
-bool RaftNode::SendRequest(const ServerRequest &req) {
+bool RaftNode::SendRequest(const std::vector<ServerRequest> &reqs) {
   AppendEntriesArgs arg;
   {
     std::lock_guard<std::mutex> lock(mtx);
-    auto prevLogIndex = (Log.size() == 0) ? 0 : Log.size() - 1;
-    auto prevLogTerm = (Log.size() == 0) ? 0 : Log[Log.size() - 1].termReceived;
+    size_t prevLogIndex = Log.size() - 1;
+    uint64_t prevLogTerm = Log[prevLogIndex].termReceived;
 
-    auto entry = LogEntry{req.action, req.key, req.value, currentTerm};
-    AppendToLog(entry);
+    auto entries = AppendToLog(reqs);
 
-    arg = AppendEntriesArgs{currentTerm,
-                            nodeID,
-                            prevLogIndex,
-                            prevLogTerm,
-                            std::vector<LogEntry>{entry},
-                            commitIndex};
+    arg = AppendEntriesArgs{currentTerm, nodeID,  prevLogIndex,
+                            prevLogTerm, entries, commitIndex};
   }
 
   std::vector<std::thread> append_entries_thread;
-  std::atomic<bool> stop;
+  std::condition_variable cv;
   for (auto targetID : peers) {
     if (targetID != nodeID) {
-      append_entries_thread.emplace_back(&RaftNode::SendAppendEntiresRPC, this,
-                                         std::ref(arg), targetID,
-                                         std::ref(stop));
+      append_entries_thread.emplace_back(&RaftNode::SendAppendEntriesRPC, this,
+                                         std::ref(arg), targetID, std::ref(cv));
     }
   }
+
+  // TODO reconsider having unique lock on class mtx or a more local mtx to this
+  // function instead
+  std::unique_lock<std::mutex> lock(mtx);
+  cv.wait(lock, [this] { return TryAdvancingCommitIndex(); });
+  lock.unlock();
 
   for (auto &t : append_entries_thread) {
     t.join();
@@ -121,8 +132,54 @@ bool RaftNode::SendRequest(const ServerRequest &req) {
   return true; // placeholder
 }
 
-// NOTE: this function is not safe, requires that caller to be holding lock
-void RaftNode::AppendToLog(const LogEntry &entry) { Log.push_back(entry); }
+// converts reqs into Log entries and appends to back of log, then returns newly
+// added entries
+// NOTE: this function is not safe, requires caller to be holding lock.
+std::vector<LogEntry>
+RaftNode::AppendToLog(const std::vector<ServerRequest> &reqs) {
+  std::vector<LogEntry> entries;
+  entries.reserve(reqs.size());
+
+  for (auto &req : reqs) {
+    entries.push_back(LogEntry{req.action, req.key, req.value, currentTerm});
+  }
+
+  Log.insert(Log.end(), entries.begin(), entries.end());
+
+  return entries;
+}
+
+// NOTE: this function is not safe, requires caller to be holding lock.
+bool RaftNode::TryAdvancingCommitIndex() {
+  // check all entries above the prev commit index
+  for (int i = commitIndex + 1; i < Log.size(); i++) {
+    // leader only commits entries from their term (will implicitely commit
+    // previous uncomitted entires via invariant)
+    if (Log[i].termReceived != currentTerm) {
+      continue;
+    }
+
+    size_t numReplicated = 1;
+    for (int n = 0; n < matchIndex.size(); n++) {
+      if (n == nodeID) {
+        continue;
+      }
+
+      if (matchIndex[n] >= i) {
+        numReplicated++;
+      }
+    }
+
+    // majority check
+    if (!(numReplicated > peers.size() / 2)) {
+      return false;
+    }
+
+    commitIndex = i;
+  }
+
+  return true;
+}
 
 RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
   std::lock_guard<std::mutex> lock(
@@ -149,9 +206,8 @@ RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
   // Compare logs, refresh election timer if vote is granted
   if (votedFor == UINT32_MAX || votedFor == args.candidateID) {
     RequestVoteReply reply;
-    size_t lastLogIndex = (Log.size() == 0) ? 0 : Log.size() - 1;
-    uint64_t lastTermReceived =
-        (Log.size() == 0) ? 0 : Log[lastLogIndex].termReceived;
+    size_t lastLogIndex = Log.size() - 1;
+    uint64_t lastTermReceived = Log[lastLogIndex].termReceived;
 
     if (lastTermReceived != args.lastLogTerm) {
       // first compare term of both log last entries
@@ -189,19 +245,22 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
     }
   }
 
+  // always reset election timer (has no effect if node is leader or candidate)
+  heartbeat_cv.notify_one();
+
   // if entries is not empty than this is a regular AppendEntriesRPC, otherwise
   // it's a heartbeat
-  // TODO impl other cases of determining response to AppendEntiresRPC
   if (args.entries.size() != 0) {
-    std::lock_guard<std::mutex> lock(mtx);
-
     Logger::getLogger().log("(LOG) node " + std::to_string(nodeID) +
                             " receives AppendEntriesRPC from node " +
                             std::to_string(args.leaderID) + "\n");
 
+    std::lock_guard<std::mutex> lock(mtx);
     if (args.leader_term < currentTerm) {
       return AppendEntriesReply{currentTerm, false};
     }
+
+    // TODO impl other cases of determining response to AppendEntiresRPC
 
     Log.insert(Log.end(), args.entries.begin(), args.entries.end());
     return AppendEntriesReply{currentTerm, true};
@@ -211,7 +270,6 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
   Logger::getLogger().log("(HEARTBEAT) node " + std::to_string(nodeID) +
                           " receives heartbeat from node " +
                           std::to_string(args.leaderID) + "\n");
-  heartbeat_cv.notify_one();
 
   return AppendEntriesReply{};
 }
@@ -243,9 +301,8 @@ void RaftNode::SendRequestVoteRPC(size_t targetID, VoteState &voteState,
   RequestVoteArgs arg;
   {
     std::lock_guard<std::mutex> lock(mtx);
-    uint64_t lastLogTerm =
-        (Log.size() == 0) ? 0 : Log[Log.size() - 1].termReceived;
-    size_t lastLogIndex = Log.size();
+    size_t lastLogIndex = Log.size() - 1;
+    uint64_t lastLogTerm = Log[lastLogIndex].termReceived;
     arg = RequestVoteArgs{currentTerm, nodeID, lastLogIndex, lastLogTerm};
   }
 
@@ -350,8 +407,8 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
     {
       std::lock_guard<std::mutex> lock(mtx);
 
-      prevLogIndex = (Log.size() == 0) ? 0 : Log.size() - 1;
-      prevLogTerm = (Log.size() == 0) ? 0 : Log[Log.size() - 1].termReceived;
+      prevLogIndex = Log.size() - 1;
+      prevLogTerm = Log[prevLogIndex].termReceived;
       arg = AppendEntriesArgs{currentTerm,
                               nodeID,
                               prevLogIndex,
@@ -381,6 +438,8 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
 }
 
 void RaftNode::HandleLeaderState() {
+  RefreshVolatileLeaderState();
+
   std::atomic<bool> stop{false};
   std::vector<std::thread> heartbeatThreads;
   for (auto targetID : peers) {
@@ -398,10 +457,21 @@ void RaftNode::HandleLeaderState() {
     return;
   }
 
-  SwitchStateToFollower();
+  // formally switch state to follower
+  if (!node_shutdown.load() && state.load() != NodeState::Follower) {
+    SwitchStateToFollower();
+  }
+}
+
+void RaftNode::RefreshVolatileLeaderState() {
+  std::lock_guard<std::mutex> lock(mtx);
+  nextIndex = std::vector<uint32_t>(peers.size(), Log.size());
+  matchIndex = std::vector<uint32_t>(peers.size(), 0);
 }
 
 void RaftNode::StopNode() {
+  Logger::getLogger().log("(SHUTDOWN) shutting down node " +
+                          std::to_string(nodeID) + "...\n");
   node_shutdown = true;
   heartbeat_cv.notify_one();
 }
@@ -432,6 +502,12 @@ uint64_t RaftNode::GetTerm() {
 void RaftNode::SetTerm(uint64_t new_term) {
   std::lock_guard<std::mutex> lock(mtx);
   currentTerm = new_term;
+}
+
+// NOTE: consider making commitIndex an atomic rather than acquiring entire lock
+size_t RaftNode::GetCommitIndex() {
+  std::lock_guard<std::mutex> lock(mtx);
+  return commitIndex;
 }
 
 std::vector<LogEntry> RaftNode::GetLog() {

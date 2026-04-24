@@ -1,0 +1,849 @@
+Start testing: Apr 24 18:20 EDT
+----------------------------------------------------------
+1/9 Testing: Smoke.Builds
+1/9 Test: Smoke.Builds
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=Smoke.Builds" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"Smoke.Builds" start time: Apr 24 18:20 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = Smoke.Builds
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from Smoke
+[ RUN      ] Smoke.Builds
+[       OK ] Smoke.Builds (0 ms)
+[----------] 1 test from Smoke (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.15 sec
+----------------------------------------------------------
+Test Passed.
+"Smoke.Builds" end time: Apr 24 18:20 EDT
+"Smoke.Builds" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/9 Testing: ElectionTest.ElectsExactlyOneLeader
+2/9 Test: ElectionTest.ElectsExactlyOneLeader
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.ElectsExactlyOneLeader" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.ElectsExactlyOneLeader" start time: Apr 24 18:20 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.ElectsExactlyOneLeader
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.ElectsExactlyOneLeader
+[2899304236] --> Switching node 1 from Follower to Candidate
+[2899304236] --> node 1 starting an election (term = 1)...
+[2899304236] (VOTE) node 0 sends yes vote to node 1
+[2899304236] (VOTE) node 1 received yes vote from node 0
+[2899304236] (VOTE) node 2 sends yes vote to node 1
+[2899304236] (VOTE) node 1 received yes vote from node 2
+[2899304236] (VOTE) node 3 sends yes vote to node 1
+[2899304236] (VOTE) node 1 received yes vote from node 3
+[2899304236] (VOTE) node 4 sends yes vote to node 1
+[2899304236] (VOTE) node 1 received yes vote from node 4
+[2899304237] --> Switching node 1 from Candidate to Leader
+[2899304237] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899304237] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899304237] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899304237] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899304237] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899304237] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899304237] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899304237] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899304340] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899304340] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899304342] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899304342] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899304342] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899304342] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899304342] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899304342] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899304445] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899304445] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899304445] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899304445] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899304447] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899304447] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899304447] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899304447] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899304550] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899304550] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899304550] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899304550] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899304550] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899304550] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899304552] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899304552] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899304651] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899304651] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899304651] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899304651] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899304652] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899304652] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899304657] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899304657] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899304757] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899304757] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899304757] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899304757] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899304757] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899304757] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899304763] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899304763] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899304860] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899304860] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899304861] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899304861] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899304862] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899304862] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899304865] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899304865] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899304965] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899304965] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899304965] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899304965] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899304965] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899304965] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899304970] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899304970] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899305068] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899305068] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899305069] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899305069] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899305070] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899305070] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899305070] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899305070] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899305174] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899305174] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899305174] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899305174] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899305174] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899305174] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899305175] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899305175] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899305277] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899305277] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899305278] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899305278] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899305279] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899305279] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899305279] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899305279] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899305382] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899305383] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899305383] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899305383] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899305383] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899305384] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899305384] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899305384] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899305486] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899305486] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899305486] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899305486] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899305487] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899305487] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899305487] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899305487] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899305587] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899305587] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899305591] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899305591] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899305591] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899305591] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899305591] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899305591] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899305689] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899305689] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899305691] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899305691] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899305693] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899305693] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899305693] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899305693] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899305794] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899305794] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899305796] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899305796] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899305797] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899305797] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899305798] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899305798] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899305899] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899305899] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899305899] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899305899] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899305899] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899305899] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899305903] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899305903] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899306000] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899306000] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899306003] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899306003] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899306005] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899306005] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899306008] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899306008] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899306104] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899306104] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899306107] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899306107] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899306107] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899306107] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899306113] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899306113] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899306207] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899306207] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899306212] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899306212] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899306212] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899306212] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899306219] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899306219] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899306312] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899306312] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899306314] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899306314] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899306317] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899306318] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899306319] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899306319] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899306416] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899306416] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899306416] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899306416] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899306423] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899306423] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899306423] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899306423] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899306520] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899306520] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899306520] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899306520] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899306528] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899306528] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899306528] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899306528] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899306621] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899306621] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899306622] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899306622] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899306631] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899306631] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899306633] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899306633] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899306725] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899306725] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899306727] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899306727] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899306736] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899306736] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899306738] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899306738] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899306829] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899306829] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899306830] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899306830] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899306841] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899306841] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899306843] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899306843] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899306934] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899306935] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899306935] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899306935] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899306946] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899306946] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899306948] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899306948] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899307037] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899307037] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899307037] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899307037] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899307047] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899307047] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899307052] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899307052] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899307138] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899307138] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899307143] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899307143] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899307153] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899307153] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899307153] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899307153] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899307243] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899307243] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899307246] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899307246] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899307248] (SHUTDOWN) shutting down node 0...
+[2899307248] (SHUTDOWN) shutting down node 1...
+[2899307248] (SHUTDOWN) shutting down node 2...
+[2899307248] (SHUTDOWN) shutting down node 3...
+[2899307248] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.ElectsExactlyOneLeader (3425 ms)
+[----------] 1 test from ElectionTest (3425 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (3425 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   3.59 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.ElectsExactlyOneLeader" end time: Apr 24 18:20 EDT
+"ElectionTest.ElectsExactlyOneLeader" time elapsed: 00:00:03
+----------------------------------------------------------
+
+3/9 Testing: ElectionTest.HandlesSingleLeaderLoss
+3/9 Test: ElectionTest.HandlesSingleLeaderLoss
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.HandlesSingleLeaderLoss" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.HandlesSingleLeaderLoss" start time: Apr 24 18:20 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.HandlesSingleLeaderLoss
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.HandlesSingleLeaderLoss
+[2899307845] --> Switching node 1 from Follower to Candidate
+[2899307845] --> node 1 starting an election (term = 1)...
+[2899307846] (VOTE) node 0 sends yes vote to node 1
+[2899307846] (VOTE) node 1 received yes vote from node 0
+[2899307846] (VOTE) node 2 sends yes vote to node 1
+[2899307846] (VOTE) node 1 received yes vote from node 2
+[2899307846] (VOTE) node 3 sends yes vote to node 1
+[2899307846] (VOTE) node 1 received yes vote from node 3
+[2899307846] (VOTE) node 4 sends yes vote to node 1
+[2899307846] (VOTE) node 1 received yes vote from node 4
+[2899307846] --> Switching node 1 from Candidate to Leader
+[2899307846] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899307846] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899307847] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899307847] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899307847] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899307847] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899307847] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899307847] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899307897] (SHUTDOWN) shutting down node 1...
+[2899308187] --> Switching node 4 from Follower to Candidate
+[2899308187] --> node 4 starting an election (term = 2)...
+[2899308188] (VOTE) node 0 sends yes vote to node 4
+[2899308188] --> Switching node 2 from Follower to Candidate
+[2899308188] --> node 2 starting an election (term = 2)...
+[2899308188] (VOTE) node 4 received yes vote from node 0
+[2899308188] --> Switching node 1 from Leader to Follower
+[2899308188] (VOTE) node 1 sends yes vote to node 4
+[2899308188] (VOTE) node 4 received yes vote from node 1
+[2899308188] (VOTE) node 3 sends yes vote to node 2
+[2899308188] (VOTE) node 2 received yes vote from node 3
+[2899308189] --> Switching node 4 from Candidate to Leader
+[2899308189] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899308189] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899308189] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899308189] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899308189] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899308189] --> Switching node 2 from Candidate to Follower
+[2899308189] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899308189] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899308189] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899308290] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899308290] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899308290] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899308290] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899308294] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899308294] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899308294] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899308294] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899308395] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899308395] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899308395] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899308395] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899308398] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899308398] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899308398] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899308398] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899308500] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899308500] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899308500] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899308500] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899308500] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899308500] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899308500] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899308500] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899308601] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899308601] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899308601] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899308601] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899308601] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899308601] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899308601] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899308601] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899308703] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899308703] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899308703] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899308703] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899308706] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899308706] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899308706] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899308706] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899308808] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899308808] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899308808] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899308808] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899308808] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899308808] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899308808] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899308808] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899308913] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899308913] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899308913] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899308913] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899308913] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899308913] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899308913] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899308914] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899309015] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899309015] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899309016] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899309016] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899309017] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899309017] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899309019] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899309019] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899309117] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899309117] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899309120] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899309120] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899309122] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899309122] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899309122] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899309122] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899309222] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899309222] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899309222] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899309222] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899309225] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899309225] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899309227] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899309227] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899309323] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899309323] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899309327] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899309327] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899309329] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899309329] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899309332] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899309332] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899309428] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899309428] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899309431] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899309431] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899309431] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899309431] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899309436] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899309436] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899309532] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899309532] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899309533] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899309533] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899309533] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899309533] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899309542] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899309542] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899309634] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899309634] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899309637] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899309637] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899309637] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899309637] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899309647] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899309647] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899309735] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899309735] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899309740] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899309740] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899309742] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899309742] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899309752] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899309752] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899309840] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899309840] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899309844] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899309844] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899309845] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899309845] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899309857] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899309857] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899309945] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899309945] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899309945] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899309945] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899309950] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899309950] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899309962] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899309962] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899310050] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899310050] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899310050] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899310050] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899310050] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899310050] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899310067] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899310067] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899310151] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899310151] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899310154] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899310154] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899310154] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899310154] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899310169] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899310169] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899310257] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899310257] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899310257] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899310257] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899310259] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899310260] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899310273] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899310273] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899310357] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899310357] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899310358] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899310358] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899310365] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899310365] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899310378] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899310378] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899310462] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899310462] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899310462] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899310462] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899310470] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899310470] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899310483] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899310483] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899310566] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899310566] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899310566] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899310566] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899310575] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899310575] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899310583] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899310583] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899310668] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899310668] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899310668] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899310668] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899310678] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899310678] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899310688] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899310688] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899310770] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899310770] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899310773] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899310773] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899310783] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899310783] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899310793] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899310793] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899310872] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899310872] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899310877] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899310877] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899310885] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899310885] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899310898] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899310898] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899310899] (SHUTDOWN) shutting down node 0...
+[2899310899] (SHUTDOWN) shutting down node 1...
+[2899310899] (SHUTDOWN) shutting down node 2...
+[2899310899] (SHUTDOWN) shutting down node 3...
+[2899310899] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.HandlesSingleLeaderLoss (3489 ms)
+[----------] 1 test from ElectionTest (3489 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (3489 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   3.66 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.HandlesSingleLeaderLoss" end time: Apr 24 18:20 EDT
+"ElectionTest.HandlesSingleLeaderLoss" time elapsed: 00:00:03
+----------------------------------------------------------
+
+4/9 Testing: ElectionTest.HandlesFalseCandidateDemotion
+4/9 Test: ElectionTest.HandlesFalseCandidateDemotion
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.HandlesFalseCandidateDemotion" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.HandlesFalseCandidateDemotion" start time: Apr 24 18:20 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.HandlesFalseCandidateDemotion
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.HandlesFalseCandidateDemotion
+[2899311523] --> Switching node 1 from Follower to Candidate
+[2899311523] --> node 1 starting an election (term = 1)...
+[2899311523] (VOTE) node 0 sends yes vote to node 1
+[2899311523] (VOTE) node 1 received yes vote from node 0
+[2899311523] (VOTE) node 2 sends yes vote to node 1
+[2899311523] (VOTE) node 1 received yes vote from node 2
+[2899311523] (VOTE) node 3 sends yes vote to node 1
+[2899311523] (VOTE) node 1 received yes vote from node 3
+[2899311524] (VOTE) node 4 sends yes vote to node 1
+[2899311524] (VOTE) node 1 received yes vote from node 4
+[2899311524] --> Switching node 1 from Candidate to Leader
+[2899311524] (HEARTBEAT) node 1 sending heartbeat to node 0
+[2899311524] (HEARTBEAT) node 0 receives heartbeat from node 1
+[2899311524] (HEARTBEAT) node 1 sending heartbeat to node 2
+[2899311524] (HEARTBEAT) node 2 receives heartbeat from node 1
+[2899311524] (HEARTBEAT) node 1 sending heartbeat to node 3
+[2899311524] (HEARTBEAT) node 3 receives heartbeat from node 1
+[2899311524] (HEARTBEAT) node 1 sending heartbeat to node 4
+[2899311524] (HEARTBEAT) node 4 receives heartbeat from node 1
+[2899311565] --> Switching node 0 from Follower to Candidate
+[2899311565] (SHUTDOWN) shutting down node 0...
+[2899311565] (SHUTDOWN) shutting down node 1...
+[2899311565] (SHUTDOWN) shutting down node 2...
+[2899311565] (SHUTDOWN) shutting down node 3...
+[2899311565] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.HandlesFalseCandidateDemotion (447 ms)
+[----------] 1 test from ElectionTest (447 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (447 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.61 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.HandlesFalseCandidateDemotion" end time: Apr 24 18:20 EDT
+"ElectionTest.HandlesFalseCandidateDemotion" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/9 Testing: ElectionTest.HandlesMultiFalseCandidates
+5/9 Test: ElectionTest.HandlesMultiFalseCandidates
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.HandlesMultiFalseCandidates" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.HandlesMultiFalseCandidates" start time: Apr 24 18:20 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.HandlesMultiFalseCandidates
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.HandlesMultiFalseCandidates
+[2899312093] --> Switching node 3 from Follower to Candidate
+[2899312093] --> node 3 starting an election (term = 1)...
+[2899312093] (VOTE) node 0 sends yes vote to node 3
+[2899312093] (VOTE) node 3 received yes vote from node 0
+[2899312093] (VOTE) node 1 sends yes vote to node 3
+[2899312093] (VOTE) node 3 received yes vote from node 1
+[2899312093] (VOTE) node 2 sends yes vote to node 3
+[2899312093] (VOTE) node 3 received yes vote from node 2
+[2899312093] (VOTE) node 4 sends yes vote to node 3
+[2899312093] (VOTE) node 3 received yes vote from node 4
+[2899312093] --> Switching node 3 from Candidate to Leader
+[2899312094] (HEARTBEAT) node 3 sending heartbeat to node 0
+[2899312094] (HEARTBEAT) node 0 receives heartbeat from node 3
+[2899312094] (HEARTBEAT) node 3 sending heartbeat to node 1
+[2899312094] (HEARTBEAT) node 1 receives heartbeat from node 3
+[2899312094] (HEARTBEAT) node 3 sending heartbeat to node 2
+[2899312094] (HEARTBEAT) node 2 receives heartbeat from node 3
+[2899312094] (HEARTBEAT) node 3 sending heartbeat to node 4
+[2899312094] (HEARTBEAT) node 4 receives heartbeat from node 3
+[2899312109] --> Switching node 0 from Follower to Candidate
+[2899312109] --> Switching node 1 from Follower to Candidate
+[2899312109] --> Switching node 2 from Follower to Candidate
+[2899312109] --> Switching node 4 from Follower to Candidate
+[2899312199] (HEARTBEAT) node 3 sending heartbeat to node 0
+[2899312199] (HEARTBEAT) node 3 sending heartbeat to node 1
+[2899312199] (HEARTBEAT) node 3 sending heartbeat to node 2
+[2899312199] (HEARTBEAT) node 3 sending heartbeat to node 4
+[2899312199] --> Switching node 0 from Candidate to Follower
+[2899312199] --> Switching node 1 from Candidate to Follower
+[2899312199] --> Switching node 4 from Candidate to Follower
+[2899312199] (HEARTBEAT) node 0 receives heartbeat from node 3
+[2899312199] --> Switching node 2 from Candidate to Follower
+[2899312199] (HEARTBEAT) node 1 receives heartbeat from node 3
+[2899312199] (HEARTBEAT) node 4 receives heartbeat from node 3
+[2899312199] (HEARTBEAT) node 2 receives heartbeat from node 3
+[2899312301] (HEARTBEAT) node 3 sending heartbeat to node 4
+[2899312301] (HEARTBEAT) node 4 receives heartbeat from node 3
+[2899312302] (HEARTBEAT) node 3 sending heartbeat to node 0
+[2899312302] (HEARTBEAT) node 3 sending heartbeat to node 1
+[2899312302] (HEARTBEAT) node 0 receives heartbeat from node 3
+[2899312302] (HEARTBEAT) node 1 receives heartbeat from node 3
+[2899312304] (HEARTBEAT) node 3 sending heartbeat to node 2
+[2899312304] (HEARTBEAT) node 2 receives heartbeat from node 3
+[2899312406] (HEARTBEAT) node 3 sending heartbeat to node 4
+[2899312406] (HEARTBEAT) node 4 receives heartbeat from node 3
+[2899312407] (HEARTBEAT) node 3 sending heartbeat to node 0
+[2899312408] (HEARTBEAT) node 3 sending heartbeat to node 1
+[2899312408] (HEARTBEAT) node 0 receives heartbeat from node 3
+[2899312408] (HEARTBEAT) node 3 sending heartbeat to node 2
+[2899312408] (HEARTBEAT) node 1 receives heartbeat from node 3
+[2899312408] (HEARTBEAT) node 2 receives heartbeat from node 3
+[2899312508] (HEARTBEAT) node 3 sending heartbeat to node 1
+[2899312508] (HEARTBEAT) node 1 receives heartbeat from node 3
+[2899312509] (HEARTBEAT) node 3 sending heartbeat to node 4
+[2899312509] (HEARTBEAT) node 4 receives heartbeat from node 3
+[2899312513] (HEARTBEAT) node 3 sending heartbeat to node 0
+[2899312513] (HEARTBEAT) node 3 sending heartbeat to node 2
+[2899312513] (HEARTBEAT) node 0 receives heartbeat from node 3
+[2899312513] (HEARTBEAT) node 2 receives heartbeat from node 3
+[2899312613] (HEARTBEAT) node 3 sending heartbeat to node 4
+[2899312613] (HEARTBEAT) node 3 sending heartbeat to node 1
+[2899312613] (HEARTBEAT) node 4 receives heartbeat from node 3
+[2899312613] (HEARTBEAT) node 1 receives heartbeat from node 3
+[2899312615] (HEARTBEAT) node 3 sending heartbeat to node 2
+[2899312615] (SHUTDOWN) shutting down node 0...
+[2899312615] (HEARTBEAT) node 2 receives heartbeat from node 3
+[2899312615] (SHUTDOWN) shutting down node 1...
+[2899312615] (SHUTDOWN) shutting down node 2...
+[2899312615] (SHUTDOWN) shutting down node 3...
+[2899312615] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.HandlesMultiFalseCandidates (934 ms)
+[----------] 1 test from ElectionTest (934 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (934 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   1.13 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.HandlesMultiFalseCandidates" end time: Apr 24 18:20 EDT
+"ElectionTest.HandlesMultiFalseCandidates" time elapsed: 00:00:01
+----------------------------------------------------------
+
+6/9 Testing: ElectionTest.HandlesMultiCandidateElection
+6/9 Test: ElectionTest.HandlesMultiCandidateElection
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.HandlesMultiCandidateElection" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.HandlesMultiCandidateElection" start time: Apr 24 18:20 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.HandlesMultiCandidateElection
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.HandlesMultiCandidateElection
+[2899312914] --> Switching node 0 from Follower to Candidate
+[2899312914] --> Switching node 1 from Follower to Candidate
+[2899312914] --> Switching node 2 from Follower to Candidate
+[2899312914] --> Switching node 3 from Follower to Candidate
+[2899312914] --> Switching node 4 from Follower to Candidate
+[2899313238] --> Switching node 4 from Candidate to Candidate
+[2899313238] --> node 4 starting an election (term = 1)...
+[2899313238] --> Switching node 0 from Candidate to Follower
+[2899313238] (VOTE) node 0 sends yes vote to node 4
+[2899313239] --> Switching node 1 from Candidate to Follower
+[2899313239] (VOTE) node 4 received yes vote from node 0
+[2899313239] (VOTE) node 1 sends yes vote to node 4
+[2899313239] (VOTE) node 4 received yes vote from node 1
+[2899313239] --> Switching node 2 from Candidate to Follower
+[2899313239] (VOTE) node 2 sends yes vote to node 4
+[2899313239] (VOTE) node 4 received yes vote from node 2
+[2899313239] --> Switching node 3 from Candidate to Follower
+[2899313239] (VOTE) node 3 sends yes vote to node 4
+[2899313239] (VOTE) node 4 received yes vote from node 3
+[2899313239] --> Switching node 4 from Candidate to Leader
+[2899313239] (HEARTBEAT) node 4 sending heartbeat to node 0
+[2899313239] (HEARTBEAT) node 0 receives heartbeat from node 4
+[2899313240] (HEARTBEAT) node 4 sending heartbeat to node 1
+[2899313240] (HEARTBEAT) node 1 receives heartbeat from node 4
+[2899313240] (HEARTBEAT) node 4 sending heartbeat to node 2
+[2899313240] (HEARTBEAT) node 2 receives heartbeat from node 4
+[2899313240] (HEARTBEAT) node 4 sending heartbeat to node 3
+[2899313240] (HEARTBEAT) node 3 receives heartbeat from node 4
+[2899313241] (SHUTDOWN) shutting down node 0...
+[2899313241] (SHUTDOWN) shutting down node 1...
+[2899313241] (SHUTDOWN) shutting down node 2...
+[2899313241] (SHUTDOWN) shutting down node 3...
+[2899313241] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.HandlesMultiCandidateElection (431 ms)
+[----------] 1 test from ElectionTest (431 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (432 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.59 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.HandlesMultiCandidateElection" end time: Apr 24 18:20 EDT
+"ElectionTest.HandlesMultiCandidateElection" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/9 Testing: ElectionTest.NodesResolveToSameTerm
+7/9 Test: ElectionTest.NodesResolveToSameTerm
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.NodesResolveToSameTerm" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.NodesResolveToSameTerm" start time: Apr 24 18:20 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.NodesResolveToSameTerm
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.NodesResolveToSameTerm
+[2899313847] --> Switching node 3 from Follower to Candidate
+[2899313847] --> node 3 starting an election (term = 1)...
+[2899313847] (VOTE) node 0 sends yes vote to node 3
+[2899313847] (VOTE) node 3 received yes vote from node 0
+[2899313847] (VOTE) node 1 sends yes vote to node 3
+[2899313847] (VOTE) node 3 received yes vote from node 1
+[2899313847] (VOTE) node 2 sends yes vote to node 3
+[2899313847] (VOTE) node 3 received yes vote from node 2
+[2899313847] (VOTE) node 4 sends yes vote to node 3
+[2899313847] (VOTE) node 3 received yes vote from node 4
+[2899313848] --> Switching node 3 from Candidate to Leader
+[2899313848] (HEARTBEAT) node 3 sending heartbeat to node 0
+[2899313848] (HEARTBEAT) node 0 receives heartbeat from node 3
+[2899313848] (HEARTBEAT) node 3 sending heartbeat to node 1
+[2899313848] (HEARTBEAT) node 1 receives heartbeat from node 3
+[2899313848] (HEARTBEAT) node 3 sending heartbeat to node 2
+[2899313848] (HEARTBEAT) node 2 receives heartbeat from node 3
+[2899313848] (HEARTBEAT) node 3 sending heartbeat to node 4
+[2899313848] (HEARTBEAT) node 4 receives heartbeat from node 3
+[2899313892] (SHUTDOWN) shutting down node 0...
+[2899313892] (SHUTDOWN) shutting down node 1...
+[2899313892] (SHUTDOWN) shutting down node 2...
+[2899313892] (SHUTDOWN) shutting down node 3...
+[2899313892] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.NodesResolveToSameTerm (443 ms)
+[----------] 1 test from ElectionTest (443 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (443 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.61 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.NodesResolveToSameTerm" end time: Apr 24 18:20 EDT
+"ElectionTest.NodesResolveToSameTerm" time elapsed: 00:00:00
+----------------------------------------------------------
+
