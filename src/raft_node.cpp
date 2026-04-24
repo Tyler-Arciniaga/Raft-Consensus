@@ -69,8 +69,60 @@ void RaftNode::StartNode() {
   }
 }
 
+// TODO continue to flesh this out more as you add more tests (TDD)
+void RaftNode::SendAppendEntiresRPC(const AppendEntriesArgs &arg,
+                                    size_t targetID, std::atomic<bool> &stop) {
+  while (true) {
+    Logger::getLogger().log("(LOG) node " + std::to_string(nodeID) +
+                            " sending AppendEntriesRPC to node " +
+                            std::to_string(targetID) + "\n");
+
+    auto reply = network.sendAppendEntries(targetID, arg);
+    if (reply.sucesss) {
+      return;
+    }
+  }
+}
+
+// For now assume this is only ever called on Leader node
 // TODO impl me!
-bool RaftNode::SendRequest(const ServerRequest &req) { return true; }
+bool RaftNode::SendRequest(const ServerRequest &req) {
+  AppendEntriesArgs arg;
+  {
+    std::lock_guard<std::mutex> lock(mtx);
+    auto prevLogIndex = (Log.size() == 0) ? 0 : Log.size() - 1;
+    auto prevLogTerm = (Log.size() == 0) ? 0 : Log[Log.size() - 1].termReceived;
+
+    auto entry = LogEntry{req.action, req.key, req.value, currentTerm};
+    AppendToLog(entry);
+
+    arg = AppendEntriesArgs{currentTerm,
+                            nodeID,
+                            prevLogIndex,
+                            prevLogTerm,
+                            std::vector<LogEntry>{entry},
+                            commitIndex};
+  }
+
+  std::vector<std::thread> append_entries_thread;
+  std::atomic<bool> stop;
+  for (auto targetID : peers) {
+    if (targetID != nodeID) {
+      append_entries_thread.emplace_back(&RaftNode::SendAppendEntiresRPC, this,
+                                         std::ref(arg), targetID,
+                                         std::ref(stop));
+    }
+  }
+
+  for (auto &t : append_entries_thread) {
+    t.join();
+  }
+
+  return true; // placeholder
+}
+
+// NOTE: this function is not safe, requires that caller to be holding lock
+void RaftNode::AppendToLog(const LogEntry &entry) { Log.push_back(entry); }
 
 RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
   std::lock_guard<std::mutex> lock(
@@ -126,13 +178,6 @@ RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
 
 AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
   //  TODO implement AppendEntriesRPC logic
-  // if entries sent is empty, this is a heartbeat
-  if (args.entries.size() == 0) {
-    Logger::getLogger().log("(HEARTBEAT) node " + std::to_string(nodeID) +
-                            " receives heartbeat from node " +
-                            std::to_string(args.leaderID) + "\n");
-    heartbeat_cv.notify_one();
-  }
 
   {
     std::lock_guard<std::mutex> lock(mtx);
@@ -143,6 +188,30 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
       SwitchStateToFollower();
     }
   }
+
+  // if entries is not empty than this is a regular AppendEntriesRPC, otherwise
+  // it's a heartbeat
+  // TODO impl other cases of determining response to AppendEntiresRPC
+  if (args.entries.size() != 0) {
+    std::lock_guard<std::mutex> lock(mtx);
+
+    Logger::getLogger().log("(LOG) node " + std::to_string(nodeID) +
+                            " receives AppendEntriesRPC from node " +
+                            std::to_string(args.leaderID) + "\n");
+
+    if (args.leader_term < currentTerm) {
+      return AppendEntriesReply{currentTerm, false};
+    }
+
+    Log.insert(Log.end(), args.entries.begin(), args.entries.end());
+    return AppendEntriesReply{currentTerm, true};
+  }
+
+  // must be a heartbeat then...
+  Logger::getLogger().log("(HEARTBEAT) node " + std::to_string(nodeID) +
+                          " receives heartbeat from node " +
+                          std::to_string(args.leaderID) + "\n");
+  heartbeat_cv.notify_one();
 
   return AppendEntriesReply{};
 }

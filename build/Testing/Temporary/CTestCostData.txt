@@ -1,11 +1,10 @@
 raft_tests 1 0.796854
-Smoke.Builds 47 0.0051591
-ElectionTest.ElectsExactlyOneLeader 35 0.019474
-ElectionTest.HandlesSingleLeaderLoss 30 0.0238301
-ElectionTest.HandlesFalseCandidateDemotion 28 0.0350908
-ElectionTest.HandlesMultiFalseCandidates 9 0.136592
-ElectionTest.HandlesMultiCandidateElection 6 0.118384
-ElectionTest.NodesResolveToSameTerm 4 0.234862
-LogReplicationTest.ReplicatesSingleRequest 0 0
+Smoke.Builds 49 0.00303756
+ElectionTest.ElectsExactlyOneLeader 37 0.0164274
+ElectionTest.HandlesSingleLeaderLoss 32 0.0194401
+ElectionTest.HandlesFalseCandidateDemotion 30 0.0211601
+ElectionTest.HandlesMultiFalseCandidates 11 0.0920475
+ElectionTest.HandlesMultiCandidateElection 8 0.0739307
+ElectionTest.NodesResolveToSameTerm 6 0.100748
+LogReplicationTest.ReplicatesSingleRequest 1 0.660428
 ---
-LogReplicationTest.ReplicatesSingleRequest

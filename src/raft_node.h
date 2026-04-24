@@ -78,5 +78,9 @@ private:
 
   void SendRequestVoteRPC(size_t targetID, VoteState &voteState,
                           const std::atomic<bool> &stop);
+  void SendAppendEntiresRPC(const AppendEntriesArgs &arg, size_t targetID,
+                            std::atomic<bool> &stop);
   void SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop);
+
+  inline void AppendToLog(const LogEntry &entry);
 };

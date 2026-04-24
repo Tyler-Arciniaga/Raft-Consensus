@@ -95,6 +95,9 @@ TEST_F(LogReplicationTest, ReplicatesSingleRequest) {
   auto cond = [this, &expected_entry] {
     for (auto &node : nodes) {
       auto log = node->GetLog();
+      if (log.size() == 0) {
+        return false;
+      }
       auto last_entry = log.back();
       if (last_entry != expected_entry) {
         return false;
@@ -105,5 +108,8 @@ TEST_F(LogReplicationTest, ReplicatesSingleRequest) {
 
   auto res2 = WaitForCondition(cond, 2000);
   ASSERT_TRUE(res2)
-      << "nodes fail to eventually reach consistent log after 2 sec";
+      << "some nodes fail to eventually reach consistent log after 2 sec";
 }
+
+// TODO test instances where node shuts down and then resumes after entry was
+// committed and all other similar instances
