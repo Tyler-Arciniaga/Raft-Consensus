@@ -1,6 +1,7 @@
 #include "raft_node.h"
 #include "logger.h"
 #include "rpc.h"
+#include <algorithm>
 #include <chrono>
 #include <condition_variable>
 #include <cstdint>
@@ -69,34 +70,40 @@ void RaftNode::StartNode() {
   }
 }
 
-// TODO continue to flesh this out more as you add more tests (TDD)
-void RaftNode::SendAppendEntriesRPC(const AppendEntriesArgs &arg,
-                                    size_t targetID,
-                                    std::condition_variable &cv) {
+void RaftNode::SendAppendEntriesRPC(
+    const AppendEntriesArgs &arg, size_t targetID,
+    std::condition_variable &advance_commit_index_cv) {
+  auto followers_args = arg;
+
   while (true && state == NodeState::Leader) {
     Logger::getLogger().log("(LOG) node " + std::to_string(nodeID) +
                             " sending AppendEntriesRPC to node " +
                             std::to_string(targetID) + "\n");
 
-    auto reply = network.sendAppendEntries(targetID, arg);
-    if (reply.sucesss) {
-      std::lock_guard<std::mutex> lock(mtx);
+    auto reply = network.sendAppendEntries(targetID, followers_args);
 
+    std::lock_guard<std::mutex> lock(mtx);
+    if (reply.sucesss) {
       auto lastSentIndex = arg.prevLogIndex + arg.entries.size();
       matchIndex[targetID] = lastSentIndex;
       nextIndex[targetID] = lastSentIndex + 1;
 
-      cv.notify_one();
+      advance_commit_index_cv.notify_one();
       return;
-    }
+    } else {
+      nextIndex[targetID]--;
 
-    // TODO handle case where reply has unsuccessful status
-    return; // placeholder
+      followers_args.prevLogIndex--;
+      followers_args.prevLogTerm =
+          Log[followers_args.prevLogIndex].termReceived;
+      followers_args.entries = std::vector<LogEntry>(
+          Log.begin() + followers_args.prevLogIndex, Log.end());
+      continue;
+    }
   }
 }
 
-// For now assume this is only ever called on Leader node
-// TODO impl me!
+// for now assume this is only ever called on Leader node
 bool RaftNode::SendRequest(const std::vector<ServerRequest> &reqs) {
   AppendEntriesArgs arg;
   {
@@ -111,18 +118,18 @@ bool RaftNode::SendRequest(const std::vector<ServerRequest> &reqs) {
   }
 
   std::vector<std::thread> append_entries_thread;
-  std::condition_variable cv;
+  std::condition_variable advance_commit_index_cv;
   for (auto targetID : peers) {
     if (targetID != nodeID) {
       append_entries_thread.emplace_back(&RaftNode::SendAppendEntriesRPC, this,
-                                         std::ref(arg), targetID, std::ref(cv));
+                                         std::ref(arg), targetID,
+                                         std::ref(advance_commit_index_cv));
     }
   }
 
-  // TODO reconsider having unique lock on class mtx or a more local mtx to this
-  // function instead
   std::unique_lock<std::mutex> lock(mtx);
-  cv.wait(lock, [this] { return TryAdvancingCommitIndex(); });
+  advance_commit_index_cv.wait(lock,
+                               [this] { return TryAdvancingCommitIndex(); });
   lock.unlock();
 
   for (auto &t : append_entries_thread) {
@@ -160,7 +167,7 @@ bool RaftNode::TryAdvancingCommitIndex() {
     }
 
     size_t numReplicated = 1;
-    for (int n = 0; n < matchIndex.size(); n++) {
+    for (int n = 0; n < peers.size(); n++) {
       if (n == nodeID) {
         continue;
       }
@@ -233,45 +240,47 @@ RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
 }
 
 AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
-  //  TODO implement AppendEntriesRPC logic
+  std::lock_guard<std::mutex> lock(mtx);
 
-  {
-    std::lock_guard<std::mutex> lock(mtx);
-    // if currently a candidate and recieve AppendEntries from pre existing
-    // leader with high enough term immediately demote to follower
-    if (args.leader_term >= currentTerm &&
-        state.load() != NodeState::Follower) {
-      SwitchStateToFollower();
-    }
+  if (args.leader_term < currentTerm) {
+    return AppendEntriesReply{currentTerm, false};
   }
 
   // always reset election timer (has no effect if node is leader or candidate)
   heartbeat_cv.notify_one();
 
-  // if entries is not empty than this is a regular AppendEntriesRPC, otherwise
-  // it's a heartbeat
+  // demote when necessary
+  if (args.leader_term >= currentTerm && state.load() != NodeState::Follower) {
+    SwitchStateToFollower();
+  }
+
+  // if entries is not empty than this is a regular AppendEntriesRPC...
   if (args.entries.size() != 0) {
     Logger::getLogger().log("(LOG) node " + std::to_string(nodeID) +
                             " receives AppendEntriesRPC from node " +
                             std::to_string(args.leaderID) + "\n");
 
-    std::lock_guard<std::mutex> lock(mtx);
-    if (args.leader_term < currentTerm) {
+    if (args.prevLogIndex >= Log.size() ||
+        Log[args.prevLogIndex].termReceived != args.prevLogTerm) {
       return AppendEntriesReply{currentTerm, false};
     }
 
-    // TODO impl other cases of determining response to AppendEntiresRPC
-
+    // truncate all trailing entries and append leader's sent entries
+    Log.resize(args.prevLogIndex + 1);
     Log.insert(Log.end(), args.entries.begin(), args.entries.end());
-    return AppendEntriesReply{currentTerm, true};
+  } else {
+    // ... must be a heartbeat then...
+    Logger::getLogger().log("(HEARTBEAT) node " + std::to_string(nodeID) +
+                            " receives heartbeat from node " +
+                            std::to_string(args.leaderID) + "\n");
   }
 
-  // must be a heartbeat then...
-  Logger::getLogger().log("(HEARTBEAT) node " + std::to_string(nodeID) +
-                          " receives heartbeat from node " +
-                          std::to_string(args.leaderID) + "\n");
+  // always check and update commitIndex when necessary
+  if (args.leaderCommitIndex > commitIndex) {
+    commitIndex = std::min(args.leaderCommitIndex, Log.size() - 1);
+  }
 
-  return AppendEntriesReply{};
+  return AppendEntriesReply{currentTerm, true};
 }
 
 // main follower state function, has infinite loop only broken if current
@@ -463,9 +472,14 @@ void RaftNode::HandleLeaderState() {
   }
 }
 
+// executed once node becomes a leader
 void RaftNode::RefreshVolatileLeaderState() {
   std::lock_guard<std::mutex> lock(mtx);
+
+  // set the nextIndex for each of the followers
   nextIndex = std::vector<uint32_t>(peers.size(), Log.size());
+
+  // initialize the matchIndex to 0 for all followers
   matchIndex = std::vector<uint32_t>(peers.size(), 0);
 }
 
@@ -476,7 +490,10 @@ void RaftNode::StopNode() {
   heartbeat_cv.notify_one();
 }
 
-void RaftNode::SetPeers(const std::vector<size_t> p) { peers = p; }
+void RaftNode::SetPeers(const std::vector<size_t> p) {
+  std::lock_guard<std::mutex> lock(mtx);
+  peers = p;
+}
 
 NodeState RaftNode::GetState() const { return state.load(); }
 

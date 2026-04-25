@@ -82,7 +82,7 @@ private:
   void SendRequestVoteRPC(size_t targetID, VoteState &voteState,
                           const std::atomic<bool> &stop);
   void SendAppendEntriesRPC(const AppendEntriesArgs &arg, size_t targetID,
-                            std::condition_variable &cv);
+                            std::condition_variable &advance_commit_index_cv);
   void SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop);
 
   bool TryAdvancingCommitIndex();

@@ -1,5 +1,5 @@
 {
-  "tests": 9,
+  "tests": 11,
   "name": "AllTests",
   "testsuites": [
     {
@@ -25,43 +25,59 @@
         {
           "name": "HandlesSingleLeaderLoss",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/election_test.cpp",
-          "line": 97
+          "line": 91
         },
         {
           "name": "HandlesFalseCandidateDemotion",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/election_test.cpp",
-          "line": 125
+          "line": 113
         },
         {
           "name": "HandlesMultiFalseCandidates",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/election_test.cpp",
-          "line": 142
+          "line": 130
         },
         {
           "name": "HandlesMultiCandidateElection",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/election_test.cpp",
-          "line": 159
+          "line": 147
         },
         {
           "name": "NodesResolveToSameTerm",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/election_test.cpp",
-          "line": 173
+          "line": 161
         }
       ]
     },
     {
       "name": "LogReplicationTest",
-      "tests": 2,
+      "tests": 3,
       "testsuite": [
         {
           "name": "ReplicatesSingleRequest",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
-          "line": 77
+          "line": 80
         },
         {
-          "name": "CommitsSingleRequest",
+          "name": "CommitsSingleRequestOnLeader",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
-          "line": 115
+          "line": 118
+        },
+        {
+          "name": "CommitsSingleRequestOnFollowers",
+          "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
+          "line": 140
+        }
+      ]
+    },
+    {
+      "name": "LogReplicationLogic",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "HandlesBehindFollower",
+          "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
+          "line": 183
         }
       ]
     }
