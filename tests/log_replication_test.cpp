@@ -3,6 +3,7 @@
 #include "rpc.h"
 #include <chrono>
 #include <gtest/gtest.h>
+#include <limits>
 #include <random>
 #include <thread>
 
@@ -180,6 +181,45 @@ TEST_F(LogReplicationTest, CommitsSingleRequestOnFollowers) {
       << "not all followers updated commit index (the second time) after 2 sec";
 }
 
+TEST_F(LogReplicationTest, NodesApplyLogToStateMachine) {
+  auto res = WaitForCondition([this] { return ExactlyOneLeader(); }, 1000);
+  ASSERT_TRUE(res) << "single leader is not elected after 1 sec";
+
+  RaftNode *leader_node;
+  for (auto &node : nodes) {
+    if (node->GetState() == NodeState::Leader) {
+      leader_node = node.get();
+      break;
+    }
+  }
+
+  auto req =
+      std::vector<ServerRequest>{ServerRequest{ServerAction::Add, "t", 1},
+                                 ServerRequest{ServerAction::Add, "y", 2},
+                                 ServerRequest{ServerAction::Add, "A", 3}};
+
+  leader_node->SendRequest(req);
+
+  auto cond = [this] {
+    for (auto &node : nodes) {
+      auto val1 = node->FetchFromStateMachine("t");
+      auto val2 = node->FetchFromStateMachine("y");
+      auto val3 = node->FetchFromStateMachine("A");
+      auto val4 = node->FetchFromStateMachine("X");
+      if (val1 != 1 || val2 != 2 || val3 != 3 ||
+          val4 != std::numeric_limits<int>::max()) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  res = WaitForCondition(cond, 2000);
+  ASSERT_TRUE(res) << "all nodes do not properly apply log to local state "
+                      "machine after 2 sec";
+}
+
 TEST(LogReplicationLogic, HandlesBehindFollower) {
   std::random_device rd;
   SimulatedNetwork network;
@@ -218,7 +258,7 @@ TEST(LogReplicationLogic, HandlesBehindFollower) {
   leader.SendRequest(req2);
 
   auto cond = [&] {
-    return (follower.GetCommitIndex() == leader.GetCommitIndex());
+    return (6 == follower.GetCommitIndex() && 6 == leader.GetCommitIndex());
   };
 
   auto res = WaitForCondition(cond, 5000);

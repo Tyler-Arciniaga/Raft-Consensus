@@ -1,5 +1,5 @@
 {
-  "tests": 11,
+  "tests": 12,
   "name": "AllTests",
   "testsuites": [
     {
@@ -51,22 +51,27 @@
     },
     {
       "name": "LogReplicationTest",
-      "tests": 3,
+      "tests": 4,
       "testsuite": [
         {
           "name": "ReplicatesSingleRequest",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
-          "line": 80
+          "line": 81
         },
         {
           "name": "CommitsSingleRequestOnLeader",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
-          "line": 118
+          "line": 119
         },
         {
           "name": "CommitsSingleRequestOnFollowers",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
-          "line": 140
+          "line": 141
+        },
+        {
+          "name": "NodesApplyLogToStateMachine",
+          "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
+          "line": 184
         }
       ]
     },
@@ -77,7 +82,7 @@
         {
           "name": "HandlesBehindFollower",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
-          "line": 183
+          "line": 223
         }
       ]
     }

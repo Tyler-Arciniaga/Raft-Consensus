@@ -4,7 +4,6 @@
 #include <memory>
 #include <thread>
 
-// TODO use gtest to run Raft simulation
 int main(int argc, char *argv[]) {
   SimulatedNetwork simNetwork;
   std::random_device rd;

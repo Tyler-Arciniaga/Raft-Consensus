@@ -32,6 +32,7 @@ public:
 
   // Request function
   bool SendRequest(const std::vector<ServerRequest> &reqs);
+  int FetchFromStateMachine(std::string key);
 
 private:
   // Member Variables
@@ -41,7 +42,7 @@ private:
 
   std::vector<LogEntry> Log;
   std::unordered_map<std::string, int>
-      data; // map used to represent node's state machine
+      state_machine; // map used to represent node's state machine
 
   uint64_t currentTerm = 0; // last term server has seen
   uint32_t votedFor;        // candidateID that received vote in current term
@@ -60,6 +61,7 @@ private:
   std::mutex mtx;
   std::condition_variable heartbeat_cv;
   std::condition_variable voting_cv;
+  std::condition_variable state_machine_cv;
   std::atomic<bool> node_shutdown{false};
 
   Randomizer randomizer;
@@ -86,6 +88,9 @@ private:
   void SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop);
 
   bool TryAdvancingCommitIndex();
+
+  void ApplyToStateMachine();
+  inline void ApplySingleLogEntry(const LogEntry &entry);
 
   inline std::vector<LogEntry>
   AppendToLog(const std::vector<ServerRequest> &reqs);

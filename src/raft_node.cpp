@@ -6,6 +6,7 @@
 #include <condition_variable>
 #include <cstdint>
 #include <iostream>
+#include <limits>
 #include <mutex>
 #include <sstream>
 #include <stdexcept>
@@ -49,8 +50,14 @@ RaftNode::RaftNode(size_t nodeID, std::random_device &rd, Network &network)
 
 // RaftNode RPC functions
 void RaftNode::StartNode() {
+  std::thread state_machine_application_thread(&RaftNode::ApplyToStateMachine,
+                                               this);
+
   while (true) {
     if (node_shutdown.load()) {
+      state_machine_cv.notify_one(); // wake up state machine apply loop thread
+                                     // so that we can gracefully exit
+      state_machine_application_thread.join();
       return;
     }
 
@@ -68,6 +75,46 @@ void RaftNode::StartNode() {
       throw std::runtime_error("undefined state encountered!");
     }
   }
+}
+
+void RaftNode::ApplyToStateMachine() {
+  std::unique_lock<std::mutex> lock(mtx);
+  while (!node_shutdown.load()) {
+    state_machine_cv.wait(lock, [this] {
+      return node_shutdown.load() || (lastApplied < commitIndex);
+    });
+
+    if (node_shutdown.load()) {
+      return;
+    }
+
+    // unique lock holds lock at this point...
+    while (lastApplied < commitIndex) {
+      ApplySingleLogEntry(Log[lastApplied + 1]);
+      lastApplied += 1;
+    }
+  }
+}
+
+void RaftNode::ApplySingleLogEntry(const LogEntry &entry) {
+  if (entry.action == ServerAction::Add) {
+    state_machine.insert({entry.key, entry.value});
+  } else {
+    auto itr = state_machine.find(entry.key);
+    if (itr != state_machine.end()) {
+      state_machine.erase(itr);
+    }
+  }
+}
+
+int RaftNode::FetchFromStateMachine(std::string key) {
+  std::lock_guard<std::mutex> lock(mtx);
+  auto itr = state_machine.find(key);
+  if (itr == state_machine.end()) {
+    return std::numeric_limits<int>::max();
+  }
+
+  return itr->second;
 }
 
 void RaftNode::SendAppendEntriesRPC(
@@ -183,6 +230,7 @@ bool RaftNode::TryAdvancingCommitIndex() {
     }
 
     commitIndex = i;
+    state_machine_cv.notify_one();
   }
 
   return true;
@@ -278,6 +326,7 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
   // always check and update commitIndex when necessary
   if (args.leaderCommitIndex > commitIndex) {
     commitIndex = std::min(args.leaderCommitIndex, Log.size() - 1);
+    state_machine_cv.notify_one();
   }
 
   return AppendEntriesReply{currentTerm, true};
