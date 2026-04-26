@@ -293,7 +293,7 @@ RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
     }
     return reply;
   } else {
-    // local node has already voted in this election
+    // local node has already voted in this term's election
     return RequestVoteReply{currentTerm, false};
   }
 }
@@ -308,9 +308,12 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
   // always reset election timer (has no effect if node is leader or candidate)
   heartbeat_cv.notify_one();
 
-  // demote when necessary
-  if (args.leader_term >= currentTerm && state.load() != NodeState::Follower) {
-    SwitchStateToFollower();
+  // update currentTerm if higher and demote when necessary
+  if (args.leader_term >= currentTerm) {
+    currentTerm = args.leader_term;
+    if (state.load() != NodeState::Follower) {
+      SwitchStateToFollower();
+    }
   }
 
   // if entries is not empty than this is a regular AppendEntriesRPC...
