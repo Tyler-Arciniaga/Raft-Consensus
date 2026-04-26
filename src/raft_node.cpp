@@ -88,11 +88,22 @@ void RaftNode::ApplyToStateMachine() {
       return;
     }
 
+    // take a snapshot of the current commitIndex and slice of log so that state
+    // machine background thread can unlock early
+    auto currentCommitIndex = commitIndex;
+    auto new_log_snapshot =
+        std::vector<LogEntry>(Log.begin() + lastApplied + 1, Log.end());
+
+    lock.unlock();
+
     // unique lock holds lock at this point...
-    while (lastApplied < commitIndex) {
-      ApplySingleLogEntry(Log[lastApplied + 1]);
+    for (auto i = 0; lastApplied < currentCommitIndex; i++) {
+      ApplySingleLogEntry(new_log_snapshot.at(i));
       lastApplied += 1;
     }
+
+    // reaquire mtx lock since cv.wait() requires lock to be held when called
+    lock.lock();
   }
 }
 

@@ -1,1 +1,11 @@
-11:LogReplicationLogic.HandlesBehindFollower
+2:ElectionTest.ElectsExactlyOneLeader
+3:ElectionTest.HandlesSingleLeaderLoss
+4:ElectionTest.HandlesFalseCandidateDemotion
+5:ElectionTest.HandlesMultiFalseCandidates
+6:ElectionTest.HandlesMultiCandidateElection
+7:ElectionTest.NodesResolveToSameTerm
+8:LogReplicationTest.ReplicatesSingleRequest
+9:LogReplicationTest.CommitsSingleRequestOnLeader
+10:LogReplicationTest.CommitsSingleRequestOnFollowers
+11:LogReplicationTest.NodesApplyLogToStateMachine
+12:LogReplicationLogic.HandlesBehindFollower
