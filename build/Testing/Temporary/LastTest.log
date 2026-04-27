@@ -1,10 +1,10 @@
-Start testing: Apr 25 22:33 EDT
+Start testing: Apr 26 22:41 EDT
 ----------------------------------------------------------
-1/12 Testing: Smoke.Builds
-1/12 Test: Smoke.Builds
+1/13 Testing: Smoke.Builds
+1/13 Test: Smoke.Builds
 Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=Smoke.Builds" "--gtest_also_run_disabled_tests"
 Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
-"Smoke.Builds" start time: Apr 25 22:33 EDT
+"Smoke.Builds" start time: Apr 26 22:41 EDT
 Output:
 ----------------------------------------------------------
 Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
@@ -20,18 +20,18 @@ Note: Google Test filter = Smoke.Builds
 [==========] 1 test from 1 test suite ran. (0 ms total)
 [  PASSED  ] 1 test.
 <end of output>
-Test time =   0.15 sec
+Test time =   0.17 sec
 ----------------------------------------------------------
 Test Passed.
-"Smoke.Builds" end time: Apr 25 22:33 EDT
+"Smoke.Builds" end time: Apr 26 22:41 EDT
 "Smoke.Builds" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-2/12 Testing: ElectionTest.ElectsExactlyOneLeader
-2/12 Test: ElectionTest.ElectsExactlyOneLeader
+2/13 Testing: ElectionTest.ElectsExactlyOneLeader
+2/13 Test: ElectionTest.ElectsExactlyOneLeader
 Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.ElectsExactlyOneLeader" "--gtest_also_run_disabled_tests"
 Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
-"ElectionTest.ElectsExactlyOneLeader" start time: Apr 25 22:33 EDT
+"ElectionTest.ElectsExactlyOneLeader" start time: Apr 26 22:41 EDT
 Output:
 ----------------------------------------------------------
 Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
@@ -40,49 +40,49 @@ Note: Google Test filter = ElectionTest.ElectsExactlyOneLeader
 [----------] Global test environment set-up.
 [----------] 1 test from ElectionTest
 [ RUN      ] ElectionTest.ElectsExactlyOneLeader
-[3000938574] --> Switching node 4 from Follower to Candidate
-[3000938574] --> node 4 starting an election (term = 1)...
-[3000938574] (VOTE) node 0 sends yes vote to node 4
-[3000938574] (VOTE) node 1 sends yes vote to node 4
-[3000938575] (VOTE) node 4 received yes vote from node 0
-[3000938575] (VOTE) node 4 received yes vote from node 1
-[3000938575] (VOTE) node 2 sends yes vote to node 4
-[3000938575] (VOTE) node 4 received yes vote from node 2
-[3000938575] (VOTE) node 3 sends yes vote to node 4
-[3000938575] (VOTE) node 4 received yes vote from node 3
-[3000938575] --> Switching node 4 from Candidate to Leader
-[3000938575] (HEARTBEAT) node 4 sending heartbeat to node 0
-[3000938575] (HEARTBEAT) node 0 receives heartbeat from node 4
-[3000938575] (HEARTBEAT) node 4 sending heartbeat to node 1
-[3000938575] (HEARTBEAT) node 1 receives heartbeat from node 4
-[3000938575] (HEARTBEAT) node 4 sending heartbeat to node 2
-[3000938575] (HEARTBEAT) node 2 receives heartbeat from node 4
-[3000938576] (HEARTBEAT) node 4 sending heartbeat to node 3
-[3000938576] (HEARTBEAT) node 3 receives heartbeat from node 4
-[3000938607] (SHUTDOWN) shutting down node 0...
-[3000938607] (SHUTDOWN) shutting down node 1...
-[3000938607] (SHUTDOWN) shutting down node 2...
-[3000938608] (SHUTDOWN) shutting down node 3...
-[3000938608] (SHUTDOWN) shutting down node 4...
-[       OK ] ElectionTest.ElectsExactlyOneLeader (453 ms)
-[----------] 1 test from ElectionTest (453 ms total)
+[3087783893] --> Switching node 0 from Follower to Candidate
+[3087783893] --> node 0 starting an election (term = 1)...
+[3087783894] (VOTE) node 1 sends yes vote to node 0
+[3087783894] (VOTE) node 3 sends yes vote to node 0
+[3087783894] (VOTE) node 2 sends yes vote to node 0
+[3087783894] (VOTE) node 0 received yes vote from node 1
+[3087783894] (VOTE) node 0 received yes vote from node 3
+[3087783894] (VOTE) node 0 received yes vote from node 2
+[3087783894] (VOTE) node 4 sends yes vote to node 0
+[3087783894] (VOTE) node 0 received yes vote from node 4
+[3087783895] --> Switching node 0 from Candidate to Leader
+[3087783896] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087783897] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087783897] (HEARTBEAT) node 0 sending heartbeat to node 2
+[3087783897] (HEARTBEAT) node 2 receives heartbeat from node 0
+[3087783897] (HEARTBEAT) node 0 sending heartbeat to node 3
+[3087783897] (HEARTBEAT) node 3 receives heartbeat from node 0
+[3087783897] (HEARTBEAT) node 0 sending heartbeat to node 4
+[3087783897] (HEARTBEAT) node 4 receives heartbeat from node 0
+[3087783905] (SHUTDOWN) shutting down node 0...
+[3087783905] (SHUTDOWN) shutting down node 1...
+[3087783905] (SHUTDOWN) shutting down node 2...
+[3087783905] (SHUTDOWN) shutting down node 3...
+[3087783905] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.ElectsExactlyOneLeader (428 ms)
+[----------] 1 test from ElectionTest (429 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (454 ms total)
+[==========] 1 test from 1 test suite ran. (429 ms total)
 [  PASSED  ] 1 test.
 <end of output>
-Test time =   0.63 sec
+Test time =   0.59 sec
 ----------------------------------------------------------
 Test Passed.
-"ElectionTest.ElectsExactlyOneLeader" end time: Apr 25 22:33 EDT
+"ElectionTest.ElectsExactlyOneLeader" end time: Apr 26 22:41 EDT
 "ElectionTest.ElectsExactlyOneLeader" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-3/12 Testing: ElectionTest.HandlesSingleLeaderLoss
-3/12 Test: ElectionTest.HandlesSingleLeaderLoss
+3/13 Testing: ElectionTest.HandlesSingleLeaderLoss
+3/13 Test: ElectionTest.HandlesSingleLeaderLoss
 Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.HandlesSingleLeaderLoss" "--gtest_also_run_disabled_tests"
 Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
-"ElectionTest.HandlesSingleLeaderLoss" start time: Apr 25 22:33 EDT
+"ElectionTest.HandlesSingleLeaderLoss" start time: Apr 26 22:41 EDT
 Output:
 ----------------------------------------------------------
 Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
@@ -91,50 +91,50 @@ Note: Google Test filter = ElectionTest.HandlesSingleLeaderLoss
 [----------] Global test environment set-up.
 [----------] 1 test from ElectionTest
 [ RUN      ] ElectionTest.HandlesSingleLeaderLoss
-[3000939231] --> Switching node 4 from Follower to Candidate
-[3000939231] --> node 4 starting an election (term = 1)...
-[3000939231] (VOTE) node 0 sends yes vote to node 4
-[3000939231] (VOTE) node 4 received yes vote from node 0
-[3000939231] (VOTE) node 1 sends yes vote to node 4
-[3000939231] (VOTE) node 4 received yes vote from node 1
-[3000939231] (VOTE) node 2 sends yes vote to node 4
-[3000939231] (VOTE) node 4 received yes vote from node 2
-[3000939232] (VOTE) node 3 sends yes vote to node 4
-[3000939232] (VOTE) node 4 received yes vote from node 3
-[3000939232] --> Switching node 4 from Candidate to Leader
-[3000939232] (HEARTBEAT) node 4 sending heartbeat to node 0
-[3000939232] (HEARTBEAT) node 0 receives heartbeat from node 4
-[3000939232] (HEARTBEAT) node 4 sending heartbeat to node 1
-[3000939232] (HEARTBEAT) node 1 receives heartbeat from node 4
-[3000939232] (HEARTBEAT) node 4 sending heartbeat to node 2
-[3000939232] (HEARTBEAT) node 2 receives heartbeat from node 4
-[3000939232] (HEARTBEAT) node 4 sending heartbeat to node 3
-[3000939233] (HEARTBEAT) node 3 receives heartbeat from node 4
-[3000939236] (SHUTDOWN) shutting down node 4...
-[3000939236] (SHUTDOWN) shutting down node 0...
-[3000939236] (SHUTDOWN) shutting down node 1...
-[3000939236] (SHUTDOWN) shutting down node 2...
-[3000939236] (SHUTDOWN) shutting down node 3...
-[3000939236] (SHUTDOWN) shutting down node 4...
-[       OK ] ElectionTest.HandlesSingleLeaderLoss (482 ms)
-[----------] 1 test from ElectionTest (482 ms total)
+[3087784493] --> Switching node 3 from Follower to Candidate
+[3087784493] --> node 3 starting an election (term = 1)...
+[3087784493] (VOTE) node 0 sends yes vote to node 3
+[3087784493] (VOTE) node 3 received yes vote from node 0
+[3087784493] (VOTE) node 1 sends yes vote to node 3
+[3087784493] (VOTE) node 3 received yes vote from node 1
+[3087784493] (VOTE) node 2 sends yes vote to node 3
+[3087784494] (VOTE) node 3 received yes vote from node 2
+[3087784494] (VOTE) node 4 sends yes vote to node 3
+[3087784494] (VOTE) node 3 received yes vote from node 4
+[3087784494] --> Switching node 3 from Candidate to Leader
+[3087784494] (HEARTBEAT) node 3 sending heartbeat to node 0
+[3087784494] (HEARTBEAT) node 0 receives heartbeat from node 3
+[3087784494] (HEARTBEAT) node 3 sending heartbeat to node 1
+[3087784494] (HEARTBEAT) node 1 receives heartbeat from node 3
+[3087784494] (HEARTBEAT) node 3 sending heartbeat to node 2
+[3087784494] (HEARTBEAT) node 2 receives heartbeat from node 3
+[3087784494] (HEARTBEAT) node 3 sending heartbeat to node 4
+[3087784494] (HEARTBEAT) node 4 receives heartbeat from node 3
+[3087784497] (SHUTDOWN) shutting down node 3...
+[3087784497] (SHUTDOWN) shutting down node 0...
+[3087784497] (SHUTDOWN) shutting down node 1...
+[3087784497] (SHUTDOWN) shutting down node 2...
+[3087784497] (SHUTDOWN) shutting down node 3...
+[3087784497] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.HandlesSingleLeaderLoss (434 ms)
+[----------] 1 test from ElectionTest (434 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (482 ms total)
+[==========] 1 test from 1 test suite ran. (434 ms total)
 [  PASSED  ] 1 test.
 <end of output>
-Test time =   0.64 sec
+Test time =   0.62 sec
 ----------------------------------------------------------
 Test Passed.
-"ElectionTest.HandlesSingleLeaderLoss" end time: Apr 25 22:33 EDT
+"ElectionTest.HandlesSingleLeaderLoss" end time: Apr 26 22:41 EDT
 "ElectionTest.HandlesSingleLeaderLoss" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-4/12 Testing: ElectionTest.HandlesFalseCandidateDemotion
-4/12 Test: ElectionTest.HandlesFalseCandidateDemotion
+4/13 Testing: ElectionTest.HandlesFalseCandidateDemotion
+4/13 Test: ElectionTest.HandlesFalseCandidateDemotion
 Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.HandlesFalseCandidateDemotion" "--gtest_also_run_disabled_tests"
 Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
-"ElectionTest.HandlesFalseCandidateDemotion" start time: Apr 25 22:33 EDT
+"ElectionTest.HandlesFalseCandidateDemotion" start time: Apr 26 22:41 EDT
 Output:
 ----------------------------------------------------------
 Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
@@ -143,50 +143,50 @@ Note: Google Test filter = ElectionTest.HandlesFalseCandidateDemotion
 [----------] Global test environment set-up.
 [----------] 1 test from ElectionTest
 [ RUN      ] ElectionTest.HandlesFalseCandidateDemotion
-[3000939892] --> Switching node 4 from Follower to Candidate
-[3000939892] --> node 4 starting an election (term = 1)...
-[3000939892] (VOTE) node 0 sends yes vote to node 4
-[3000939892] (VOTE) node 1 sends yes vote to node 4
-[3000939892] (VOTE) node 4 received yes vote from node 0
-[3000939892] (VOTE) node 4 received yes vote from node 1
-[3000939892] (VOTE) node 2 sends yes vote to node 4
-[3000939892] (VOTE) node 4 received yes vote from node 2
-[3000939892] (VOTE) node 3 sends yes vote to node 4
-[3000939892] (VOTE) node 4 received yes vote from node 3
-[3000939892] --> Switching node 4 from Candidate to Leader
-[3000939892] (HEARTBEAT) node 4 sending heartbeat to node 0
-[3000939893] (HEARTBEAT) node 0 receives heartbeat from node 4
-[3000939893] (HEARTBEAT) node 4 sending heartbeat to node 1
-[3000939893] (HEARTBEAT) node 1 receives heartbeat from node 4
-[3000939893] (HEARTBEAT) node 4 sending heartbeat to node 2
-[3000939893] (HEARTBEAT) node 2 receives heartbeat from node 4
-[3000939893] (HEARTBEAT) node 4 sending heartbeat to node 3
-[3000939893] (HEARTBEAT) node 3 receives heartbeat from node 4
-[3000939926] --> Switching node 0 from Follower to Candidate
-[3000939926] (SHUTDOWN) shutting down node 0...
-[3000939927] (SHUTDOWN) shutting down node 1...
-[3000939927] (SHUTDOWN) shutting down node 2...
-[3000939927] (SHUTDOWN) shutting down node 3...
-[3000939927] (SHUTDOWN) shutting down node 4...
-[       OK ] ElectionTest.HandlesFalseCandidateDemotion (502 ms)
-[----------] 1 test from ElectionTest (502 ms total)
+[3087785124] --> Switching node 0 from Follower to Candidate
+[3087785124] --> node 0 starting an election (term = 1)...
+[3087785125] (VOTE) node 1 sends yes vote to node 0
+[3087785125] (VOTE) node 0 received yes vote from node 1
+[3087785125] (VOTE) node 2 sends yes vote to node 0
+[3087785125] (VOTE) node 0 received yes vote from node 2
+[3087785125] (VOTE) node 3 sends yes vote to node 0
+[3087785125] (VOTE) node 0 received yes vote from node 3
+[3087785125] (VOTE) node 4 sends yes vote to node 0
+[3087785125] (VOTE) node 0 received yes vote from node 4
+[3087785125] --> Switching node 0 from Candidate to Leader
+[3087785125] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087785125] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087785125] (HEARTBEAT) node 0 sending heartbeat to node 2
+[3087785125] (HEARTBEAT) node 2 receives heartbeat from node 0
+[3087785125] (HEARTBEAT) node 0 sending heartbeat to node 3
+[3087785125] (HEARTBEAT) node 3 receives heartbeat from node 0
+[3087785125] (HEARTBEAT) node 0 sending heartbeat to node 4
+[3087785125] (HEARTBEAT) node 4 receives heartbeat from node 0
+[3087785164] --> Switching node 1 from Follower to Candidate
+[3087785164] (SHUTDOWN) shutting down node 0...
+[3087785164] (SHUTDOWN) shutting down node 1...
+[3087785164] (SHUTDOWN) shutting down node 2...
+[3087785164] (SHUTDOWN) shutting down node 3...
+[3087785164] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.HandlesFalseCandidateDemotion (447 ms)
+[----------] 1 test from ElectionTest (447 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (502 ms total)
+[==========] 1 test from 1 test suite ran. (447 ms total)
 [  PASSED  ] 1 test.
 <end of output>
-Test time =   0.69 sec
+Test time =   0.62 sec
 ----------------------------------------------------------
 Test Passed.
-"ElectionTest.HandlesFalseCandidateDemotion" end time: Apr 25 22:33 EDT
+"ElectionTest.HandlesFalseCandidateDemotion" end time: Apr 26 22:41 EDT
 "ElectionTest.HandlesFalseCandidateDemotion" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-5/12 Testing: ElectionTest.HandlesMultiFalseCandidates
-5/12 Test: ElectionTest.HandlesMultiFalseCandidates
+5/13 Testing: ElectionTest.HandlesMultiFalseCandidates
+5/13 Test: ElectionTest.HandlesMultiFalseCandidates
 Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.HandlesMultiFalseCandidates" "--gtest_also_run_disabled_tests"
 Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
-"ElectionTest.HandlesMultiFalseCandidates" start time: Apr 25 22:33 EDT
+"ElectionTest.HandlesMultiFalseCandidates" start time: Apr 26 22:41 EDT
 Output:
 ----------------------------------------------------------
 Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
@@ -195,91 +195,89 @@ Note: Google Test filter = ElectionTest.HandlesMultiFalseCandidates
 [----------] Global test environment set-up.
 [----------] 1 test from ElectionTest
 [ RUN      ] ElectionTest.HandlesMultiFalseCandidates
-[3000940487] --> Switching node 1 from Follower to Candidate
-[3000940488] --> node 1 starting an election (term = 1)...
-[3000940488] (VOTE) node 0 sends yes vote to node 1
-[3000940488] (VOTE) node 1 received yes vote from node 0
-[3000940488] (VOTE) node 2 sends yes vote to node 1
-[3000940488] (VOTE) node 1 received yes vote from node 2
-[3000940488] (VOTE) node 3 sends yes vote to node 1
-[3000940488] (VOTE) node 1 received yes vote from node 3
-[3000940488] (VOTE) node 4 sends yes vote to node 1
-[3000940489] (VOTE) node 1 received yes vote from node 4
-[3000940489] --> Switching node 1 from Candidate to Leader
-[3000940489] (HEARTBEAT) node 1 sending heartbeat to node 0
-[3000940489] (HEARTBEAT) node 0 receives heartbeat from node 1
-[3000940489] (HEARTBEAT) node 1 sending heartbeat to node 2
-[3000940489] (HEARTBEAT) node 2 receives heartbeat from node 1
-[3000940489] (HEARTBEAT) node 1 sending heartbeat to node 3
-[3000940489] (HEARTBEAT) node 3 receives heartbeat from node 1
-[3000940489] (HEARTBEAT) node 1 sending heartbeat to node 4
-[3000940489] (HEARTBEAT) node 4 receives heartbeat from node 1
-[3000940499] --> Switching node 0 from Follower to Candidate
-[3000940499] --> Switching node 2 from Follower to Candidate
-[3000940499] --> Switching node 3 from Follower to Candidate
-[3000940499] --> Switching node 4 from Follower to Candidate
-[3000940591] (HEARTBEAT) node 1 sending heartbeat to node 0
-[3000940591] --> Switching node 0 from Candidate to Follower
-[3000940591] (HEARTBEAT) node 0 receives heartbeat from node 1
-[3000940594] (HEARTBEAT) node 1 sending heartbeat to node 2
-[3000940594] --> Switching node 2 from Candidate to Follower
-[3000940594] (HEARTBEAT) node 2 receives heartbeat from node 1
-[3000940594] (HEARTBEAT) node 1 sending heartbeat to node 3
-[3000940595] --> Switching node 3 from Candidate to Follower
-[3000940595] (HEARTBEAT) node 1 sending heartbeat to node 4
-[3000940595] (HEARTBEAT) node 3 receives heartbeat from node 1
-[3000940595] --> Switching node 4 from Candidate to Follower
-[3000940595] (HEARTBEAT) node 4 receives heartbeat from node 1
-[3000940696] (HEARTBEAT) node 1 sending heartbeat to node 0
-[3000940697] (HEARTBEAT) node 0 receives heartbeat from node 1
-[3000940699] (HEARTBEAT) node 1 sending heartbeat to node 2
-[3000940699] (HEARTBEAT) node 2 receives heartbeat from node 1
-[3000940699] (HEARTBEAT) node 1 sending heartbeat to node 4
-[3000940699] (HEARTBEAT) node 1 sending heartbeat to node 3
-[3000940699] (HEARTBEAT) node 4 receives heartbeat from node 1
-[3000940699] (HEARTBEAT) node 3 receives heartbeat from node 1
-[3000940800] (HEARTBEAT) node 1 sending heartbeat to node 4
-[3000940801] (HEARTBEAT) node 1 sending heartbeat to node 0
-[3000940801] (HEARTBEAT) node 4 receives heartbeat from node 1
-[3000940801] (HEARTBEAT) node 0 receives heartbeat from node 1
-[3000940801] (HEARTBEAT) node 1 sending heartbeat to node 2
-[3000940801] (HEARTBEAT) node 1 sending heartbeat to node 3
-[3000940801] (HEARTBEAT) node 2 receives heartbeat from node 1
-[3000940801] (HEARTBEAT) node 3 receives heartbeat from node 1
-[3000940902] (HEARTBEAT) node 1 sending heartbeat to node 4
-[3000940902] (HEARTBEAT) node 4 receives heartbeat from node 1
-[3000940903] (HEARTBEAT) node 1 sending heartbeat to node 3
-[3000940903] (HEARTBEAT) node 3 receives heartbeat from node 1
-[3000940904] (HEARTBEAT) node 1 sending heartbeat to node 0
-[3000940904] (HEARTBEAT) node 0 receives heartbeat from node 1
-[3000940906] (HEARTBEAT) node 1 sending heartbeat to node 2
-[3000940906] (HEARTBEAT) node 2 receives heartbeat from node 1
-[3000941004] (SHUTDOWN) shutting down node 0...
-[3000941004] (HEARTBEAT) node 1 sending heartbeat to node 3
-[3000941004] (SHUTDOWN) shutting down node 1...
-[3000941004] (HEARTBEAT) node 3 receives heartbeat from node 1
-[3000941004] (SHUTDOWN) shutting down node 2...
-[3000941004] (SHUTDOWN) shutting down node 3...
-[3000941004] (SHUTDOWN) shutting down node 4...
-[       OK ] ElectionTest.HandlesMultiFalseCandidates (925 ms)
-[----------] 1 test from ElectionTest (925 ms total)
+[3087785717] --> Switching node 3 from Follower to Candidate
+[3087785718] --> node 3 starting an election (term = 1)...
+[3087785718] (VOTE) node 0 sends yes vote to node 3
+[3087785718] (VOTE) node 3 received yes vote from node 0
+[3087785718] (VOTE) node 1 sends yes vote to node 3
+[3087785718] (VOTE) node 3 received yes vote from node 1
+[3087785718] (VOTE) node 2 sends yes vote to node 3
+[3087785718] (VOTE) node 3 received yes vote from node 2
+[3087785718] (VOTE) node 4 sends yes vote to node 3
+[3087785718] (VOTE) node 3 received yes vote from node 4
+[3087785718] --> Switching node 3 from Candidate to Leader
+[3087785718] (HEARTBEAT) node 3 sending heartbeat to node 0
+[3087785718] (HEARTBEAT) node 0 receives heartbeat from node 3
+[3087785719] (HEARTBEAT) node 3 sending heartbeat to node 1
+[3087785719] (HEARTBEAT) node 1 receives heartbeat from node 3
+[3087785719] (HEARTBEAT) node 3 sending heartbeat to node 2
+[3087785719] (HEARTBEAT) node 2 receives heartbeat from node 3
+[3087785719] (HEARTBEAT) node 3 sending heartbeat to node 4
+[3087785719] (HEARTBEAT) node 4 receives heartbeat from node 3
+[3087785732] --> Switching node 0 from Follower to Candidate
+[3087785732] --> Switching node 1 from Follower to Candidate
+[3087785732] --> Switching node 2 from Follower to Candidate
+[3087785732] --> Switching node 4 from Follower to Candidate
+[3087785822] (HEARTBEAT) node 3 sending heartbeat to node 2
+[3087785823] (HEARTBEAT) node 2 receives heartbeat from node 3
+[3087785824] (HEARTBEAT) node 3 sending heartbeat to node 0
+[3087785824] (HEARTBEAT) node 3 sending heartbeat to node 1
+[3087785824] (HEARTBEAT) node 0 receives heartbeat from node 3
+[3087785824] (HEARTBEAT) node 1 receives heartbeat from node 3
+[3087785824] (HEARTBEAT) node 3 sending heartbeat to node 4
+[3087785824] (HEARTBEAT) node 4 receives heartbeat from node 3
+[3087785926] (HEARTBEAT) node 3 sending heartbeat to node 4
+[3087785926] (HEARTBEAT) node 3 sending heartbeat to node 1
+[3087785926] (HEARTBEAT) node 4 receives heartbeat from node 3
+[3087785926] (HEARTBEAT) node 1 receives heartbeat from node 3
+[3087785928] (HEARTBEAT) node 3 sending heartbeat to node 2
+[3087785928] (HEARTBEAT) node 2 receives heartbeat from node 3
+[3087785929] (HEARTBEAT) node 3 sending heartbeat to node 0
+[3087785929] (HEARTBEAT) node 0 receives heartbeat from node 3
+[3087786028] (HEARTBEAT) node 3 sending heartbeat to node 1
+[3087786028] (HEARTBEAT) node 1 receives heartbeat from node 3
+[3087786031] (HEARTBEAT) node 3 sending heartbeat to node 4
+[3087786031] (HEARTBEAT) node 4 receives heartbeat from node 3
+[3087786033] (HEARTBEAT) node 3 sending heartbeat to node 0
+[3087786033] (HEARTBEAT) node 3 sending heartbeat to node 2
+[3087786033] (HEARTBEAT) node 0 receives heartbeat from node 3
+[3087786033] (HEARTBEAT) node 2 receives heartbeat from node 3
+[3087786131] (HEARTBEAT) node 3 sending heartbeat to node 4
+[3087786131] (HEARTBEAT) node 4 receives heartbeat from node 3
+[3087786133] (HEARTBEAT) node 3 sending heartbeat to node 1
+[3087786133] (HEARTBEAT) node 3 sending heartbeat to node 0
+[3087786133] (HEARTBEAT) node 1 receives heartbeat from node 3
+[3087786133] (HEARTBEAT) node 0 receives heartbeat from node 3
+[3087786138] (HEARTBEAT) node 3 sending heartbeat to node 2
+[3087786138] (HEARTBEAT) node 2 receives heartbeat from node 3
+[3087786236] (HEARTBEAT) node 3 sending heartbeat to node 4
+[3087786237] (HEARTBEAT) node 4 receives heartbeat from node 3
+[3087786237] (HEARTBEAT) node 3 sending heartbeat to node 0
+[3087786237] (SHUTDOWN) shutting down node 0...
+[3087786237] (HEARTBEAT) node 0 receives heartbeat from node 3
+[3087786237] (SHUTDOWN) shutting down node 1...
+[3087786237] (SHUTDOWN) shutting down node 2...
+[3087786237] (SHUTDOWN) shutting down node 3...
+[3087786237] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.HandlesMultiFalseCandidates (941 ms)
+[----------] 1 test from ElectionTest (941 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (925 ms total)
+[==========] 1 test from 1 test suite ran. (941 ms total)
 [  PASSED  ] 1 test.
 <end of output>
-Test time =   1.10 sec
+Test time =   1.12 sec
 ----------------------------------------------------------
 Test Passed.
-"ElectionTest.HandlesMultiFalseCandidates" end time: Apr 25 22:33 EDT
+"ElectionTest.HandlesMultiFalseCandidates" end time: Apr 26 22:41 EDT
 "ElectionTest.HandlesMultiFalseCandidates" time elapsed: 00:00:01
 ----------------------------------------------------------
 
-6/12 Testing: ElectionTest.HandlesMultiCandidateElection
-6/12 Test: ElectionTest.HandlesMultiCandidateElection
+6/13 Testing: ElectionTest.HandlesMultiCandidateElection
+6/13 Test: ElectionTest.HandlesMultiCandidateElection
 Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.HandlesMultiCandidateElection" "--gtest_also_run_disabled_tests"
 Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
-"ElectionTest.HandlesMultiCandidateElection" start time: Apr 25 22:33 EDT
+"ElectionTest.HandlesMultiCandidateElection" start time: Apr 26 22:41 EDT
 Output:
 ----------------------------------------------------------
 Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
@@ -288,58 +286,58 @@ Note: Google Test filter = ElectionTest.HandlesMultiCandidateElection
 [----------] Global test environment set-up.
 [----------] 1 test from ElectionTest
 [ RUN      ] ElectionTest.HandlesMultiCandidateElection
-[3000941286] --> Switching node 0 from Follower to Candidate
-[3000941286] --> Switching node 1 from Follower to Candidate
-[3000941286] --> Switching node 2 from Follower to Candidate
-[3000941286] --> Switching node 3 from Follower to Candidate
-[3000941286] --> Switching node 4 from Follower to Candidate
-[3000941595] --> Switching node 3 from Candidate to Candidate
-[3000941595] --> node 3 starting an election (term = 1)...
-[3000941595] --> Switching node 0 from Candidate to Follower
-[3000941595] (VOTE) node 0 sends yes vote to node 3
-[3000941596] --> Switching node 1 from Candidate to Follower
-[3000941596] (VOTE) node 1 sends yes vote to node 3
-[3000941596] (VOTE) node 3 received yes vote from node 0
-[3000941596] --> Switching node 2 from Candidate to Follower
-[3000941596] (VOTE) node 2 sends yes vote to node 3
-[3000941596] (VOTE) node 3 received yes vote from node 2
-[3000941596] (VOTE) node 3 received yes vote from node 1
-[3000941596] --> Switching node 4 from Candidate to Follower
-[3000941596] (VOTE) node 4 sends yes vote to node 3
-[3000941596] (VOTE) node 3 received yes vote from node 4
-[3000941596] --> Switching node 3 from Candidate to Leader
-[3000941596] (HEARTBEAT) node 3 sending heartbeat to node 0
-[3000941597] (HEARTBEAT) node 0 receives heartbeat from node 3
-[3000941597] (HEARTBEAT) node 3 sending heartbeat to node 1
-[3000941597] (HEARTBEAT) node 1 receives heartbeat from node 3
-[3000941597] (HEARTBEAT) node 3 sending heartbeat to node 2
-[3000941597] (HEARTBEAT) node 2 receives heartbeat from node 3
-[3000941597] (HEARTBEAT) node 3 sending heartbeat to node 4
-[3000941597] (HEARTBEAT) node 4 receives heartbeat from node 3
-[3000941613] (SHUTDOWN) shutting down node 0...
-[3000941613] (SHUTDOWN) shutting down node 1...
-[3000941613] (SHUTDOWN) shutting down node 2...
-[3000941613] (SHUTDOWN) shutting down node 3...
-[3000941613] (SHUTDOWN) shutting down node 4...
-[       OK ] ElectionTest.HandlesMultiCandidateElection (417 ms)
-[----------] 1 test from ElectionTest (417 ms total)
+[3087786523] --> Switching node 0 from Follower to Candidate
+[3087786523] --> Switching node 1 from Follower to Candidate
+[3087786523] --> Switching node 2 from Follower to Candidate
+[3087786523] --> Switching node 3 from Follower to Candidate
+[3087786523] --> Switching node 4 from Follower to Candidate
+[3087786874] --> Switching node 2 from Candidate to Candidate
+[3087786874] --> node 2 starting an election (term = 1)...
+[3087786874] --> Switching node 0 from Candidate to Follower
+[3087786874] --> Switching node 1 from Candidate to Follower
+[3087786875] (VOTE) node 1 sends yes vote to node 2
+[3087786875] (VOTE) node 0 sends yes vote to node 2
+[3087786875] (VOTE) node 2 received yes vote from node 1
+[3087786875] (VOTE) node 2 received yes vote from node 0
+[3087786875] --> Switching node 3 from Candidate to Follower
+[3087786875] (VOTE) node 3 sends yes vote to node 2
+[3087786875] (VOTE) node 2 received yes vote from node 3
+[3087786875] --> Switching node 4 from Candidate to Follower
+[3087786875] (VOTE) node 4 sends yes vote to node 2
+[3087786875] (VOTE) node 2 received yes vote from node 4
+[3087786875] --> Switching node 2 from Candidate to Leader
+[3087786875] (HEARTBEAT) node 2 sending heartbeat to node 0
+[3087786875] (HEARTBEAT) node 0 receives heartbeat from node 2
+[3087786875] (HEARTBEAT) node 2 sending heartbeat to node 1
+[3087786876] (HEARTBEAT) node 1 receives heartbeat from node 2
+[3087786876] (HEARTBEAT) node 2 sending heartbeat to node 3
+[3087786876] (HEARTBEAT) node 3 receives heartbeat from node 2
+[3087786876] (HEARTBEAT) node 2 sending heartbeat to node 4
+[3087786876] (HEARTBEAT) node 4 receives heartbeat from node 2
+[3087786904] (SHUTDOWN) shutting down node 0...
+[3087786904] (SHUTDOWN) shutting down node 1...
+[3087786904] (SHUTDOWN) shutting down node 2...
+[3087786904] (SHUTDOWN) shutting down node 3...
+[3087786904] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.HandlesMultiCandidateElection (459 ms)
+[----------] 1 test from ElectionTest (459 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (417 ms total)
+[==========] 1 test from 1 test suite ran. (459 ms total)
 [  PASSED  ] 1 test.
 <end of output>
-Test time =   0.60 sec
+Test time =   0.63 sec
 ----------------------------------------------------------
 Test Passed.
-"ElectionTest.HandlesMultiCandidateElection" end time: Apr 25 22:33 EDT
+"ElectionTest.HandlesMultiCandidateElection" end time: Apr 26 22:41 EDT
 "ElectionTest.HandlesMultiCandidateElection" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-7/12 Testing: ElectionTest.NodesResolveToSameTerm
-7/12 Test: ElectionTest.NodesResolveToSameTerm
+7/13 Testing: ElectionTest.NodesResolveToSameTerm
+7/13 Test: ElectionTest.NodesResolveToSameTerm
 Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.NodesResolveToSameTerm" "--gtest_also_run_disabled_tests"
 Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
-"ElectionTest.NodesResolveToSameTerm" start time: Apr 25 22:33 EDT
+"ElectionTest.NodesResolveToSameTerm" start time: Apr 26 22:41 EDT
 Output:
 ----------------------------------------------------------
 Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
@@ -348,49 +346,63 @@ Note: Google Test filter = ElectionTest.NodesResolveToSameTerm
 [----------] Global test environment set-up.
 [----------] 1 test from ElectionTest
 [ RUN      ] ElectionTest.NodesResolveToSameTerm
-[3000942269] --> Switching node 0 from Follower to Candidate
-[3000942269] --> node 0 starting an election (term = 1)...
-[3000942269] (VOTE) node 1 sends yes vote to node 0
-[3000942269] (VOTE) node 0 received yes vote from node 1
-[3000942269] (VOTE) node 2 sends yes vote to node 0
-[3000942269] (VOTE) node 0 received yes vote from node 2
-[3000942270] (VOTE) node 3 sends yes vote to node 0
-[3000942270] (VOTE) node 0 received yes vote from node 3
-[3000942270] (VOTE) node 4 sends yes vote to node 0
-[3000942270] (VOTE) node 0 received yes vote from node 4
-[3000942270] --> Switching node 0 from Candidate to Leader
-[3000942270] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000942270] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000942270] (HEARTBEAT) node 0 sending heartbeat to node 2
-[3000942270] (HEARTBEAT) node 2 receives heartbeat from node 0
-[3000942270] (HEARTBEAT) node 0 sending heartbeat to node 3
-[3000942270] (HEARTBEAT) node 3 receives heartbeat from node 0
-[3000942270] (HEARTBEAT) node 0 sending heartbeat to node 4
-[3000942270] (HEARTBEAT) node 4 receives heartbeat from node 0
-[3000942316] (SHUTDOWN) shutting down node 0...
-[3000942316] (SHUTDOWN) shutting down node 1...
-[3000942316] (SHUTDOWN) shutting down node 2...
-[3000942316] (SHUTDOWN) shutting down node 3...
-[3000942316] (SHUTDOWN) shutting down node 4...
-[       OK ] ElectionTest.NodesResolveToSameTerm (492 ms)
-[----------] 1 test from ElectionTest (492 ms total)
+[3087787472] --> Switching node 1 from Follower to Candidate
+[3087787472] --> node 1 starting an election (term = 1)...
+[3087787472] (VOTE) node 0 sends yes vote to node 1
+[3087787472] (VOTE) node 1 received yes vote from node 0
+[3087787472] (VOTE) node 2 sends yes vote to node 1
+[3087787472] (VOTE) node 1 received yes vote from node 2
+[3087787472] (VOTE) node 3 sends yes vote to node 1
+[3087787472] (VOTE) node 1 received yes vote from node 3
+[3087787472] (VOTE) node 4 sends yes vote to node 1
+[3087787472] (VOTE) node 1 received yes vote from node 4
+[3087787472] --> Switching node 4 from Follower to Candidate
+[3087787472] --> node 4 starting an election (term = 2)...
+[3087787472] --> Switching node 1 from Candidate to Leader
+[3087787473] (VOTE) node 0 sends yes vote to node 4
+[3087787473] (VOTE) node 4 received yes vote from node 0
+[3087787473] --> Switching node 1 from Leader to Follower
+[3087787473] (VOTE) node 1 sends yes vote to node 4
+[3087787473] (VOTE) node 4 received yes vote from node 1
+[3087787473] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087787473] (VOTE) node 2 sends yes vote to node 4
+[3087787473] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087787473] (VOTE) node 4 received yes vote from node 2
+[3087787473] (VOTE) node 3 sends yes vote to node 4
+[3087787473] (VOTE) node 4 received yes vote from node 3
+[3087787473] --> Switching node 4 from Candidate to Leader
+[3087787473] (HEARTBEAT) node 4 sending heartbeat to node 0
+[3087787473] (HEARTBEAT) node 0 receives heartbeat from node 4
+[3087787473] (HEARTBEAT) node 4 sending heartbeat to node 1
+[3087787473] (HEARTBEAT) node 1 receives heartbeat from node 4
+[3087787474] (HEARTBEAT) node 4 sending heartbeat to node 2
+[3087787474] (HEARTBEAT) node 2 receives heartbeat from node 4
+[3087787474] (HEARTBEAT) node 4 sending heartbeat to node 3
+[3087787474] (HEARTBEAT) node 3 receives heartbeat from node 4
+[3087787479] (SHUTDOWN) shutting down node 0...
+[3087787479] (SHUTDOWN) shutting down node 1...
+[3087787479] (SHUTDOWN) shutting down node 2...
+[3087787479] (SHUTDOWN) shutting down node 3...
+[3087787479] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.NodesResolveToSameTerm (431 ms)
+[----------] 1 test from ElectionTest (431 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (492 ms total)
+[==========] 1 test from 1 test suite ran. (431 ms total)
 [  PASSED  ] 1 test.
 <end of output>
-Test time =   0.65 sec
+Test time =   0.61 sec
 ----------------------------------------------------------
 Test Passed.
-"ElectionTest.NodesResolveToSameTerm" end time: Apr 25 22:34 EDT
+"ElectionTest.NodesResolveToSameTerm" end time: Apr 26 22:41 EDT
 "ElectionTest.NodesResolveToSameTerm" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-8/12 Testing: LogReplicationTest.ReplicatesSingleRequest
-8/12 Test: LogReplicationTest.ReplicatesSingleRequest
+8/13 Testing: LogReplicationTest.ReplicatesSingleRequest
+8/13 Test: LogReplicationTest.ReplicatesSingleRequest
 Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=LogReplicationTest.ReplicatesSingleRequest" "--gtest_also_run_disabled_tests"
 Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
-"LogReplicationTest.ReplicatesSingleRequest" start time: Apr 25 22:34 EDT
+"LogReplicationTest.ReplicatesSingleRequest" start time: Apr 26 22:41 EDT
 Output:
 ----------------------------------------------------------
 Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
@@ -399,57 +411,57 @@ Note: Google Test filter = LogReplicationTest.ReplicatesSingleRequest
 [----------] Global test environment set-up.
 [----------] 1 test from LogReplicationTest
 [ RUN      ] LogReplicationTest.ReplicatesSingleRequest
-[3000942859] --> Switching node 4 from Follower to Candidate
-[3000942859] --> node 4 starting an election (term = 1)...
-[3000942859] (VOTE) node 0 sends yes vote to node 4
-[3000942859] (VOTE) node 4 received yes vote from node 0
-[3000942859] (VOTE) node 1 sends yes vote to node 4
-[3000942859] (VOTE) node 4 received yes vote from node 1
-[3000942859] (VOTE) node 2 sends yes vote to node 4
-[3000942859] (VOTE) node 4 received yes vote from node 2
-[3000942859] (VOTE) node 3 sends yes vote to node 4
-[3000942859] (VOTE) node 4 received yes vote from node 3
-[3000942860] --> Switching node 4 from Candidate to Leader
-[3000942860] (HEARTBEAT) node 4 sending heartbeat to node 0
-[3000942860] (HEARTBEAT) node 0 receives heartbeat from node 4
-[3000942860] (HEARTBEAT) node 4 sending heartbeat to node 1
-[3000942860] (HEARTBEAT) node 1 receives heartbeat from node 4
-[3000942860] (HEARTBEAT) node 4 sending heartbeat to node 2
-[3000942860] (HEARTBEAT) node 2 receives heartbeat from node 4
-[3000942860] (HEARTBEAT) node 4 sending heartbeat to node 3
-[3000942860] (HEARTBEAT) node 3 receives heartbeat from node 4
-[3000942875] (LOG) node 4 sending AppendEntriesRPC to node 0
-[3000942875] (LOG) node 0 receives AppendEntriesRPC from node 4
-[3000942875] (LOG) node 4 sending AppendEntriesRPC to node 1
-[3000942875] (LOG) node 1 receives AppendEntriesRPC from node 4
-[3000942875] (LOG) node 4 sending AppendEntriesRPC to node 2
-[3000942875] (LOG) node 2 receives AppendEntriesRPC from node 4
-[3000942875] (LOG) node 4 sending AppendEntriesRPC to node 3
-[3000942875] (LOG) node 3 receives AppendEntriesRPC from node 4
-[3000942876] (SHUTDOWN) shutting down node 0...
-[3000942876] (SHUTDOWN) shutting down node 1...
-[3000942876] (SHUTDOWN) shutting down node 2...
-[3000942876] (SHUTDOWN) shutting down node 3...
-[3000942876] (SHUTDOWN) shutting down node 4...
-[       OK ] LogReplicationTest.ReplicatesSingleRequest (419 ms)
-[----------] 1 test from LogReplicationTest (419 ms total)
+[3087788120] --> Switching node 1 from Follower to Candidate
+[3087788120] --> node 1 starting an election (term = 1)...
+[3087788121] (VOTE) node 0 sends yes vote to node 1
+[3087788121] (VOTE) node 1 received yes vote from node 0
+[3087788121] (VOTE) node 2 sends yes vote to node 1
+[3087788121] (VOTE) node 1 received yes vote from node 2
+[3087788121] (VOTE) node 3 sends yes vote to node 1
+[3087788121] (VOTE) node 1 received yes vote from node 3
+[3087788121] (VOTE) node 4 sends yes vote to node 1
+[3087788121] (VOTE) node 1 received yes vote from node 4
+[3087788121] --> Switching node 1 from Candidate to Leader
+[3087788122] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087788122] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087788122] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087788122] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087788122] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087788122] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087788122] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087788122] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087788132] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087788132] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087788132] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087788132] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087788132] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087788132] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087788132] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087788132] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087788132] (SHUTDOWN) shutting down node 0...
+[3087788132] (SHUTDOWN) shutting down node 1...
+[3087788132] (SHUTDOWN) shutting down node 2...
+[3087788132] (SHUTDOWN) shutting down node 3...
+[3087788132] (SHUTDOWN) shutting down node 4...
+[       OK ] LogReplicationTest.ReplicatesSingleRequest (474 ms)
+[----------] 1 test from LogReplicationTest (474 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (419 ms total)
+[==========] 1 test from 1 test suite ran. (474 ms total)
 [  PASSED  ] 1 test.
 <end of output>
-Test time =   0.62 sec
+Test time =   0.65 sec
 ----------------------------------------------------------
 Test Passed.
-"LogReplicationTest.ReplicatesSingleRequest" end time: Apr 25 22:34 EDT
+"LogReplicationTest.ReplicatesSingleRequest" end time: Apr 26 22:41 EDT
 "LogReplicationTest.ReplicatesSingleRequest" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-9/12 Testing: LogReplicationTest.CommitsSingleRequestOnLeader
-9/12 Test: LogReplicationTest.CommitsSingleRequestOnLeader
+9/13 Testing: LogReplicationTest.CommitsSingleRequestOnLeader
+9/13 Test: LogReplicationTest.CommitsSingleRequestOnLeader
 Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=LogReplicationTest.CommitsSingleRequestOnLeader" "--gtest_also_run_disabled_tests"
 Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
-"LogReplicationTest.CommitsSingleRequestOnLeader" start time: Apr 25 22:34 EDT
+"LogReplicationTest.CommitsSingleRequestOnLeader" start time: Apr 26 22:41 EDT
 Output:
 ----------------------------------------------------------
 Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
@@ -458,57 +470,57 @@ Note: Google Test filter = LogReplicationTest.CommitsSingleRequestOnLeader
 [----------] Global test environment set-up.
 [----------] 1 test from LogReplicationTest
 [ RUN      ] LogReplicationTest.CommitsSingleRequestOnLeader
-[3000943488] --> Switching node 4 from Follower to Candidate
-[3000943488] --> node 4 starting an election (term = 1)...
-[3000943488] (VOTE) node 0 sends yes vote to node 4
-[3000943488] (VOTE) node 4 received yes vote from node 0
-[3000943488] (VOTE) node 1 sends yes vote to node 4
-[3000943488] (VOTE) node 4 received yes vote from node 1
-[3000943488] (VOTE) node 2 sends yes vote to node 4
-[3000943488] (VOTE) node 4 received yes vote from node 2
-[3000943488] (VOTE) node 3 sends yes vote to node 4
-[3000943488] (VOTE) node 4 received yes vote from node 3
-[3000943488] --> Switching node 4 from Candidate to Leader
-[3000943488] (HEARTBEAT) node 4 sending heartbeat to node 0
-[3000943488] (HEARTBEAT) node 0 receives heartbeat from node 4
-[3000943489] (HEARTBEAT) node 4 sending heartbeat to node 1
-[3000943489] (HEARTBEAT) node 1 receives heartbeat from node 4
-[3000943489] (HEARTBEAT) node 4 sending heartbeat to node 2
-[3000943489] (HEARTBEAT) node 2 receives heartbeat from node 4
-[3000943489] (HEARTBEAT) node 4 sending heartbeat to node 3
-[3000943489] (HEARTBEAT) node 3 receives heartbeat from node 4
-[3000943542] (LOG) node 4 sending AppendEntriesRPC to node 0
-[3000943542] (LOG) node 0 receives AppendEntriesRPC from node 4
-[3000943543] (LOG) node 4 sending AppendEntriesRPC to node 1
-[3000943543] (LOG) node 1 receives AppendEntriesRPC from node 4
-[3000943543] (LOG) node 4 sending AppendEntriesRPC to node 2
-[3000943543] (LOG) node 2 receives AppendEntriesRPC from node 4
-[3000943543] (LOG) node 4 sending AppendEntriesRPC to node 3
-[3000943543] (LOG) node 3 receives AppendEntriesRPC from node 4
-[3000943543] (SHUTDOWN) shutting down node 0...
-[3000943543] (SHUTDOWN) shutting down node 1...
-[3000943543] (SHUTDOWN) shutting down node 2...
-[3000943543] (SHUTDOWN) shutting down node 3...
-[3000943543] (SHUTDOWN) shutting down node 4...
-[       OK ] LogReplicationTest.CommitsSingleRequestOnLeader (438 ms)
-[----------] 1 test from LogReplicationTest (438 ms total)
+[3087788710] --> Switching node 2 from Follower to Candidate
+[3087788711] --> node 2 starting an election (term = 1)...
+[3087788711] (VOTE) node 0 sends yes vote to node 2
+[3087788711] (VOTE) node 2 received yes vote from node 0
+[3087788711] (VOTE) node 1 sends yes vote to node 2
+[3087788711] (VOTE) node 2 received yes vote from node 1
+[3087788711] (VOTE) node 3 sends yes vote to node 2
+[3087788711] (VOTE) node 2 received yes vote from node 3
+[3087788712] (VOTE) node 4 sends yes vote to node 2
+[3087788712] (VOTE) node 2 received yes vote from node 4
+[3087788712] --> Switching node 2 from Candidate to Leader
+[3087788712] (HEARTBEAT) node 2 sending heartbeat to node 0
+[3087788712] (HEARTBEAT) node 0 receives heartbeat from node 2
+[3087788712] (HEARTBEAT) node 2 sending heartbeat to node 1
+[3087788712] (HEARTBEAT) node 1 receives heartbeat from node 2
+[3087788712] (HEARTBEAT) node 2 sending heartbeat to node 3
+[3087788712] (HEARTBEAT) node 3 receives heartbeat from node 2
+[3087788713] (HEARTBEAT) node 2 sending heartbeat to node 4
+[3087788713] (HEARTBEAT) node 4 receives heartbeat from node 2
+[3087788734] (LOG) node 2 sending AppendEntriesRPC to node 0
+[3087788734] (LOG) node 0 receives AppendEntriesRPC from node 2
+[3087788735] (LOG) node 2 sending AppendEntriesRPC to node 1
+[3087788735] (LOG) node 1 receives AppendEntriesRPC from node 2
+[3087788735] (LOG) node 2 sending AppendEntriesRPC to node 3
+[3087788735] (LOG) node 3 receives AppendEntriesRPC from node 2
+[3087788735] (LOG) node 2 sending AppendEntriesRPC to node 4
+[3087788735] (LOG) node 4 receives AppendEntriesRPC from node 2
+[3087788735] (SHUTDOWN) shutting down node 0...
+[3087788735] (SHUTDOWN) shutting down node 1...
+[3087788735] (SHUTDOWN) shutting down node 2...
+[3087788735] (SHUTDOWN) shutting down node 3...
+[3087788735] (SHUTDOWN) shutting down node 4...
+[       OK ] LogReplicationTest.CommitsSingleRequestOnLeader (414 ms)
+[----------] 1 test from LogReplicationTest (414 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (438 ms total)
+[==========] 1 test from 1 test suite ran. (414 ms total)
 [  PASSED  ] 1 test.
 <end of output>
-Test time =   0.62 sec
+Test time =   0.58 sec
 ----------------------------------------------------------
 Test Passed.
-"LogReplicationTest.CommitsSingleRequestOnLeader" end time: Apr 25 22:34 EDT
+"LogReplicationTest.CommitsSingleRequestOnLeader" end time: Apr 26 22:41 EDT
 "LogReplicationTest.CommitsSingleRequestOnLeader" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-10/12 Testing: LogReplicationTest.CommitsSingleRequestOnFollowers
-10/12 Test: LogReplicationTest.CommitsSingleRequestOnFollowers
+10/13 Testing: LogReplicationTest.CommitsSingleRequestOnFollowers
+10/13 Test: LogReplicationTest.CommitsSingleRequestOnFollowers
 Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=LogReplicationTest.CommitsSingleRequestOnFollowers" "--gtest_also_run_disabled_tests"
 Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
-"LogReplicationTest.CommitsSingleRequestOnFollowers" start time: Apr 25 22:34 EDT
+"LogReplicationTest.CommitsSingleRequestOnFollowers" start time: Apr 26 22:41 EDT
 Output:
 ----------------------------------------------------------
 Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
@@ -517,81 +529,93 @@ Note: Google Test filter = LogReplicationTest.CommitsSingleRequestOnFollowers
 [----------] Global test environment set-up.
 [----------] 1 test from LogReplicationTest
 [ RUN      ] LogReplicationTest.CommitsSingleRequestOnFollowers
-[3000944120] --> Switching node 4 from Follower to Candidate
-[3000944120] --> node 4 starting an election (term = 1)...
-[3000944121] (VOTE) node 0 sends yes vote to node 4
-[3000944121] (VOTE) node 4 received yes vote from node 0
-[3000944121] (VOTE) node 1 sends yes vote to node 4
-[3000944121] (VOTE) node 4 received yes vote from node 1
-[3000944121] (VOTE) node 2 sends yes vote to node 4
-[3000944121] (VOTE) node 4 received yes vote from node 2
-[3000944121] (VOTE) node 3 sends yes vote to node 4
-[3000944121] (VOTE) node 4 received yes vote from node 3
-[3000944121] --> Switching node 4 from Candidate to Leader
-[3000944121] (HEARTBEAT) node 4 sending heartbeat to node 0
-[3000944121] (HEARTBEAT) node 0 receives heartbeat from node 4
-[3000944121] (HEARTBEAT) node 4 sending heartbeat to node 1
-[3000944121] (HEARTBEAT) node 1 receives heartbeat from node 4
-[3000944121] (HEARTBEAT) node 4 sending heartbeat to node 2
-[3000944121] (HEARTBEAT) node 2 receives heartbeat from node 4
-[3000944121] (HEARTBEAT) node 4 sending heartbeat to node 3
-[3000944121] (HEARTBEAT) node 3 receives heartbeat from node 4
-[3000944157] (LOG) node 4 sending AppendEntriesRPC to node 0
-[3000944157] (LOG) node 0 receives AppendEntriesRPC from node 4
-[3000944157] (LOG) node 4 sending AppendEntriesRPC to node 1
-[3000944157] (LOG) node 1 receives AppendEntriesRPC from node 4
-[3000944157] (LOG) node 4 sending AppendEntriesRPC to node 2
-[3000944157] (LOG) node 2 receives AppendEntriesRPC from node 4
-[3000944157] (LOG) node 4 sending AppendEntriesRPC to node 3
-[3000944157] (LOG) node 3 receives AppendEntriesRPC from node 4
-[3000944224] (HEARTBEAT) node 4 sending heartbeat to node 2
-[3000944224] (HEARTBEAT) node 2 receives heartbeat from node 4
-[3000944226] (HEARTBEAT) node 4 sending heartbeat to node 0
-[3000944226] (HEARTBEAT) node 4 sending heartbeat to node 1
-[3000944226] (HEARTBEAT) node 4 sending heartbeat to node 3
-[3000944226] (HEARTBEAT) node 0 receives heartbeat from node 4
-[3000944226] (HEARTBEAT) node 1 receives heartbeat from node 4
-[3000944226] (HEARTBEAT) node 3 receives heartbeat from node 4
-[3000944268] (LOG) node 4 sending AppendEntriesRPC to node 0
-[3000944268] (LOG) node 0 receives AppendEntriesRPC from node 4
-[3000944268] (LOG) node 4 sending AppendEntriesRPC to node 1
-[3000944268] (LOG) node 1 receives AppendEntriesRPC from node 4
-[3000944268] (LOG) node 4 sending AppendEntriesRPC to node 2
-[3000944268] (LOG) node 2 receives AppendEntriesRPC from node 4
-[3000944269] (LOG) node 4 sending AppendEntriesRPC to node 3
-[3000944269] (LOG) node 3 receives AppendEntriesRPC from node 4
-[3000944326] (HEARTBEAT) node 4 sending heartbeat to node 2
-[3000944326] (HEARTBEAT) node 2 receives heartbeat from node 4
-[3000944330] (HEARTBEAT) node 4 sending heartbeat to node 1
-[3000944330] (HEARTBEAT) node 1 receives heartbeat from node 4
-[3000944331] (HEARTBEAT) node 4 sending heartbeat to node 0
-[3000944331] (HEARTBEAT) node 0 receives heartbeat from node 4
-[3000944332] (HEARTBEAT) node 4 sending heartbeat to node 3
-[3000944332] (HEARTBEAT) node 3 receives heartbeat from node 4
-[3000944374] (SHUTDOWN) shutting down node 0...
-[3000944374] (SHUTDOWN) shutting down node 1...
-[3000944374] (SHUTDOWN) shutting down node 2...
-[3000944374] (SHUTDOWN) shutting down node 3...
-[3000944374] (SHUTDOWN) shutting down node 4...
-[       OK ] LogReplicationTest.CommitsSingleRequestOnFollowers (661 ms)
-[----------] 1 test from LogReplicationTest (662 ms total)
+[3087789347] --> Switching node 1 from Follower to Candidate
+[3087789347] --> node 1 starting an election (term = 1)...
+[3087789347] (VOTE) node 0 sends yes vote to node 1
+[3087789347] (VOTE) node 1 received yes vote from node 0
+[3087789347] (VOTE) node 2 sends yes vote to node 1
+[3087789347] (VOTE) node 1 received yes vote from node 2
+[3087789347] (VOTE) node 3 sends yes vote to node 1
+[3087789347] (VOTE) node 1 received yes vote from node 3
+[3087789348] --> Switching node 3 from Follower to Candidate
+[3087789348] (VOTE) node 4 sends yes vote to node 1
+[3087789348] --> node 3 starting an election (term = 2)...
+[3087789348] (VOTE) node 1 received yes vote from node 4
+[3087789348] (VOTE) node 0 sends yes vote to node 3
+[3087789348] (VOTE) node 3 received yes vote from node 0
+[3087789348] --> Switching node 1 from Candidate to Leader
+[3087789348] --> Switching node 1 from Leader to Follower
+[3087789348] (VOTE) node 1 sends yes vote to node 3
+[3087789348] (VOTE) node 2 sends yes vote to node 3
+[3087789348] (VOTE) node 3 received yes vote from node 1
+[3087789348] (VOTE) node 3 received yes vote from node 2
+[3087789348] (VOTE) node 4 sends yes vote to node 3
+[3087789348] (VOTE) node 3 received yes vote from node 4
+[3087789348] --> Switching node 3 from Candidate to Leader
+[3087789348] (HEARTBEAT) node 3 sending heartbeat to node 0
+[3087789348] (HEARTBEAT) node 0 receives heartbeat from node 3
+[3087789349] (HEARTBEAT) node 3 sending heartbeat to node 1
+[3087789349] (HEARTBEAT) node 1 receives heartbeat from node 3
+[3087789349] (HEARTBEAT) node 3 sending heartbeat to node 2
+[3087789349] (HEARTBEAT) node 2 receives heartbeat from node 3
+[3087789349] (HEARTBEAT) node 3 sending heartbeat to node 4
+[3087789349] (HEARTBEAT) node 4 receives heartbeat from node 3
+[3087789370] (LOG) node 3 sending AppendEntriesRPC to node 0
+[3087789370] (LOG) node 0 receives AppendEntriesRPC from node 3
+[3087789371] (LOG) node 3 sending AppendEntriesRPC to node 1
+[3087789371] (LOG) node 1 receives AppendEntriesRPC from node 3
+[3087789371] (LOG) node 3 sending AppendEntriesRPC to node 2
+[3087789371] (LOG) node 2 receives AppendEntriesRPC from node 3
+[3087789371] (LOG) node 3 sending AppendEntriesRPC to node 4
+[3087789371] (LOG) node 4 receives AppendEntriesRPC from node 3
+[3087789452] (HEARTBEAT) node 3 sending heartbeat to node 1
+[3087789452] (HEARTBEAT) node 3 sending heartbeat to node 4
+[3087789452] (HEARTBEAT) node 1 receives heartbeat from node 3
+[3087789452] (HEARTBEAT) node 4 receives heartbeat from node 3
+[3087789454] (HEARTBEAT) node 3 sending heartbeat to node 0
+[3087789454] (HEARTBEAT) node 0 receives heartbeat from node 3
+[3087789454] (HEARTBEAT) node 3 sending heartbeat to node 2
+[3087789454] (HEARTBEAT) node 2 receives heartbeat from node 3
+[3087789482] (LOG) node 3 sending AppendEntriesRPC to node 0
+[3087789482] (LOG) node 0 receives AppendEntriesRPC from node 3
+[3087789482] (LOG) node 3 sending AppendEntriesRPC to node 1
+[3087789482] (LOG) node 1 receives AppendEntriesRPC from node 3
+[3087789482] (LOG) node 3 sending AppendEntriesRPC to node 2
+[3087789482] (LOG) node 2 receives AppendEntriesRPC from node 3
+[3087789482] (LOG) node 3 sending AppendEntriesRPC to node 4
+[3087789482] (LOG) node 4 receives AppendEntriesRPC from node 3
+[3087789557] (HEARTBEAT) node 3 sending heartbeat to node 0
+[3087789557] (HEARTBEAT) node 3 sending heartbeat to node 1
+[3087789557] (HEARTBEAT) node 3 sending heartbeat to node 4
+[3087789557] (HEARTBEAT) node 3 sending heartbeat to node 2
+[3087789557] (HEARTBEAT) node 0 receives heartbeat from node 3
+[3087789557] (HEARTBEAT) node 1 receives heartbeat from node 3
+[3087789557] (HEARTBEAT) node 4 receives heartbeat from node 3
+[3087789557] (HEARTBEAT) node 2 receives heartbeat from node 3
+[3087789592] (SHUTDOWN) shutting down node 0...
+[3087789592] (SHUTDOWN) shutting down node 1...
+[3087789592] (SHUTDOWN) shutting down node 2...
+[3087789592] (SHUTDOWN) shutting down node 3...
+[3087789593] (SHUTDOWN) shutting down node 4...
+[       OK ] LogReplicationTest.CommitsSingleRequestOnFollowers (673 ms)
+[----------] 1 test from LogReplicationTest (674 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (662 ms total)
+[==========] 1 test from 1 test suite ran. (674 ms total)
 [  PASSED  ] 1 test.
 <end of output>
-Test time =   0.84 sec
+Test time =   0.85 sec
 ----------------------------------------------------------
 Test Passed.
-"LogReplicationTest.CommitsSingleRequestOnFollowers" end time: Apr 25 22:34 EDT
+"LogReplicationTest.CommitsSingleRequestOnFollowers" end time: Apr 26 22:41 EDT
 "LogReplicationTest.CommitsSingleRequestOnFollowers" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-11/12 Testing: LogReplicationTest.NodesApplyLogToStateMachine
-11/12 Test: LogReplicationTest.NodesApplyLogToStateMachine
+11/13 Testing: LogReplicationTest.NodesApplyLogToStateMachine
+11/13 Test: LogReplicationTest.NodesApplyLogToStateMachine
 Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=LogReplicationTest.NodesApplyLogToStateMachine" "--gtest_also_run_disabled_tests"
 Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
-"LogReplicationTest.NodesApplyLogToStateMachine" start time: Apr 25 22:34 EDT
+"LogReplicationTest.NodesApplyLogToStateMachine" start time: Apr 26 22:41 EDT
 Output:
 ----------------------------------------------------------
 Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
@@ -600,65 +624,1162 @@ Note: Google Test filter = LogReplicationTest.NodesApplyLogToStateMachine
 [----------] Global test environment set-up.
 [----------] 1 test from LogReplicationTest
 [ RUN      ] LogReplicationTest.NodesApplyLogToStateMachine
-[3000944983] --> Switching node 0 from Follower to Candidate
-[3000944983] --> node 0 starting an election (term = 1)...
-[3000944983] (VOTE) node 1 sends yes vote to node 0
-[3000944983] (VOTE) node 0 received yes vote from node 1
-[3000944983] (VOTE) node 2 sends yes vote to node 0
-[3000944983] (VOTE) node 0 received yes vote from node 2
-[3000944984] (VOTE) node 3 sends yes vote to node 0
-[3000944984] (VOTE) node 0 received yes vote from node 3
-[3000944984] (VOTE) node 4 sends yes vote to node 0
-[3000944984] (VOTE) node 0 received yes vote from node 4
-[3000944984] --> Switching node 0 from Candidate to Leader
-[3000944984] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000944984] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000944984] (HEARTBEAT) node 0 sending heartbeat to node 2
-[3000944984] (HEARTBEAT) node 2 receives heartbeat from node 0
-[3000944984] (HEARTBEAT) node 0 sending heartbeat to node 3
-[3000944984] (HEARTBEAT) node 3 receives heartbeat from node 0
-[3000944984] (HEARTBEAT) node 0 sending heartbeat to node 4
-[3000944984] (HEARTBEAT) node 4 receives heartbeat from node 0
-[3000945004] (LOG) node 0 sending AppendEntriesRPC to node 1
-[3000945004] (LOG) node 1 receives AppendEntriesRPC from node 0
-[3000945004] (LOG) node 0 sending AppendEntriesRPC to node 2
-[3000945004] (LOG) node 2 receives AppendEntriesRPC from node 0
-[3000945004] (LOG) node 0 sending AppendEntriesRPC to node 3
-[3000945005] (LOG) node 3 receives AppendEntriesRPC from node 0
-[3000945005] (LOG) node 0 sending AppendEntriesRPC to node 4
-[3000945005] (LOG) node 4 receives AppendEntriesRPC from node 0
-[3000945089] (HEARTBEAT) node 0 sending heartbeat to node 3
-[3000945089] (HEARTBEAT) node 3 receives heartbeat from node 0
-[3000945089] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000945089] (HEARTBEAT) node 0 sending heartbeat to node 2
-[3000945089] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000945089] (HEARTBEAT) node 2 receives heartbeat from node 0
-[3000945089] (HEARTBEAT) node 0 sending heartbeat to node 4
-[3000945090] (HEARTBEAT) node 4 receives heartbeat from node 0
-[3000945113] (SHUTDOWN) shutting down node 0...
-[3000945113] (SHUTDOWN) shutting down node 1...
-[3000945113] (SHUTDOWN) shutting down node 2...
-[3000945113] (SHUTDOWN) shutting down node 3...
-[3000945113] (SHUTDOWN) shutting down node 4...
-[       OK ] LogReplicationTest.NodesApplyLogToStateMachine (574 ms)
-[----------] 1 test from LogReplicationTest (574 ms total)
+[3087790193] --> Switching node 1 from Follower to Candidate
+[3087790193] --> node 1 starting an election (term = 1)...
+[3087790193] (VOTE) node 0 sends yes vote to node 1
+[3087790193] (VOTE) node 1 received yes vote from node 0
+[3087790193] (VOTE) node 2 sends yes vote to node 1
+[3087790193] (VOTE) node 1 received yes vote from node 2
+[3087790193] (VOTE) node 3 sends yes vote to node 1
+[3087790193] (VOTE) node 1 received yes vote from node 3
+[3087790194] (VOTE) node 4 sends yes vote to node 1
+[3087790194] (VOTE) node 1 received yes vote from node 4
+[3087790194] --> Switching node 1 from Candidate to Leader
+[3087790194] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087790194] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087790194] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087790194] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087790194] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087790194] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087790194] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087790195] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087790234] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790234] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790234] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790234] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790234] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790234] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790235] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790235] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790295] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087790295] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087790299] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087790299] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087790299] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087790299] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087790299] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087790299] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087790343] (SHUTDOWN) shutting down node 0...
+[3087790343] (SHUTDOWN) shutting down node 1...
+[3087790343] (SHUTDOWN) shutting down node 2...
+[3087790344] (SHUTDOWN) shutting down node 3...
+[3087790344] (SHUTDOWN) shutting down node 4...
+[       OK ] LogReplicationTest.NodesApplyLogToStateMachine (554 ms)
+[----------] 1 test from LogReplicationTest (554 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (574 ms total)
+[==========] 1 test from 1 test suite ran. (555 ms total)
 [  PASSED  ] 1 test.
 <end of output>
-Test time =   0.78 sec
+Test time =   0.74 sec
 ----------------------------------------------------------
 Test Passed.
-"LogReplicationTest.NodesApplyLogToStateMachine" end time: Apr 25 22:34 EDT
+"LogReplicationTest.NodesApplyLogToStateMachine" end time: Apr 26 22:41 EDT
 "LogReplicationTest.NodesApplyLogToStateMachine" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-12/12 Testing: LogReplicationLogic.HandlesBehindFollower
-12/12 Test: LogReplicationLogic.HandlesBehindFollower
+12/13 Testing: LogReplicationTest.FullyReplicates100Entries
+12/13 Test: LogReplicationTest.FullyReplicates100Entries
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=LogReplicationTest.FullyReplicates100Entries" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"LogReplicationTest.FullyReplicates100Entries" start time: Apr 26 22:41 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = LogReplicationTest.FullyReplicates100Entries
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from LogReplicationTest
+[ RUN      ] LogReplicationTest.FullyReplicates100Entries
+[3087790896] --> Switching node 4 from Follower to Candidate
+[3087790897] --> node 4 starting an election (term = 1)...
+[3087790897] (VOTE) node 0 sends yes vote to node 4
+[3087790897] (VOTE) node 1 sends yes vote to node 4
+[3087790897] (VOTE) node 4 received yes vote from node 1
+[3087790897] (VOTE) node 4 received yes vote from node 0
+[3087790897] --> Switching node 1 from Follower to Candidate
+[3087790897] --> node 1 starting an election (term = 2)...
+[3087790898] (VOTE) node 2 sends yes vote to node 4
+[3087790898] (VOTE) node 4 received yes vote from node 2
+[3087790898] (VOTE) node 0 sends yes vote to node 1
+[3087790898] (VOTE) node 1 received yes vote from node 0
+[3087790898] (VOTE) node 3 sends yes vote to node 4
+[3087790898] (VOTE) node 4 received yes vote from node 3
+[3087790898] (VOTE) node 2 sends yes vote to node 1
+[3087790898] (VOTE) node 1 received yes vote from node 2
+[3087790899] --> Switching node 4 from Candidate to Leader
+[3087790899] (VOTE) node 3 sends yes vote to node 1
+[3087790899] (VOTE) node 1 received yes vote from node 3
+[3087790899] --> Switching node 4 from Leader to Follower
+[3087790899] (VOTE) node 4 sends yes vote to node 1
+[3087790899] (VOTE) node 1 received yes vote from node 4
+[3087790899] (HEARTBEAT) node 4 sending heartbeat to node 0
+[3087790899] (HEARTBEAT) node 0 receives heartbeat from node 4
+[3087790900] --> Switching node 1 from Candidate to Leader
+[3087790900] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087790900] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087790900] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087790900] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087790900] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087790900] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087790900] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087790900] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087790904] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790904] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790905] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790905] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790905] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790905] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790905] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790905] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790906] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790906] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790912] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790912] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790913] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790913] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790913] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790913] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790913] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790913] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790913] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790913] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790913] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790913] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790913] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790913] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790914] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790914] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790914] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790914] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790914] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790914] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790914] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790914] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790914] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790914] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790914] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790914] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790914] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790914] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790914] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790914] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790914] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790914] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790914] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790914] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790915] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790915] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790915] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790915] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790915] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790915] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790915] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790915] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790915] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790915] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790915] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790915] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790915] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790915] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790915] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790915] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790915] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790915] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790915] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790915] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790915] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790915] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790915] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790915] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790915] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790915] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790915] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790915] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790916] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790916] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790916] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790916] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790916] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790916] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790916] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790916] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790916] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790916] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790916] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790916] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790916] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790916] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790916] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790916] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790916] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790916] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790916] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790916] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790916] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790916] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790916] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790916] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790916] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790916] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790916] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790916] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790917] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790917] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790917] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790917] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790917] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790917] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790917] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790917] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790917] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790917] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790917] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790917] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790917] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790917] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790917] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790917] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790917] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790917] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790917] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790917] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790917] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790917] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790917] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790917] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790917] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790918] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790918] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790918] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790918] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790918] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790918] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790918] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790918] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790918] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790918] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790918] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790918] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790918] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790918] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790918] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790918] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790918] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790918] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790918] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790918] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790918] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790918] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790918] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790918] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790918] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790918] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790918] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790918] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790919] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790919] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790919] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790919] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790919] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790919] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790919] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790919] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790919] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790919] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790919] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790919] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790919] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790919] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790919] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790919] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790919] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790920] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790920] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790920] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790920] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790920] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790920] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790920] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790920] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790920] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790920] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790920] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790920] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790920] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790920] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790920] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790920] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790921] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790921] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790921] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790921] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790921] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790921] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790921] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790921] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790921] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790921] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790921] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790921] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790921] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790921] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790921] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790921] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790921] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790921] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790921] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790922] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790922] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790922] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790922] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790922] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790922] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790922] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790922] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790922] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790922] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790922] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790922] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790922] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790922] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790922] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790922] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790922] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790923] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790923] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790923] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790923] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790923] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790923] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790923] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790923] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790923] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790923] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790923] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790923] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790923] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790923] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790923] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790923] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790923] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790923] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790923] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790923] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790924] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790924] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790924] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790924] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790924] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790924] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790924] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790924] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790924] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790924] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790924] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790924] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790924] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790924] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790924] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790924] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790924] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790924] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790924] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790925] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790925] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790925] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790925] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790925] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790925] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790925] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790925] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790925] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790925] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790925] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790925] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790925] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790925] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790925] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790925] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790925] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790925] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790925] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790925] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790925] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790925] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790926] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790926] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790926] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790926] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790926] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790926] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790926] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790926] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790926] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790926] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790926] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790926] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790926] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790926] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790926] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790926] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790926] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790926] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790927] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790927] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790927] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790927] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790927] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790927] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790927] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790927] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790927] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790927] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790927] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790927] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790927] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790927] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790927] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790927] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790927] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790927] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790927] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790927] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790927] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790927] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790928] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790928] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790928] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790928] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790928] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790928] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790928] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790928] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790928] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790928] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790928] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790928] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790928] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790928] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790928] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790928] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790928] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790928] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790928] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790928] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790929] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790929] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790929] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790929] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790929] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790929] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790929] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790929] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790929] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790929] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790929] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790929] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790929] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790929] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790929] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790929] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790929] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790929] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790929] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790929] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790930] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790930] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790930] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790930] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790930] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790930] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790930] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790930] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790930] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790930] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790930] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790930] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790930] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790930] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790930] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790930] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790930] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790930] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790930] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790930] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790930] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790930] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790930] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790930] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790930] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790931] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790931] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790931] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790931] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790931] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790931] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790931] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790931] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790931] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790931] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790931] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790931] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790931] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790931] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790931] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790931] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790931] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790931] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790931] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790931] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790931] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790931] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790931] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790931] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790931] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790931] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790932] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790932] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790932] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790932] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790932] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790932] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790932] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790932] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790932] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790932] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790932] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790932] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790932] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790932] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790932] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790932] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790932] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790932] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790932] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790932] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790932] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790932] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790932] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790932] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790933] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790933] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790933] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790933] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790933] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790933] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790933] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790933] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790933] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790933] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790933] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790933] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790933] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790933] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790933] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790933] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790933] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790933] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790933] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790933] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790933] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790933] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790933] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790933] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790933] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790934] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790934] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790934] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790934] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790934] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790934] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790934] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790934] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790934] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790934] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790934] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790934] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790934] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790934] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790934] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790934] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790935] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790935] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790935] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790935] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790935] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790935] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790935] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790935] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790935] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790935] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790935] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790935] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790935] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790935] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790935] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790935] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790935] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790935] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790935] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790935] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790935] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790935] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790936] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790936] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790936] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790936] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790936] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790936] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790936] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790936] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790936] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790936] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790936] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790936] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790936] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790936] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790936] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790936] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790936] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790936] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790936] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790936] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790936] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790936] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790937] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790937] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790937] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790937] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790937] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790937] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790937] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790937] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790937] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790937] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790937] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790937] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790937] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790937] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790937] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790937] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790937] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790937] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790937] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790937] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790937] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790937] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790937] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790937] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790937] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790937] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790938] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790938] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790938] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790938] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790938] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790938] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790938] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790938] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790938] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790938] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790938] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790938] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790938] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790938] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790938] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790938] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790938] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790938] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790938] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790938] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790938] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790938] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790938] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790938] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790938] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790938] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790938] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790938] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790939] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790939] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790939] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790939] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790939] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790939] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790939] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790939] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790939] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790939] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790939] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790939] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790939] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790939] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790939] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790939] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790940] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790940] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790940] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790940] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790940] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790940] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790940] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790940] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790940] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790940] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790940] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790940] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790940] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790940] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790940] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790940] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790940] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790940] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790940] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790940] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790940] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790940] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790940] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790940] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790940] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790940] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790940] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790940] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790941] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790941] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790941] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790941] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790941] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790941] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790941] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790941] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790941] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790941] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790941] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790941] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790941] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790941] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790941] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790941] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790941] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790941] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790941] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790941] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790941] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790941] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790941] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790941] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790941] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790941] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790941] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790941] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790942] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790942] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790942] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790942] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790942] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790942] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790942] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790942] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790942] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790942] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790942] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790942] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790942] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790942] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790942] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790942] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790942] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790942] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790942] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790942] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790942] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790942] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790942] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790942] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790942] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790942] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790943] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790943] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790943] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790943] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790943] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790943] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790943] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790943] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790943] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790943] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790943] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790943] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790943] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790943] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790943] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790943] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790943] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790943] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790943] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790943] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790943] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790943] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790943] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790943] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790943] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790943] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790943] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790943] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790944] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790944] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790944] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790944] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790944] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790944] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790944] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790944] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790944] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790944] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790944] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790944] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790944] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790944] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790944] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790944] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790945] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790945] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790945] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790945] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790945] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790945] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790945] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790945] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790945] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790945] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790945] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790945] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790945] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790945] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790945] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087790945] (LOG) node 1 sending AppendEntriesRPC to node 0
+[3087790945] (LOG) node 0 receives AppendEntriesRPC from node 1
+[3087790945] (LOG) node 1 sending AppendEntriesRPC to node 2
+[3087790945] (LOG) node 2 receives AppendEntriesRPC from node 1
+[3087790945] (LOG) node 1 sending AppendEntriesRPC to node 3
+[3087790945] (LOG) node 3 receives AppendEntriesRPC from node 1
+[3087790945] (LOG) node 1 sending AppendEntriesRPC to node 4
+[3087790945] (LOG) node 4 receives AppendEntriesRPC from node 1
+[3087791002] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087791002] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087791002] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087791002] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087791002] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087791002] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087791003] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087791003] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087791102] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087791102] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087791107] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087791107] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087791107] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087791107] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087791108] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087791108] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087791207] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087791207] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087791207] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087791207] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087791208] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087791208] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087791213] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087791213] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087791311] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087791311] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087791311] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087791311] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087791313] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087791313] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087791318] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087791318] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087791416] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087791416] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087791416] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087791416] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087791416] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087791416] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087791424] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087791424] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087791519] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087791519] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087791521] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087791521] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087791521] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087791521] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087791529] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087791529] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087791620] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087791620] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087791623] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087791623] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087791626] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087791626] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087791629] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087791629] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087791725] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087791725] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087791728] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087791728] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087791731] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087791732] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087791732] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087791732] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087791828] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087791829] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087791832] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087791832] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087791833] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087791834] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087791837] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087791837] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087791934] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087791934] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087791937] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087791937] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087791938] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087791938] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087791939] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087791939] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087792037] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087792037] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087792040] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087792040] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087792042] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087792042] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087792043] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087792043] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087792138] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087792138] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087792145] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087792145] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087792145] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087792145] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087792145] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087792145] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087792243] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087792243] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087792250] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087792250] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087792250] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087792250] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087792250] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087792250] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087792348] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087792348] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087792355] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087792355] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087792355] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087792355] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087792355] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087792355] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087792453] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087792453] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087792460] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087792460] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087792460] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087792460] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087792460] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087792460] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087792558] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087792558] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087792561] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087792561] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087792565] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087792565] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087792565] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087792565] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087792661] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087792662] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087792666] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087792666] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087792670] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087792670] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087792670] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087792671] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087792763] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087792763] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087792769] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087792769] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087792775] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087792775] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087792776] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087792776] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087792868] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087792868] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087792874] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087792875] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087792880] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087792880] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087792880] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087792880] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087792972] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087792972] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087792980] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087792980] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087792983] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087792983] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087792985] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087792985] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087793073] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087793073] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087793085] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087793085] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087793085] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087793085] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087793091] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087793091] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087793178] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087793179] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087793190] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087793190] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087793190] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087793190] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087793192] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087793192] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087793284] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087793284] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087793292] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087793292] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087793294] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087793294] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087793295] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087793295] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087793389] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087793389] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087793396] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087793396] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087793396] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087793396] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087793396] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087793397] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087793494] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087793494] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087793498] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087793498] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087793502] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087793502] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087793502] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087793502] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087793596] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087793596] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087793602] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087793602] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087793605] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087793605] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087793606] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087793606] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087793697] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087793697] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087793706] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087793706] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087793706] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087793706] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087793711] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087793711] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087793802] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087793802] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087793808] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087793808] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087793811] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087793811] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087793816] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087793816] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087793907] (HEARTBEAT) node 1 sending heartbeat to node 3
+[3087793907] (HEARTBEAT) node 3 receives heartbeat from node 1
+[3087793911] (HEARTBEAT) node 1 sending heartbeat to node 4
+[3087793911] (HEARTBEAT) node 4 receives heartbeat from node 1
+[3087793913] (HEARTBEAT) node 1 sending heartbeat to node 0
+[3087793913] (HEARTBEAT) node 0 receives heartbeat from node 1
+[3087793921] (HEARTBEAT) node 1 sending heartbeat to node 2
+[3087793921] (HEARTBEAT) node 2 receives heartbeat from node 1
+[3087793952] (SHUTDOWN) shutting down node 0...
+[3087793952] (SHUTDOWN) shutting down node 1...
+[3087793952] (SHUTDOWN) shutting down node 2...
+[3087793952] (SHUTDOWN) shutting down node 3...
+[3087793952] (SHUTDOWN) shutting down node 4...
+[       OK ] LogReplicationTest.FullyReplicates100Entries (3448 ms)
+[----------] 1 test from LogReplicationTest (3448 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (3449 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   3.64 sec
+----------------------------------------------------------
+Test Passed.
+"LogReplicationTest.FullyReplicates100Entries" end time: Apr 26 22:41 EDT
+"LogReplicationTest.FullyReplicates100Entries" time elapsed: 00:00:03
+----------------------------------------------------------
+
+13/13 Testing: LogReplicationLogic.HandlesBehindFollower
+13/13 Test: LogReplicationLogic.HandlesBehindFollower
 Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=LogReplicationLogic.HandlesBehindFollower" "--gtest_also_run_disabled_tests"
 Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
-"LogReplicationLogic.HandlesBehindFollower" start time: Apr 25 22:34 EDT
+"LogReplicationLogic.HandlesBehindFollower" start time: Apr 26 22:41 EDT
 Output:
 ----------------------------------------------------------
 Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
@@ -667,75 +1788,75 @@ Note: Google Test filter = LogReplicationLogic.HandlesBehindFollower
 [----------] Global test environment set-up.
 [----------] 1 test from LogReplicationLogic
 [ RUN      ] LogReplicationLogic.HandlesBehindFollower
-[3000945402] --> Switching node 0 from Follower to Leader
-[3000945402] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000945402] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000945504] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000945504] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000945605] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000945606] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000945711] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000945711] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000945813] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000945813] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000945919] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000945919] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000946020] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000946021] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000946123] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000946123] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000946228] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000946228] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000946329] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000946329] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000946434] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000946434] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000946539] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000946539] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000946644] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000946644] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000946748] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000946748] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000946853] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000946853] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000946958] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000946958] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000947063] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000947063] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000947168] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000947168] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000947273] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000947273] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000947376] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000947376] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000947408] (LOG) node 0 sending AppendEntriesRPC to node 1
-[3000947408] (LOG) node 1 receives AppendEntriesRPC from node 0
-[3000947408] (LOG) node 0 sending AppendEntriesRPC to node 1
-[3000947408] (LOG) node 1 receives AppendEntriesRPC from node 0
-[3000947408] (LOG) node 0 sending AppendEntriesRPC to node 1
-[3000947408] (LOG) node 1 receives AppendEntriesRPC from node 0
-[3000947408] (LOG) node 0 sending AppendEntriesRPC to node 1
-[3000947408] (LOG) node 1 receives AppendEntriesRPC from node 0
-[3000947408] (LOG) node 0 sending AppendEntriesRPC to node 1
-[3000947408] (LOG) node 1 receives AppendEntriesRPC from node 0
-[3000947409] (LOG) node 0 sending AppendEntriesRPC to node 1
-[3000947409] (LOG) node 1 receives AppendEntriesRPC from node 0
-[3000947477] (HEARTBEAT) node 0 sending heartbeat to node 1
-[3000947477] (HEARTBEAT) node 1 receives heartbeat from node 0
-[3000947518] (SHUTDOWN) shutting down node 1...
-[3000947519] (SHUTDOWN) shutting down node 0...
-[       OK ] LogReplicationLogic.HandlesBehindFollower (2180 ms)
-[----------] 1 test from LogReplicationLogic (2181 ms total)
+[3087794225] --> Switching node 0 from Follower to Leader
+[3087794225] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087794225] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087794330] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087794330] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087794435] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087794435] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087794540] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087794540] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087794645] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087794645] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087794750] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087794750] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087794855] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087794855] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087794956] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087794956] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087795058] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087795059] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087795159] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087795159] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087795264] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087795264] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087795370] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087795370] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087795475] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087795475] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087795580] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087795580] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087795685] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087795685] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087795791] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087795791] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087795896] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087795896] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087796001] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087796001] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087796106] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087796106] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087796208] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087796208] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087796231] (LOG) node 0 sending AppendEntriesRPC to node 1
+[3087796231] (LOG) node 1 receives AppendEntriesRPC from node 0
+[3087796231] (LOG) node 0 sending AppendEntriesRPC to node 1
+[3087796231] (LOG) node 1 receives AppendEntriesRPC from node 0
+[3087796231] (LOG) node 0 sending AppendEntriesRPC to node 1
+[3087796231] (LOG) node 1 receives AppendEntriesRPC from node 0
+[3087796231] (LOG) node 0 sending AppendEntriesRPC to node 1
+[3087796231] (LOG) node 1 receives AppendEntriesRPC from node 0
+[3087796232] (LOG) node 0 sending AppendEntriesRPC to node 1
+[3087796232] (LOG) node 1 receives AppendEntriesRPC from node 0
+[3087796232] (LOG) node 0 sending AppendEntriesRPC to node 1
+[3087796232] (LOG) node 1 receives AppendEntriesRPC from node 0
+[3087796312] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3087796312] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3087796343] (SHUTDOWN) shutting down node 1...
+[3087796343] (SHUTDOWN) shutting down node 0...
+[       OK ] LogReplicationLogic.HandlesBehindFollower (2190 ms)
+[----------] 1 test from LogReplicationLogic (2190 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (2181 ms total)
+[==========] 1 test from 1 test suite ran. (2190 ms total)
 [  PASSED  ] 1 test.
 <end of output>
 Test time =   2.36 sec
 ----------------------------------------------------------
 Test Passed.
-"LogReplicationLogic.HandlesBehindFollower" end time: Apr 25 22:34 EDT
+"LogReplicationLogic.HandlesBehindFollower" end time: Apr 26 22:41 EDT
 "LogReplicationLogic.HandlesBehindFollower" time elapsed: 00:00:02
 ----------------------------------------------------------
 
-End testing: Apr 25 22:34 EDT
+End testing: Apr 26 22:41 EDT

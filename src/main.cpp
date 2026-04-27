@@ -5,6 +5,7 @@
 #include <thread>
 
 int main(int argc, char *argv[]) {
+  std::ios::sync_with_stdio(false);
   SimulatedNetwork simNetwork;
   std::random_device rd;
   std::vector<std::unique_ptr<RaftNode>> nodes;

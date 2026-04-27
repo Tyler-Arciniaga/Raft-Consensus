@@ -220,6 +220,55 @@ TEST_F(LogReplicationTest, NodesApplyLogToStateMachine) {
                       "machine after 2 sec";
 }
 
+TEST_F(LogReplicationTest, FullyReplicates100Entries) {
+  auto res = WaitForCondition([this] { return ExactlyOneLeader(); }, 1000);
+
+  ASSERT_TRUE(res) << "single leader is not elected after 1 sec";
+
+  RaftNode *leader_node;
+  for (auto &node : nodes) {
+    if (node->GetState() == NodeState::Leader) {
+      leader_node = node.get();
+      break;
+    }
+  }
+
+  for (auto i = 0; i < 100; i++) {
+    auto req = std::vector<ServerRequest>{
+        ServerRequest{ServerAction::Add, std::to_string(i), i}};
+    leader_node->SendRequest(req);
+  }
+
+  res = WaitForCondition([this] { return ExactlyOneLeader(); }, 1000);
+
+  ASSERT_TRUE(res) << "nodes do not have single leader after sending 100 "
+                      "requests to previous leader";
+
+  for (auto &node : nodes) {
+    if (node->GetState() == NodeState::Leader) {
+      leader_node = node.get();
+      break;
+    }
+  }
+
+  auto leader_log = leader_node->GetLog();
+  std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+  for (auto &node : nodes) {
+    if (node->GetState() == NodeState::Leader) {
+      continue;
+    }
+
+    auto log = node->GetLog();
+    for (auto i = 0; i < log.size(); i++) {
+      if (log[i] != leader_log.at(i)) {
+        ASSERT_TRUE(false)
+            << "at least one of the nodes still does not have a replicated log "
+               "with the current leader";
+      }
+    }
+  }
+}
+
 TEST(LogReplicationLogic, HandlesBehindFollower) {
   std::random_device rd;
   SimulatedNetwork network;

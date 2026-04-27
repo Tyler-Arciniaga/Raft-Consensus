@@ -104,10 +104,19 @@ TEST_F(ElectionTest, HandlesSingleLeaderLoss) {
 
   ASSERT_NE(leader_index, SIZE_MAX);
 
+  auto leader_term = nodes[leader_index]->GetCommitIndex();
+
   nodes[leader_index].get()->StopNode();
 
   auto res2 = WaitForCondition(cond, 1000);
   ASSERT_TRUE(res2) << "no single leader elected after previous leader dies";
+
+  for (auto &node : nodes) {
+    if (node->GetState() == NodeState::Leader) {
+      ASSERT_GT(node->GetTerm(), leader_term);
+      return;
+    }
+  }
 }
 
 TEST_F(ElectionTest, HandlesFalseCandidateDemotion) {

@@ -309,7 +309,7 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
   heartbeat_cv.notify_one();
 
   // update currentTerm if higher and demote when necessary
-  if (args.leader_term >= currentTerm) {
+  if (args.leader_term > currentTerm) {
     currentTerm = args.leader_term;
     if (state.load() != NodeState::Follower) {
       SwitchStateToFollower();
