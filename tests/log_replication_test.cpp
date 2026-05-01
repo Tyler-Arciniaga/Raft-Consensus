@@ -51,6 +51,10 @@ protected:
   }
 
   void TearDown() override {
+    // for (auto i = 0; i < nodes.size(); i++) {
+    //   nodes[i]->StopNode();
+    //   node_threads.at(i).join();
+    // }
     for (auto &node : nodes) {
       node->StopNode();
     }
@@ -252,7 +256,7 @@ TEST_F(LogReplicationTest, FullyReplicates100Entries) {
   }
 
   auto leader_log = leader_node->GetLog();
-  std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+  std::this_thread::sleep_for(std::chrono::milliseconds(2000));
   for (auto &node : nodes) {
     if (node->GetState() == NodeState::Leader) {
       continue;
@@ -321,6 +325,3 @@ TEST(LogReplicationLogic, HandlesBehindFollower) {
     t.join();
   }
 }
-
-// TODO test instances where node shuts down and then resumes after entry was
-// committed and all other similar instances

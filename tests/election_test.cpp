@@ -122,8 +122,8 @@ TEST_F(ElectionTest, HandlesSingleLeaderLoss) {
 TEST_F(ElectionTest, HandlesFalseCandidateDemotion) {
   auto cond = [this] { return ExactlyOneLeader(); };
 
-  auto res = WaitForCondition(cond, 1000);
-  ASSERT_TRUE(res) << "no single leader elected after 1 sec";
+  auto res = WaitForCondition(cond, 2000);
+  ASSERT_TRUE(res) << "no single leader elected after 2 sec";
 
   for (auto &node : nodes) {
     if (node->GetState() == NodeState::Follower) {

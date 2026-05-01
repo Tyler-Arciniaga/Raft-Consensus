@@ -363,18 +363,12 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
   heartbeat_cv.notify_one();
 
   // update currentTerm if higher and demote when necessary
-  // if (args.leader_term == currentTerm && state == NodeState::Candidate) {
-  //   SwitchStateToFollower();
-  // } else if (args.leader_term > currentTerm) {
-  //   currentTerm = args.leader_term;
-  //   if (state != NodeState::Follower) {
-  //     SwitchStateToFollower();
-  //   }
-  // }
-
-  if (args.leader_term > currentTerm) {
+  if (args.leader_term == currentTerm && state == NodeState::Candidate) {
+    // candidate must recognize incoming leader and demote...
+    SwitchStateToFollower();
+  } else if (args.leader_term > currentTerm) {
     currentTerm = args.leader_term;
-    if (state.load() != NodeState::Follower) {
+    if (state != NodeState::Follower) {
       SwitchStateToFollower();
     }
   }
@@ -412,16 +406,15 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
 // TODO: pretty sure that issue with stalling is happening somewhere in this
 // HandleFollowerState function
 
-// main follower state function, has infinite loop only broken if current
-// election timer countdown reached before AppendEntry RPC can notify condition
-// variable
+// Main Follower state function, some key components:
+// 1) Loops indefinitely as long as !node_shutdown and election timer does not
+// timeout
+// 2) Does not wake up when NodeState changes from Follower
 void RaftNode::HandleFollowerState() {
   std::unique_lock<std::mutex> lock(mtx);
 
   while (!node_shutdown.load()) {
     int timeout = randomizer.GetRandomElectionTimeout();
-    Logger::getLogger().log("(DEBUG) follower node " + std::to_string(nodeID) +
-                            " waiting\n");
     auto notified =
         heartbeat_cv.wait_for(lock, std::chrono::milliseconds(timeout), [this] {
           return node_shutdown.load() || heartbeat_received;
@@ -434,18 +427,13 @@ void RaftNode::HandleFollowerState() {
       return;
     }
 
+    // did not receive heartbeat within timeout period...
     if (!notified) {
-      Logger::getLogger().log("(DEBUG) node " + std::to_string(nodeID) +
-                              " follower timed out\n");
       break;
     }
 
     heartbeat_received = false;
   }
-
-  Logger::getLogger().log("(DEBUG) node " + std::to_string(nodeID) +
-                          " follower exiting loop, shutdown=" +
-                          std::to_string(node_shutdown.load()) + "\n");
 
   if (!node_shutdown.load() && state == NodeState::Follower) {
     SwitchStateToCandidate();
@@ -453,26 +441,6 @@ void RaftNode::HandleFollowerState() {
 
   Logger::getLogger().log("(SHUTDOWN) HandleFollowerState exiting for node " +
                           std::to_string(nodeID) + "\n");
-
-  // while (!node_shutdown.load()) {
-  //   int new_countdown_duration = randomizer.GetRandomElectionTimeout();
-  //   if (heartbeat_cv.wait_for(
-  //           lock, std::chrono::milliseconds(new_countdown_duration)) ==
-  //       std::cv_status::timeout) {
-  //     break;
-  //   }
-  //
-  //   if (node_shutdown.load()) {
-  //     Logger::getLogger().log(
-  //         "(SHUTDOWN) HandleFollowerState exiting for node " +
-  //         std::to_string(nodeID) + "\n");
-  //     return;
-  //   }
-  // }
-  //
-  // if (!node_shutdown.load()) {
-  //   SwitchStateToCandidate();
-  // }
 }
 
 void RaftNode::SendRequestVoteRPC(size_t targetID, VoteState &voteState,
@@ -488,41 +456,31 @@ void RaftNode::SendRequestVoteRPC(size_t targetID, VoteState &voteState,
   while (!stop.load()) {
     auto reply = network.sendRequestVote(targetID, arg);
 
-    // std::lock_guard<std::mutex> lock(mtx);
-    // if (!(reply.voteGranted || reply.term > currentTerm)) {
-    //   continue;
-    // }
-    //
-    // if (reply.term > currentTerm) {
-    //   currentTerm = reply.term;
-    //   SwitchStateToFollower();
-    // } else if (reply.voteGranted) {
-    //   Logger::getLogger().log("(VOTE) node " + std::to_string(nodeID) +
-    //                           " received yes vote from node " +
-    //                           std::to_string(targetID) + "\n");
-    //   voteState.votesReceived++;
-    // }
-    //
-    // voteState.cv.notify_one();
-    // return;
+    std::lock_guard<std::mutex> lock(mtx);
 
-    if (reply.voteGranted) {
+    // if network.sendRequestVote timed out continue in loop and retry
+    if (!(reply.voteGranted || reply.term > currentTerm)) {
+      continue;
+    }
+
+    // always adopt new term and demote if candidate encounters higher term
+    if (reply.term > currentTerm) {
+      currentTerm = reply.term;
+      SwitchStateToFollower();
+    }
+
+    // if vote was granted increment voteState number of "yes" votes
+    else if (reply.voteGranted) {
       Logger::getLogger().log("(VOTE) node " + std::to_string(nodeID) +
                               " received yes vote from node " +
                               std::to_string(targetID) + "\n");
       voteState.votesReceived++;
-      voteState.cv.notify_one();
-      return;
     }
 
-    {
-      std::lock_guard<std::mutex> lock(mtx);
-      if (reply.term > currentTerm) {
-        currentTerm = reply.term;
-        SwitchStateToFollower();
-        return;
-      }
-    }
+    // for both cases above voteState cv must be notified
+    voteState.cv.notify_one();
+
+    return;
   }
 }
 
@@ -549,8 +507,11 @@ void RaftNode::HandleCandidateState() {
       }
     }
 
-    // sleep candidate's main thread until either deadline is reached
-    // (election timeout) or candidate receives majority votes
+    // sleep main candidate thread until one of the following is encountered:
+    // 1) NodeShutdown in progress
+    // 2) Candidate is demoted back to follower (encounters higher term or
+    // AppendEntries from existing leader)
+    // 3) Candidate's election receives "yes" votes from a majority of nodes
     std::unique_lock<std::mutex> lock(voteState.mtx);
     bool electionResult = voting_cv.wait_until(
         lock,

@@ -1,0 +1,132 @@
+Start testing: Apr 28 22:47 EDT
+----------------------------------------------------------
+1/13 Testing: Smoke.Builds
+1/13 Test: Smoke.Builds
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=Smoke.Builds" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"Smoke.Builds" start time: Apr 28 22:47 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = Smoke.Builds
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from Smoke
+[ RUN      ] Smoke.Builds
+[       OK ] Smoke.Builds (0 ms)
+[----------] 1 test from Smoke (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.17 sec
+----------------------------------------------------------
+Test Passed.
+"Smoke.Builds" end time: Apr 28 22:47 EDT
+"Smoke.Builds" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/13 Testing: ElectionTest.ElectsExactlyOneLeader
+2/13 Test: ElectionTest.ElectsExactlyOneLeader
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.ElectsExactlyOneLeader" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.ElectsExactlyOneLeader" start time: Apr 28 22:47 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.ElectsExactlyOneLeader
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.ElectsExactlyOneLeader
+[3260946284] --> Switching node 0 from Follower to Candidate
+[3260946284] --> node 0 starting an election (term = 1)...
+[3260946284] (VOTE) node 1 sends yes vote to node 0
+[3260946284] (VOTE) node 3 sends yes vote to node 0
+[3260946284] (VOTE) node 0 received yes vote from node 1
+[3260946284] (VOTE) node 2 sends yes vote to node 0
+[3260946284] (VOTE) node 0 received yes vote from node 3
+[3260946285] (VOTE) node 0 received yes vote from node 2
+[3260946285] (VOTE) node 4 sends yes vote to node 0
+[3260946285] (VOTE) node 0 received yes vote from node 4
+[3260946285] --> Switching node 0 from Candidate to Leader
+[3260946285] (HEARTBEAT) node 0 sending heartbeat to node 1
+[3260946285] (HEARTBEAT) node 1 receives heartbeat from node 0
+[3260946285] (HEARTBEAT) node 0 sending heartbeat to node 2
+[3260946285] (HEARTBEAT) node 2 receives heartbeat from node 0
+[3260946285] (HEARTBEAT) node 0 sending heartbeat to node 3
+[3260946285] (HEARTBEAT) node 3 receives heartbeat from node 0
+[3260946285] (HEARTBEAT) node 0 sending heartbeat to node 4
+[3260946285] (HEARTBEAT) node 4 receives heartbeat from node 0
+[3260946330] (SHUTDOWN) shutting down node 0...
+[3260946330] (SHUTDOWN) shutting down node 1...
+[3260946330] (SHUTDOWN) shutting down node 2...
+[3260946330] (SHUTDOWN) shutting down node 3...
+[3260946330] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.ElectsExactlyOneLeader (441 ms)
+[----------] 1 test from ElectionTest (441 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (441 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.61 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.ElectsExactlyOneLeader" end time: Apr 28 22:47 EDT
+"ElectionTest.ElectsExactlyOneLeader" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/13 Testing: ElectionTest.HandlesSingleLeaderLoss
+3/13 Test: ElectionTest.HandlesSingleLeaderLoss
+Command: "/Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/raft_tests" "--gtest_filter=ElectionTest.HandlesSingleLeaderLoss" "--gtest_also_run_disabled_tests"
+Directory: /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build
+"ElectionTest.HandlesSingleLeaderLoss" start time: Apr 28 22:47 EDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ElectionTest.HandlesSingleLeaderLoss
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ElectionTest
+[ RUN      ] ElectionTest.HandlesSingleLeaderLoss
+[3260946916] --> Switching node 3 from Follower to Candidate
+[3260946916] --> node 3 starting an election (term = 1)...
+[3260946916] (VOTE) node 0 sends yes vote to node 3
+[3260946916] (VOTE) node 1 sends yes vote to node 3
+[3260946916] (VOTE) node 3 received yes vote from node 1
+[3260946916] (VOTE) node 3 received yes vote from node 0
+[3260946916] (VOTE) node 2 sends yes vote to node 3
+[3260946917] (VOTE) node 3 received yes vote from node 2
+[3260946917] (VOTE) node 4 sends yes vote to node 3
+[3260946917] (VOTE) node 3 received yes vote from node 4
+[3260946917] --> Switching node 3 from Candidate to Leader
+[3260946917] (HEARTBEAT) node 3 sending heartbeat to node 0
+[3260946917] (HEARTBEAT) node 0 receives heartbeat from node 3
+[3260946917] (HEARTBEAT) node 3 sending heartbeat to node 1
+[3260946917] (HEARTBEAT) node 1 receives heartbeat from node 3
+[3260946917] (HEARTBEAT) node 3 sending heartbeat to node 2
+[3260946917] (HEARTBEAT) node 2 receives heartbeat from node 3
+[3260946917] (HEARTBEAT) node 3 sending heartbeat to node 4
+[3260946917] (HEARTBEAT) node 4 receives heartbeat from node 3
+[3260946940] (SHUTDOWN) shutting down node 3...
+[3260946940] (SHUTDOWN) shutting down node 0...
+[3260946940] (SHUTDOWN) shutting down node 1...
+[3260946940] (SHUTDOWN) shutting down node 2...
+[3260946940] (SHUTDOWN) shutting down node 3...
+[3260946940] (SHUTDOWN) shutting down node 4...
+[       OK ] ElectionTest.HandlesSingleLeaderLoss (457 ms)
+[----------] 1 test from ElectionTest (457 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (458 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.63 sec
+----------------------------------------------------------
+Test Passed.
+"ElectionTest.HandlesSingleLeaderLoss" end time: Apr 28 22:47 EDT
+"ElectionTest.HandlesSingleLeaderLoss" time elapsed: 00:00:00
+----------------------------------------------------------
+
