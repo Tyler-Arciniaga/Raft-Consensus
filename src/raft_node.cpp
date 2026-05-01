@@ -52,12 +52,15 @@ RaftNode::RaftNode(size_t nodeID, std::random_device &rd, Network &network)
 void RaftNode::StartNode() {
   std::thread state_machine_application_thread(&RaftNode::ApplyToStateMachine,
                                                this);
+  std::thread peer_replication_cleanup_thread(
+      &RaftNode::CleanUpReplicationThreads, this);
 
   while (true) {
     if (node_shutdown.load()) {
-      state_machine_cv.notify_one(); // wake up state machine apply loop thread
-                                     // so that we can gracefully exit
       state_machine_application_thread.join();
+      peer_replication_cleanup_thread.join();
+      Logger::getLogger().log("(SHUTDOWN) StartNode shutting down for node " +
+                              std::to_string(nodeID) + "\n");
       return;
     }
 
@@ -85,6 +88,9 @@ void RaftNode::ApplyToStateMachine() {
     });
 
     if (node_shutdown.load()) {
+      Logger::getLogger().log(
+          "(SHUTDOWN) ApplyToStateMachine exiting for node " +
+          std::to_string(nodeID) + "\n");
       return;
     }
 
@@ -105,9 +111,12 @@ void RaftNode::ApplyToStateMachine() {
     // reaquire mtx lock since cv.wait() requires lock to be held when called
     lock.lock();
   }
+  Logger::getLogger().log("(SHUTDOWN) ApplyToStateMachien exiting for node " +
+                          std::to_string(nodeID) + "\n");
 }
 
 void RaftNode::ApplySingleLogEntry(const LogEntry &entry) {
+  std::lock_guard<std::mutex> lock(state_machine_mtx);
   if (entry.action == ServerAction::Add) {
     state_machine.insert({entry.key, entry.value});
   } else {
@@ -119,7 +128,7 @@ void RaftNode::ApplySingleLogEntry(const LogEntry &entry) {
 }
 
 int RaftNode::FetchFromStateMachine(std::string key) {
-  std::lock_guard<std::mutex> lock(mtx);
+  std::lock_guard<std::mutex> lock(state_machine_mtx);
   auto itr = state_machine.find(key);
   if (itr == state_machine.end()) {
     return std::numeric_limits<int>::max();
@@ -128,12 +137,40 @@ int RaftNode::FetchFromStateMachine(std::string key) {
   return itr->second;
 }
 
-void RaftNode::SendAppendEntriesRPC(
-    const AppendEntriesArgs &arg, size_t targetID,
-    std::condition_variable &advance_commit_index_cv) {
-  auto followers_args = arg;
+void RaftNode::CleanUpReplicationThreads() {
+  std::unique_lock<std::mutex> lock(peer_replication_mtx);
+  while (!node_shutdown.load()) {
+    peer_replication_cv.wait(lock, [&, this] {
+      return node_shutdown.load() || (state.load() == NodeState::Leader &&
+                                      peer_replication_threads.size() > 0 &&
+                                      joinable_replication_threads.load() ==
+                                          peer_replication_threads.size());
+    });
 
-  while (true && state == NodeState::Leader) {
+    for (auto &t : peer_replication_threads) {
+      t.join();
+    }
+
+    if (node_shutdown.load()) {
+      Logger::getLogger().log(
+          "(SHUTDOWN) CleanUpReplicationThreads exiting for node " +
+          std::to_string(nodeID) + "\n");
+      return;
+    }
+
+    peer_replication_threads.clear();
+    joinable_replication_threads = 0;
+  }
+}
+
+void RaftNode::SendAppendEntriesRPC(
+    std::shared_ptr<AppendEntriesArgs> arg, size_t targetID,
+    std::shared_ptr<std::condition_variable> advance_commit_index_cv) {
+
+  // follower_args is thread local thus can be read and written without locking
+  auto followers_args = *arg.get();
+
+  while (!node_shutdown.load() && state.load() == NodeState::Leader) {
     Logger::getLogger().log("(LOG) node " + std::to_string(nodeID) +
                             " sending AppendEntriesRPC to node " +
                             std::to_string(targetID) + "\n");
@@ -142,11 +179,15 @@ void RaftNode::SendAppendEntriesRPC(
 
     std::lock_guard<std::mutex> lock(mtx);
     if (reply.sucesss) {
-      auto lastSentIndex = arg.prevLogIndex + arg.entries.size();
+      auto lastSentIndex =
+          followers_args.prevLogIndex + followers_args.entries.size();
       matchIndex[targetID] = lastSentIndex;
       nextIndex[targetID] = lastSentIndex + 1;
 
-      advance_commit_index_cv.notify_one();
+      advance_commit_index_cv->notify_one();
+
+      joinable_replication_threads += 1;
+      peer_replication_cv.notify_one();
       return;
     } else {
       nextIndex[targetID]--;
@@ -175,24 +216,35 @@ bool RaftNode::SendRequest(const std::vector<ServerRequest> &reqs) {
                             prevLogTerm, entries, commitIndex};
   }
 
-  std::vector<std::thread> append_entries_thread;
-  std::condition_variable advance_commit_index_cv;
-  for (auto targetID : peers) {
-    if (targetID != nodeID) {
-      append_entries_thread.emplace_back(&RaftNode::SendAppendEntriesRPC, this,
-                                         std::ref(arg), targetID,
-                                         std::ref(advance_commit_index_cv));
+  // std::vector<std::thread> append_entries_thread;
+  auto shared_arg = std::make_shared<AppendEntriesArgs>(arg);
+  // std::condition_variable advance_commit_index_cv;
+  auto shared_cv = std::make_shared<std::condition_variable>();
+
+  {
+    std::lock_guard<std::mutex> lock2(peer_replication_mtx);
+    for (auto targetID : peers) {
+      if (targetID != nodeID) {
+        peer_replication_threads.emplace_back(&RaftNode::SendAppendEntriesRPC,
+                                              this, shared_arg, targetID,
+                                              shared_cv);
+      }
     }
   }
 
   std::unique_lock<std::mutex> lock(mtx);
-  advance_commit_index_cv.wait(lock,
-                               [this] { return TryAdvancingCommitIndex(); });
+
+  // TryAdvancingCommitIndex returns true when a majority of nodes have
+  // replicated all of the new entries and thus the Leader can advance its
+  // commit index to its new maximum
+  shared_cv->wait(lock, [this] { return TryAdvancingCommitIndex(); });
   lock.unlock();
 
-  for (auto &t : append_entries_thread) {
-    t.join();
-  }
+  // for (auto &t : peer_replication_threads) {
+  //   t.join();
+  // }
+
+  // peer_replication_threads.clear();
 
   return true; // placeholder
 }
@@ -286,6 +338,7 @@ RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
 
     if (reply.voteGranted) {
       votedFor = args.candidateID;
+      heartbeat_received = true;
       heartbeat_cv.notify_one();
       Logger::getLogger().log("(VOTE) node " + std::to_string(nodeID) +
                               " sends yes vote to node " +
@@ -306,9 +359,19 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
   }
 
   // always reset election timer (has no effect if node is leader or candidate)
+  heartbeat_received = true;
   heartbeat_cv.notify_one();
 
   // update currentTerm if higher and demote when necessary
+  // if (args.leader_term == currentTerm && state == NodeState::Candidate) {
+  //   SwitchStateToFollower();
+  // } else if (args.leader_term > currentTerm) {
+  //   currentTerm = args.leader_term;
+  //   if (state != NodeState::Follower) {
+  //     SwitchStateToFollower();
+  //   }
+  // }
+
   if (args.leader_term > currentTerm) {
     currentTerm = args.leader_term;
     if (state.load() != NodeState::Follower) {
@@ -346,26 +409,70 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
   return AppendEntriesReply{currentTerm, true};
 }
 
+// TODO: pretty sure that issue with stalling is happening somewhere in this
+// HandleFollowerState function
+
 // main follower state function, has infinite loop only broken if current
 // election timer countdown reached before AppendEntry RPC can notify condition
 // variable
 void RaftNode::HandleFollowerState() {
   std::unique_lock<std::mutex> lock(mtx);
 
-  while (true) {
-    int new_countdown_duration = randomizer.GetRandomElectionTimeout();
-    if (heartbeat_cv.wait_for(
-            lock, std::chrono::milliseconds(new_countdown_duration)) ==
-        std::cv_status::timeout) {
+  while (!node_shutdown.load()) {
+    int timeout = randomizer.GetRandomElectionTimeout();
+    Logger::getLogger().log("(DEBUG) follower node " + std::to_string(nodeID) +
+                            " waiting\n");
+    auto notified =
+        heartbeat_cv.wait_for(lock, std::chrono::milliseconds(timeout), [this] {
+          return node_shutdown.load() || heartbeat_received;
+        });
+
+    if (node_shutdown.load()) {
+      Logger::getLogger().log(
+          "(SHUTDOWN) HandleFollowerState exiting for node " +
+          std::to_string(nodeID) + "\n");
+      return;
+    }
+
+    if (!notified) {
+      Logger::getLogger().log("(DEBUG) node " + std::to_string(nodeID) +
+                              " follower timed out\n");
       break;
     }
 
-    if (node_shutdown.load()) {
-      return;
-    }
+    heartbeat_received = false;
   }
 
-  SwitchStateToCandidate();
+  Logger::getLogger().log("(DEBUG) node " + std::to_string(nodeID) +
+                          " follower exiting loop, shutdown=" +
+                          std::to_string(node_shutdown.load()) + "\n");
+
+  if (!node_shutdown.load() && state == NodeState::Follower) {
+    SwitchStateToCandidate();
+  }
+
+  Logger::getLogger().log("(SHUTDOWN) HandleFollowerState exiting for node " +
+                          std::to_string(nodeID) + "\n");
+
+  // while (!node_shutdown.load()) {
+  //   int new_countdown_duration = randomizer.GetRandomElectionTimeout();
+  //   if (heartbeat_cv.wait_for(
+  //           lock, std::chrono::milliseconds(new_countdown_duration)) ==
+  //       std::cv_status::timeout) {
+  //     break;
+  //   }
+  //
+  //   if (node_shutdown.load()) {
+  //     Logger::getLogger().log(
+  //         "(SHUTDOWN) HandleFollowerState exiting for node " +
+  //         std::to_string(nodeID) + "\n");
+  //     return;
+  //   }
+  // }
+  //
+  // if (!node_shutdown.load()) {
+  //   SwitchStateToCandidate();
+  // }
 }
 
 void RaftNode::SendRequestVoteRPC(size_t targetID, VoteState &voteState,
@@ -380,6 +487,24 @@ void RaftNode::SendRequestVoteRPC(size_t targetID, VoteState &voteState,
 
   while (!stop.load()) {
     auto reply = network.sendRequestVote(targetID, arg);
+
+    // std::lock_guard<std::mutex> lock(mtx);
+    // if (!(reply.voteGranted || reply.term > currentTerm)) {
+    //   continue;
+    // }
+    //
+    // if (reply.term > currentTerm) {
+    //   currentTerm = reply.term;
+    //   SwitchStateToFollower();
+    // } else if (reply.voteGranted) {
+    //   Logger::getLogger().log("(VOTE) node " + std::to_string(nodeID) +
+    //                           " received yes vote from node " +
+    //                           std::to_string(targetID) + "\n");
+    //   voteState.votesReceived++;
+    // }
+    //
+    // voteState.cv.notify_one();
+    // return;
 
     if (reply.voteGranted) {
       Logger::getLogger().log("(VOTE) node " + std::to_string(nodeID) +
@@ -402,7 +527,7 @@ void RaftNode::SendRequestVoteRPC(size_t targetID, VoteState &voteState,
 }
 
 void RaftNode::HandleCandidateState() {
-  while (true) {
+  while (!node_shutdown.load()) {
     {
       std::lock_guard<std::mutex> lock(mtx);
       currentTerm++;
@@ -427,7 +552,7 @@ void RaftNode::HandleCandidateState() {
     // sleep candidate's main thread until either deadline is reached
     // (election timeout) or candidate receives majority votes
     std::unique_lock<std::mutex> lock(voteState.mtx);
-    bool electionResult = voteState.cv.wait_until(
+    bool electionResult = voting_cv.wait_until(
         lock,
         std::chrono::steady_clock::now() +
             std::chrono::milliseconds(randomizer.GetRandomElectionTimeout()),
@@ -440,12 +565,21 @@ void RaftNode::HandleCandidateState() {
           return false;
         });
 
+    // TODO: follow same pattern as sendAppendEntries where you vote
+    // reqVoteThreads ownership outside of HandleCandidateState and into node
+    // class itself, this would allow HandleCandidateState to continue once a
+    // majority of
+    //  votes have been reached (bypassing having to wait for the rest of the
+    //  Follower nodes to reply to RequestVote)
     for (auto &t : reqVoteThreads) {
       t.join();
     }
 
     // clean exit for node shutdown
     if (node_shutdown.load()) {
+      Logger::getLogger().log(
+          "(SHUTDOWN) HandleCandidateState exiting for node " +
+          std::to_string(nodeID) + "\n");
       return;
     }
 
@@ -505,7 +639,10 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
       }
     }
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::unique_lock<std::mutex> lock(shutdown_mtx);
+    shutdown_cv.wait_for(lock, std::chrono::milliseconds(100),
+                         [this] { return node_shutdown.load(); });
+    lock.unlock();
   }
 }
 
@@ -526,6 +663,8 @@ void RaftNode::HandleLeaderState() {
   }
 
   if (node_shutdown.load()) {
+    Logger::getLogger().log("(SHUTDOWN) HandleLeaderState exiting for node " +
+                            std::to_string(nodeID) + "\n");
     return;
   }
 
@@ -550,7 +689,16 @@ void RaftNode::StopNode() {
   Logger::getLogger().log("(SHUTDOWN) shutting down node " +
                           std::to_string(nodeID) + "...\n");
   node_shutdown = true;
-  heartbeat_cv.notify_one();
+
+  // std::lock_guard<std::mutex> node_lock(mtx);
+  // std::lock_guard<std::mutex> shutdown_lock(shutdown_mtx);
+  // std::lock_guard<std::mutex> peer_replication_lock(peer_replication_mtx);
+
+  shutdown_cv.notify_all();         // wakes SendHeartbeatRPCs
+  heartbeat_cv.notify_all();        // wakes HandleFollowerState
+  voting_cv.notify_all();           // wakes HandleCandidateState
+  state_machine_cv.notify_all();    // wakes ApplyToStateMachine
+  peer_replication_cv.notify_all(); // wakes CleanUpReplicationThreads
 }
 
 void RaftNode::SetPeers(const std::vector<size_t> p) {
@@ -584,7 +732,8 @@ void RaftNode::SetTerm(uint64_t new_term) {
   currentTerm = new_term;
 }
 
-// NOTE: consider making commitIndex an atomic rather than acquiring entire lock
+// NOTE: consider making commitIndex an atomic rather than acquiring entire
+// lock
 size_t RaftNode::GetCommitIndex() {
   std::lock_guard<std::mutex> lock(mtx);
   return commitIndex;
@@ -601,6 +750,7 @@ void RaftNode::SwitchStateToFollower() {
 }
 
 void RaftNode::SwitchStateToCandidate() {
+  heartbeat_cv.notify_one();
   print_switch_state_statement(nodeID, state, NodeState::Candidate);
   state = NodeState::Candidate;
 }

@@ -8,6 +8,7 @@
 #include <mutex>
 #include <random>
 #include <string>
+#include <thread>
 
 enum class NodeState { Follower = 0, Candidate, Leader };
 
@@ -41,8 +42,10 @@ private:
   std::vector<size_t> peers;
 
   std::vector<LogEntry> Log;
+
   std::unordered_map<std::string, int>
       state_machine; // map used to represent node's state machine
+  std::mutex state_machine_mtx;
 
   uint64_t currentTerm = 0; // last term server has seen
   uint32_t votedFor;        // candidateID that received vote in current term
@@ -59,10 +62,21 @@ private:
                   // server (used by leader)
 
   std::mutex mtx;
+
+  bool heartbeat_received = false;
+
   std::condition_variable heartbeat_cv;
   std::condition_variable voting_cv;
   std::condition_variable state_machine_cv;
+
+  std::vector<std::thread> peer_replication_threads;
+  std::mutex peer_replication_mtx;
+  std::condition_variable peer_replication_cv;
+  std::atomic<size_t> joinable_replication_threads;
+
   std::atomic<bool> node_shutdown{false};
+  std::condition_variable shutdown_cv;
+  std::mutex shutdown_mtx;
 
   Randomizer randomizer;
 
@@ -83,8 +97,10 @@ private:
 
   void SendRequestVoteRPC(size_t targetID, VoteState &voteState,
                           const std::atomic<bool> &stop);
-  void SendAppendEntriesRPC(const AppendEntriesArgs &arg, size_t targetID,
-                            std::condition_variable &advance_commit_index_cv);
+  void SendAppendEntriesRPC(
+      std::shared_ptr<AppendEntriesArgs> arg, size_t targetID,
+      std::shared_ptr<std::condition_variable> advance_commit_index_cv);
+  void CleanUpReplicationThreads();
   void SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop);
 
   bool TryAdvancingCommitIndex();
