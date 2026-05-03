@@ -1,18 +1,7 @@
 {
-  "tests": 13,
+  "tests": 12,
   "name": "AllTests",
   "testsuites": [
-    {
-      "name": "Smoke",
-      "tests": 1,
-      "testsuite": [
-        {
-          "name": "Builds",
-          "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/election_test.cpp",
-          "line": 13
-        }
-      ]
-    },
     {
       "name": "ElectionTest",
       "tests": 6,
@@ -20,63 +9,58 @@
         {
           "name": "ElectsExactlyOneLeader",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/election_test.cpp",
-          "line": 84
+          "line": 13
         },
         {
           "name": "HandlesSingleLeaderLoss",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/election_test.cpp",
-          "line": 91
+          "line": 20
         },
         {
           "name": "HandlesFalseCandidateDemotion",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/election_test.cpp",
-          "line": 122
+          "line": 51
         },
         {
           "name": "HandlesMultiFalseCandidates",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/election_test.cpp",
-          "line": 139
+          "line": 68
         },
         {
           "name": "HandlesMultiCandidateElection",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/election_test.cpp",
-          "line": 156
+          "line": 85
         },
         {
           "name": "NodesResolveToSameTerm",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/election_test.cpp",
-          "line": 170
+          "line": 99
         }
       ]
     },
     {
       "name": "LogReplicationTest",
-      "tests": 5,
+      "tests": 4,
       "testsuite": [
-        {
-          "name": "ReplicatesSingleRequest",
-          "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
-          "line": 85
-        },
         {
           "name": "CommitsSingleRequestOnLeader",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
-          "line": 123
+          "line": 13
         },
         {
           "name": "CommitsSingleRequestOnFollowers",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
-          "line": 145
+          "line": 35
         },
         {
           "name": "NodesApplyLogToStateMachine",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
-          "line": 188
+          "line": 78
         },
         {
           "name": "FullyReplicates100Entries",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
-          "line": 227
+          "line": 117
         }
       ]
     },
@@ -87,7 +71,18 @@
         {
           "name": "HandlesBehindFollower",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
-          "line": 276
+          "line": 166
+        }
+      ]
+    },
+    {
+      "name": "ChaosTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "HandlesSingleParititon",
+          "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/chaos_test.cpp",
+          "line": 17
         }
       ]
     }

@@ -17,9 +17,9 @@ SimulatedNetwork::SimulatedNetwork(float dropRate, size_t delayMS)
 }
 
 RequestVoteReply
-SimulatedNetwork::sendRequestVote(size_t targetID,
+SimulatedNetwork::sendRequestVote(size_t senderID, size_t targetID,
                                   const RequestVoteArgs &args) {
-  auto shouldDrop = SimulateNetworkIssues();
+  auto shouldDrop = SimulateNetworkIssues(senderID, targetID);
   if (shouldDrop) {
     return RequestVoteReply{};
   }
@@ -30,9 +30,9 @@ SimulatedNetwork::sendRequestVote(size_t targetID,
 }
 
 AppendEntriesReply
-SimulatedNetwork::sendAppendEntries(size_t targetID,
+SimulatedNetwork::sendAppendEntries(size_t senderID, size_t targetID,
                                     const AppendEntriesArgs &args) {
-  auto shouldDrop = SimulateNetworkIssues();
+  auto shouldDrop = SimulateNetworkIssues(senderID, targetID);
   if (shouldDrop) {
     return AppendEntriesReply{};
   }
@@ -48,7 +48,31 @@ void SimulatedNetwork::SetDropRate(float rate) { dropRate = rate; }
 
 void SimulatedNetwork::SetDelayMS(size_t delay) { delayMS = delay; }
 
-const bool SimulatedNetwork::SimulateNetworkIssues() {
+const bool SimulatedNetwork::InSameNetworkPartition(size_t senderID,
+                                                    size_t targetID) {
+  std::lock_guard<std::mutex> lock(mtx);
+
+  auto end_itr = partitioned.end();
+  size_t count = 0;
+  if (partitioned.find(senderID) == end_itr) {
+    count++;
+  }
+  if (partitioned.find(targetID) == end_itr) {
+    count++;
+  }
+
+  // is only one of the nodes in the partitioned set?
+  return count != 1;
+}
+
+// simulates all ways network can fail (delay, drop messages, etc), returns true
+// if simNet shouldn't deliver msg, o.w. false
+const bool SimulatedNetwork::SimulateNetworkIssues(size_t senderID,
+                                                   size_t targetID) {
+  if (!InSameNetworkPartition(senderID, targetID)) {
+    return true;
+  }
+
   float random;
   {
     std::lock_guard<std::mutex> lock(mtx);
@@ -61,4 +85,18 @@ const bool SimulatedNetwork::SimulateNetworkIssues() {
   }
 
   return true;
+}
+
+void SimulatedNetwork::AddToPartioned(size_t nodeID) {
+  {
+    std::lock_guard<std::mutex> lock(mtx);
+    partitioned.insert(nodeID);
+  }
+}
+
+void SimulatedNetwork::RemoveFromPartioned(size_t nodeID) {
+  {
+    std::lock_guard<std::mutex> lock(mtx);
+    partitioned.erase(nodeID);
+  }
 }

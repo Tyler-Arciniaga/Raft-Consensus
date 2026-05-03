@@ -9,10 +9,11 @@ class RaftNode; // forward declaration to break dependency loop between RaftNode
 
 class Network {
 public:
-  virtual RequestVoteReply sendRequestVote(size_t targetID,
+  virtual RequestVoteReply sendRequestVote(size_t senderID, size_t targetID,
                                            const RequestVoteArgs &args) = 0;
   virtual AppendEntriesReply
-  sendAppendEntries(size_t targetID, const AppendEntriesArgs &args) = 0;
+  sendAppendEntries(size_t senderID, size_t targetID,
+                    const AppendEntriesArgs &args) = 0;
 };
 
 class SimulatedNetwork : public Network {
@@ -33,13 +34,16 @@ public:
   SimulatedNetwork();
   SimulatedNetwork(float dropRate, size_t delayMS);
 
-  RequestVoteReply sendRequestVote(size_t targetID,
+  RequestVoteReply sendRequestVote(size_t senderID, size_t targetID,
                                    const RequestVoteArgs &args) override;
-  AppendEntriesReply sendAppendEntries(size_t targetID,
+  AppendEntriesReply sendAppendEntries(size_t senderID, size_t targetID,
                                        const AppendEntriesArgs &args) override;
 
   void AddNode(RaftNode *node);
+  void AddToPartioned(size_t nodeID);
+  void RemoveFromPartioned(size_t nodeID);
   void SetDropRate(float rate);
   void SetDelayMS(size_t delay);
-  const bool SimulateNetworkIssues();
+  const bool SimulateNetworkIssues(size_t senderID, size_t targetID);
+  const bool InSameNetworkPartition(size_t senderID, size_t targetID);
 };

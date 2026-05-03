@@ -354,6 +354,30 @@ src/randomizer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/src/randomizer.cpp.s
 .PHONY : src/randomizer.cpp.s
 
+tests/chaos_test.o: tests/chaos_test.cpp.o
+.PHONY : tests/chaos_test.o
+
+# target to build an object file
+tests/chaos_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/chaos_test.cpp.o
+.PHONY : tests/chaos_test.cpp.o
+
+tests/chaos_test.i: tests/chaos_test.cpp.i
+.PHONY : tests/chaos_test.i
+
+# target to preprocess a source file
+tests/chaos_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/chaos_test.cpp.i
+.PHONY : tests/chaos_test.cpp.i
+
+tests/chaos_test.s: tests/chaos_test.cpp.s
+.PHONY : tests/chaos_test.s
+
+# target to generate assembly for a file
+tests/chaos_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/raft_tests.dir/build.make CMakeFiles/raft_tests.dir/tests/chaos_test.cpp.s
+.PHONY : tests/chaos_test.cpp.s
+
 tests/election_test.o: tests/election_test.cpp.o
 .PHONY : tests/election_test.o
 
@@ -433,6 +457,9 @@ help:
 	@echo "... src/randomizer.o"
 	@echo "... src/randomizer.i"
 	@echo "... src/randomizer.s"
+	@echo "... tests/chaos_test.o"
+	@echo "... tests/chaos_test.i"
+	@echo "... tests/chaos_test.s"
 	@echo "... tests/election_test.o"
 	@echo "... tests/election_test.i"
 	@echo "... tests/election_test.s"

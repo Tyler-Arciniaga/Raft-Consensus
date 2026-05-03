@@ -175,7 +175,7 @@ void RaftNode::SendAppendEntriesRPC(
                             " sending AppendEntriesRPC to node " +
                             std::to_string(targetID) + "\n");
 
-    auto reply = network.sendAppendEntries(targetID, followers_args);
+    auto reply = network.sendAppendEntries(nodeID, targetID, followers_args);
 
     std::lock_guard<std::mutex> lock(mtx);
     if (reply.sucesss) {
@@ -315,7 +315,7 @@ RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
     // demote to follower
     if (state.load() != NodeState::Follower) {
       SwitchStateToFollower();
-      voting_cv.notify_one();
+      voting_cv.notify_one(); // handles case of node being candidate
     }
 
     votedFor = UINT32_MAX;
@@ -453,8 +453,8 @@ void RaftNode::SendRequestVoteRPC(size_t targetID, VoteState &voteState,
     arg = RequestVoteArgs{currentTerm, nodeID, lastLogIndex, lastLogTerm};
   }
 
-  while (!stop.load()) {
-    auto reply = network.sendRequestVote(targetID, arg);
+  while (!stop.load() && !node_shutdown.load()) {
+    auto reply = network.sendRequestVote(nodeID, targetID, arg);
 
     std::lock_guard<std::mutex> lock(mtx);
 
@@ -477,11 +477,17 @@ void RaftNode::SendRequestVoteRPC(size_t targetID, VoteState &voteState,
       voteState.votesReceived++;
     }
 
-    // for both cases above voteState cv must be notified
+    // network.sendRequestVote must've timed out so continue in loop and retry
+    else {
+      continue;
+    }
+
+    // for the first two cases above voteState cv must be notified
     voteState.cv.notify_one();
 
     return;
   }
+  // maybe voteState.cv.notify_one()
 }
 
 void RaftNode::HandleCandidateState() {
@@ -587,7 +593,7 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
     Logger::getLogger().log("(HEARTBEAT) node " + std::to_string(nodeID) +
                             " sending heartbeat to node " +
                             std::to_string(targetID) + "\n");
-    auto reply = network.sendAppendEntries(targetID, arg);
+    auto reply = network.sendAppendEntries(nodeID, targetID, arg);
     {
       std::lock_guard<std::mutex> lock(mtx);
       if (reply.term > currentTerm) {
@@ -650,10 +656,6 @@ void RaftNode::StopNode() {
   Logger::getLogger().log("(SHUTDOWN) shutting down node " +
                           std::to_string(nodeID) + "...\n");
   node_shutdown = true;
-
-  // std::lock_guard<std::mutex> node_lock(mtx);
-  // std::lock_guard<std::mutex> shutdown_lock(shutdown_mtx);
-  // std::lock_guard<std::mutex> peer_replication_lock(peer_replication_mtx);
 
   shutdown_cv.notify_all();         // wakes SendHeartbeatRPCs
   heartbeat_cv.notify_all();        // wakes HandleFollowerState

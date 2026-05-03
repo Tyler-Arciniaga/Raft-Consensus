@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/raft_tests.dir/src/raft_node.cpp.o.d"
   "CMakeFiles/raft_tests.dir/src/randomizer.cpp.o"
   "CMakeFiles/raft_tests.dir/src/randomizer.cpp.o.d"
+  "CMakeFiles/raft_tests.dir/tests/chaos_test.cpp.o"
+  "CMakeFiles/raft_tests.dir/tests/chaos_test.cpp.o.d"
   "CMakeFiles/raft_tests.dir/tests/election_test.cpp.o"
   "CMakeFiles/raft_tests.dir/tests/election_test.cpp.o.d"
   "CMakeFiles/raft_tests.dir/tests/log_replication_test.cpp.o"

@@ -25,6 +25,7 @@ FetchContent_MakeAvailable(googletest)
 add_executable(raft_tests
     tests/election_test.cpp
     tests/log_replication_test.cpp
+    tests/chaos_test.cpp
     src/raft_node.cpp
     src/network.cpp
     src/randomizer.cpp
