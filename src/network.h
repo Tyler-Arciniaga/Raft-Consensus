@@ -1,7 +1,7 @@
 #pragma once
 #include "rpc.h"
 #include <random>
-#include <set>
+#include <unordered_set>
 #include <vector>
 
 class RaftNode; // forward declaration to break dependency loop between RaftNode
@@ -24,8 +24,9 @@ private:
   std::uniform_real_distribution<float> dist{0.0, 1.0};
 
   size_t delayMS = 0;
-  std::set<size_t> partitioned; // set of IDs of nodes that cannot communicate
-                                // due to a network partition
+  std::unordered_set<size_t>
+      partitioned; // set of IDs of nodes that cannot communicate
+                   // due to a network partition
   std::vector<RaftNode *> nodes;
 
   std::mutex mtx;

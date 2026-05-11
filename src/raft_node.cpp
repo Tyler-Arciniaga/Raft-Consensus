@@ -163,13 +163,8 @@ void RaftNode::CleanUpReplicationThreads() {
   }
 }
 
-void RaftNode::SendAppendEntriesRPC(
-    std::shared_ptr<AppendEntriesArgs> arg, size_t targetID,
-    std::shared_ptr<std::condition_variable> advance_commit_index_cv) {
-
-  // follower_args is thread local thus can be read and written without locking
-  auto followers_args = *arg.get();
-
+void RaftNode::CatchUpFollowerLog(AppendEntriesArgs followers_args,
+                                  size_t targetID) {
   while (!node_shutdown.load() && state.load() == NodeState::Leader) {
     Logger::getLogger().log("(LOG) node " + std::to_string(nodeID) +
                             " sending AppendEntriesRPC to node " +
@@ -185,9 +180,6 @@ void RaftNode::SendAppendEntriesRPC(
       lock.unlock();
 
       if (node_shutdown.load()) {
-        // notify advance_commit_index_cv so that Leader's SendRequest thread
-        // can exit
-        advance_commit_index_cv->notify_one();
         return;
       }
 
@@ -201,8 +193,8 @@ void RaftNode::SendAppendEntriesRPC(
       matchIndex[targetID] = lastSentIndex;
       nextIndex[targetID] = lastSentIndex + 1;
 
-      advance_commit_index_cv->notify_one();
-
+      // NOTE: check to see if notifying peer_replication_cv in this func rather
+      // than SendAppendEntries is dangerous
       joinable_replication_threads += 1;
       peer_replication_cv.notify_one();
       return;
@@ -218,6 +210,14 @@ void RaftNode::SendAppendEntriesRPC(
       continue;
     }
   }
+}
+
+void RaftNode::SendAppendEntriesRPC(
+    std::shared_ptr<AppendEntriesArgs> arg, size_t targetID,
+    std::shared_ptr<std::condition_variable> advance_commit_index_cv) {
+
+  CatchUpFollowerLog(*arg.get(), targetID);
+  advance_commit_index_cv->notify_one();
 }
 
 // for now assume this is only ever called on Leader node
@@ -606,24 +606,23 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
                             std::to_string(targetID) + "\n");
     auto reply = network.sendAppendEntries(nodeID, targetID, arg);
 
-    Logger::getLogger().log("(BOMBO) to node " + std::to_string(targetID) +
-                            " " + std::to_string(reply.term) + " " +
-                            std::to_string(reply.sucess) + " " +
-                            std::to_string(reply.hadNetworkFailure) + "\n");
     if (!reply.hadNetworkFailure) {
-      // TODO:
-      if (!reply.sucess) {
-        Logger::getLogger().log("here\n");
-        std::lock_guard<std::mutex> lock(peer_replication_mtx);
-        peer_replication_threads.emplace_back(&RaftNode::CatchUpLaggingFollower,
-                                              this, targetID);
+      {
+        // always exit early if Leader encounters higher term on heartbeat
+        std::lock_guard<std::mutex> lock(mtx);
+        if (reply.term > currentTerm) {
+          currentTerm = reply.term;
+          stop = true;
+          return;
+        }
       }
 
-      std::lock_guard<std::mutex> lock(mtx);
-      if (reply.term > currentTerm) {
-        currentTerm = reply.term;
-        stop = true;
-        return;
+      if (!reply.sucess) {
+        // follower is lagging, thus Leader must start sending AppendEntries
+        // with Log to catch it up
+        std::lock_guard<std::mutex> lock(peer_replication_mtx);
+        peer_replication_threads.emplace_back(&RaftNode::CatchUpFollowerLog,
+                                              this, arg, targetID);
       }
     }
 
@@ -631,43 +630,6 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
     shutdown_cv.wait_for(lock, std::chrono::milliseconds(100),
                          [this] { return node_shutdown.load(); });
     lock.unlock();
-  }
-}
-
-void RaftNode::CatchUpLaggingFollower(size_t targetID) {
-  AppendEntriesArgs args;
-  {
-    std::lock_guard<std::mutex> node_lock(mtx);
-    auto prevLogIndex = Log.size() - 1;
-    args = AppendEntriesArgs{currentTerm,
-                             nodeID,
-                             prevLogIndex,
-                             Log[prevLogIndex].termReceived,
-                             std::vector<LogEntry>{},
-                             commitIndex};
-  }
-
-  while (!node_shutdown.load() && state == NodeState::Leader) {
-    Logger::getLogger().log("(DEBUG) catching up lagging follower\n");
-    auto reply = network.sendAppendEntries(nodeID, targetID, args);
-    std::lock_guard<std::mutex> lock(mtx);
-    if (reply.sucess) {
-      auto lastSentIndex = args.prevLogIndex + args.entries.size();
-      matchIndex[targetID] = lastSentIndex;
-      nextIndex[targetID] = lastSentIndex + 1;
-
-      joinable_replication_threads++;
-      peer_replication_cv.notify_one();
-      return;
-    } else {
-      nextIndex[targetID]--;
-
-      args.prevLogIndex--;
-      args.prevLogTerm = Log[args.prevLogIndex].termReceived;
-      args.entries =
-          std::vector<LogEntry>(Log.begin() + args.prevLogIndex + 1, Log.end());
-      continue;
-    }
   }
 }
 

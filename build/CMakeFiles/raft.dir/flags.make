@@ -6,7 +6,7 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src
 
-CXX_FLAGSarm64 =  -arch arm64 -fsanitize=address,undefined -g
+CXX_FLAGSarm64 = -std=gnu++20 -arch arm64 -fsanitize=address,undefined -g
 
-CXX_FLAGS =  -arch arm64 -fsanitize=address,undefined -g
+CXX_FLAGS = -std=gnu++20 -arch arm64 -fsanitize=address,undefined -g
 

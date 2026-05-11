@@ -25,6 +25,11 @@ struct LogEntry {
   }
 
   bool operator!=(const LogEntry &other) { return !(operator==(other)); }
+
+  std::string str() {
+    return "key: " + key + " | value: " + std::to_string(value) +
+           " | termReceived: " + std::to_string(termReceived);
+  }
 };
 
 struct AppendEntriesArgs {
@@ -39,8 +44,10 @@ struct AppendEntriesArgs {
 
 struct AppendEntriesReply {
   uint64_t term;
-  bool sucesss; // true if follower contained entry matching prevLogIndex and
-                // prevLogTerm
+  bool sucess; // true if follower contained entry matching prevLogIndex and
+               // prevLogTerm
+
+  bool hadNetworkFailure = false;
 };
 
 struct RequestVoteArgs {
@@ -54,6 +61,8 @@ struct RequestVoteReply {
   uint64_t
       term; // currentTerm (used for candidate to possibly update it's term)
   bool voteGranted;
+
+  bool hadNetworkFailure = false;
 };
 
 struct VoteState {

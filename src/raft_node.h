@@ -97,6 +97,8 @@ private:
 
   void SendRequestVoteRPC(size_t targetID, VoteState &voteState,
                           const std::atomic<bool> &stop);
+
+  void CatchUpFollowerLog(AppendEntriesArgs followers_args, size_t targetID);
   void SendAppendEntriesRPC(
       std::shared_ptr<AppendEntriesArgs> arg, size_t targetID,
       std::shared_ptr<std::condition_variable> advance_commit_index_cv);

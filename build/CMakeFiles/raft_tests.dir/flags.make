@@ -6,7 +6,7 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/Users/tylerarciniaga/Documents/dev/Raft_Consensus/src -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest/include -isystem /Users/tylerarciniaga/Documents/dev/Raft_Consensus/build/_deps/googletest-src/googletest
 
-CXX_FLAGSarm64 =  -arch arm64 -fsanitize=thread,undefined
+CXX_FLAGSarm64 = -std=gnu++20 -arch arm64 -fsanitize=thread,undefined
 
-CXX_FLAGS =  -arch arm64 -fsanitize=thread,undefined
+CXX_FLAGS = -std=gnu++20 -arch arm64 -fsanitize=thread,undefined
 

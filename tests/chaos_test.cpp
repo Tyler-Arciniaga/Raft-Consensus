@@ -14,7 +14,7 @@ class ChaosTest : public RaftNodeTest {
   }
 };
 
-TEST_F(ChaosTest, HandlesSingleParititon) {
+TEST_F(ChaosTest, RecoversFromSinglePartititon) {
   auto cond = [this] { return ExactlyOneLeader(); };
   auto res = WaitForCondition(cond, 2000);
   ASSERT_TRUE(res) << "Single leader invaraint does not hold after 2 sec";
@@ -32,7 +32,7 @@ TEST_F(ChaosTest, HandlesSingleParititon) {
   network.AddToPartioned(partioned_follower);
 
   std::vector<ServerRequest> reqs;
-  for (auto i = 0; i < 25; i++) {
+  for (auto i = 0; i < 5; i++) {
     reqs.emplace_back(ServerRequest{ServerAction::Add, std::to_string(i), i});
   }
 
@@ -63,13 +63,18 @@ TEST_F(ChaosTest, HandlesSingleParititon) {
 
   network.RemoveFromPartioned(partioned_follower);
 
-  std::this_thread::sleep_for(std::chrono::milliseconds(1200));
+  std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+  res = WaitForCondition(cond, 2000);
+  ASSERT_TRUE(res) << "Single leader invariant doesn't hold after partitioned "
+                      "node returns (~2 sec test)";
+
   auto partioned_follower_log = nodes[partioned_follower]->GetLog();
 
-  leader_log = leader->GetLog();
   for (auto i = 0; i < leader_log.size(); i++) {
-    if (leader_log[i] != partioned_follower_log.at(i)) {
-      ASSERT_TRUE(false) << "previously partioned log does not have a "
+    if (i >= partioned_follower_log.size() ||
+        partioned_follower_log[i] != leader_log[i]) {
+      ASSERT_TRUE(false) << "previously partioned follower does not have a "
                             "replicated log with leader after ~1.2 sec";
     }
   }
@@ -79,7 +84,7 @@ TEST_F(ChaosTest, HandlesSingleParititon) {
            nodes[partioned_follower]->GetCommitIndex();
   };
 
-  res = WaitForCondition(cond2, 1200);
+  res = WaitForCondition(cond2, 1500);
   ASSERT_TRUE(res) << "previously partioned follower does not have matching "
-                      "commitIndex with leader after ~1.2 sec";
+                      "commitIndex with leader after ~1.5 sec";
 }

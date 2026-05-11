@@ -1,9 +1,11 @@
 #include "network.h"
+#include "logger.h"
 #include "raft_node.h"
 #include "rpc.h"
 #include <chrono>
 #include <mutex>
 #include <stdexcept>
+#include <string>
 #include <thread>
 
 SimulatedNetwork::SimulatedNetwork() {}
@@ -21,7 +23,9 @@ SimulatedNetwork::sendRequestVote(size_t senderID, size_t targetID,
                                   const RequestVoteArgs &args) {
   auto shouldDrop = SimulateNetworkIssues(senderID, targetID);
   if (shouldDrop) {
-    return RequestVoteReply{};
+    // Logger::getLogger().log(
+    //     "(NETWORK) RequestVoteRPC being dropped by network...\n");
+    return RequestVoteReply{.hadNetworkFailure = true};
   }
 
   auto targetNode = nodes[targetID];
@@ -34,7 +38,9 @@ SimulatedNetwork::sendAppendEntries(size_t senderID, size_t targetID,
                                     const AppendEntriesArgs &args) {
   auto shouldDrop = SimulateNetworkIssues(senderID, targetID);
   if (shouldDrop) {
-    return AppendEntriesReply{};
+    // Logger::getLogger().log(
+    //     "(NETWORK) AppendEntriesRPC being dropped by network...\n");
+    return AppendEntriesReply{.hadNetworkFailure = true};
   }
 
   auto targetNode = nodes[targetID];
@@ -92,6 +98,9 @@ void SimulatedNetwork::AddToPartioned(size_t nodeID) {
     std::lock_guard<std::mutex> lock(mtx);
     partitioned.insert(nodeID);
   }
+
+  Logger::getLogger().log("(NETWORK) node " + std::to_string(nodeID) +
+                          " is now partitioned from the main set\n");
 }
 
 void SimulatedNetwork::RemoveFromPartioned(size_t nodeID) {
@@ -99,4 +108,7 @@ void SimulatedNetwork::RemoveFromPartioned(size_t nodeID) {
     std::lock_guard<std::mutex> lock(mtx);
     partitioned.erase(nodeID);
   }
+
+  Logger::getLogger().log("(NETWORK) node " + std::to_string(nodeID) +
+                          " is no longer partitioned from the main set\n");
 }
