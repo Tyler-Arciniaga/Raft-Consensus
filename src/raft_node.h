@@ -103,6 +103,8 @@ private:
   void CleanUpReplicationThreads();
   void SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop);
 
+  void CatchUpLaggingFollower(size_t targetID);
+
   bool TryAdvancingCommitIndex();
 
   void ApplyToStateMachine();

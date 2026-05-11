@@ -177,8 +177,25 @@ void RaftNode::SendAppendEntriesRPC(
 
     auto reply = network.sendAppendEntries(nodeID, targetID, followers_args);
 
+    if (reply.hadNetworkFailure) {
+      // back off for 100 MS, wake up once timeout or node_shutdown occurs
+      std::unique_lock<std::mutex> lock(shutdown_mtx);
+      shutdown_cv.wait_for(lock, std::chrono::milliseconds(100),
+                           [this] { return node_shutdown.load(); });
+      lock.unlock();
+
+      if (node_shutdown.load()) {
+        // notify advance_commit_index_cv so that Leader's SendRequest thread
+        // can exit
+        advance_commit_index_cv->notify_one();
+        return;
+      }
+
+      continue;
+    }
+
     std::lock_guard<std::mutex> lock(mtx);
-    if (reply.sucesss) {
+    if (reply.sucess) {
       auto lastSentIndex =
           followers_args.prevLogIndex + followers_args.entries.size();
       matchIndex[targetID] = lastSentIndex;
@@ -195,8 +212,9 @@ void RaftNode::SendAppendEntriesRPC(
       followers_args.prevLogIndex--;
       followers_args.prevLogTerm =
           Log[followers_args.prevLogIndex].termReceived;
+
       followers_args.entries = std::vector<LogEntry>(
-          Log.begin() + followers_args.prevLogIndex, Log.end());
+          Log.begin() + followers_args.prevLogIndex + 1, Log.end());
       continue;
     }
   }
@@ -237,14 +255,10 @@ bool RaftNode::SendRequest(const std::vector<ServerRequest> &reqs) {
   // TryAdvancingCommitIndex returns true when a majority of nodes have
   // replicated all of the new entries and thus the Leader can advance its
   // commit index to its new maximum
-  shared_cv->wait(lock, [this] { return TryAdvancingCommitIndex(); });
+  shared_cv->wait(lock, [this] {
+    return node_shutdown.load() || TryAdvancingCommitIndex();
+  });
   lock.unlock();
-
-  // for (auto &t : peer_replication_threads) {
-  //   t.join();
-  // }
-
-  // peer_replication_threads.clear();
 
   return true; // placeholder
 }
@@ -373,26 +387,26 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
     }
   }
 
-  // if entries is not empty than this is a regular AppendEntriesRPC...
   if (args.entries.size() != 0) {
+    // if args.entries isn't empty this is regular AppendEntriesRPC...
     Logger::getLogger().log("(LOG) node " + std::to_string(nodeID) +
                             " receives AppendEntriesRPC from node " +
                             std::to_string(args.leaderID) + "\n");
-
-    if (args.prevLogIndex >= Log.size() ||
-        Log[args.prevLogIndex].termReceived != args.prevLogTerm) {
-      return AppendEntriesReply{currentTerm, false};
-    }
-
-    // truncate all trailing entries and append leader's sent entries
-    Log.resize(args.prevLogIndex + 1);
-    Log.insert(Log.end(), args.entries.begin(), args.entries.end());
   } else {
-    // ... must be a heartbeat then...
+    // must be a heartbeat then...
     Logger::getLogger().log("(HEARTBEAT) node " + std::to_string(nodeID) +
                             " receives heartbeat from node " +
                             std::to_string(args.leaderID) + "\n");
   }
+
+  if (args.prevLogIndex >= Log.size() ||
+      Log[args.prevLogIndex].termReceived != args.prevLogTerm) {
+    return AppendEntriesReply{currentTerm, false};
+  }
+
+  // truncate all trailing entries and append leader's sent entries
+  Log.resize(args.prevLogIndex + 1);
+  Log.insert(Log.end(), args.entries.begin(), args.entries.end());
 
   // always check and update commitIndex when necessary
   if (args.leaderCommitIndex > commitIndex) {
@@ -402,9 +416,6 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
 
   return AppendEntriesReply{currentTerm, true};
 }
-
-// TODO: pretty sure that issue with stalling is happening somewhere in this
-// HandleFollowerState function
 
 // Main Follower state function, some key components:
 // 1) Loops indefinitely as long as !node_shutdown and election timer does not
@@ -594,13 +605,23 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
                             " sending heartbeat to node " +
                             std::to_string(targetID) + "\n");
     auto reply = network.sendAppendEntries(nodeID, targetID, arg);
-    {
+
+    Logger::getLogger().log("(BOMBO) to node " + std::to_string(targetID) +
+                            " " + std::to_string(reply.term) + " " +
+                            std::to_string(reply.sucess) + " " +
+                            std::to_string(reply.hadNetworkFailure) + "\n");
+    if (!reply.hadNetworkFailure) {
+      // TODO:
+      if (!reply.sucess) {
+        Logger::getLogger().log("here\n");
+        std::lock_guard<std::mutex> lock(peer_replication_mtx);
+        peer_replication_threads.emplace_back(&RaftNode::CatchUpLaggingFollower,
+                                              this, targetID);
+      }
+
       std::lock_guard<std::mutex> lock(mtx);
       if (reply.term > currentTerm) {
-        {
-          currentTerm = reply.term;
-        }
-
+        currentTerm = reply.term;
         stop = true;
         return;
       }
@@ -610,6 +631,43 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
     shutdown_cv.wait_for(lock, std::chrono::milliseconds(100),
                          [this] { return node_shutdown.load(); });
     lock.unlock();
+  }
+}
+
+void RaftNode::CatchUpLaggingFollower(size_t targetID) {
+  AppendEntriesArgs args;
+  {
+    std::lock_guard<std::mutex> node_lock(mtx);
+    auto prevLogIndex = Log.size() - 1;
+    args = AppendEntriesArgs{currentTerm,
+                             nodeID,
+                             prevLogIndex,
+                             Log[prevLogIndex].termReceived,
+                             std::vector<LogEntry>{},
+                             commitIndex};
+  }
+
+  while (!node_shutdown.load() && state == NodeState::Leader) {
+    Logger::getLogger().log("(DEBUG) catching up lagging follower\n");
+    auto reply = network.sendAppendEntries(nodeID, targetID, args);
+    std::lock_guard<std::mutex> lock(mtx);
+    if (reply.sucess) {
+      auto lastSentIndex = args.prevLogIndex + args.entries.size();
+      matchIndex[targetID] = lastSentIndex;
+      nextIndex[targetID] = lastSentIndex + 1;
+
+      joinable_replication_threads++;
+      peer_replication_cv.notify_one();
+      return;
+    } else {
+      nextIndex[targetID]--;
+
+      args.prevLogIndex--;
+      args.prevLogTerm = Log[args.prevLogIndex].termReceived;
+      args.entries =
+          std::vector<LogEntry>(Log.begin() + args.prevLogIndex + 1, Log.end());
+      continue;
+    }
   }
 }
 
