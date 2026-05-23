@@ -14,6 +14,9 @@ public:
   virtual AppendEntriesReply
   sendAppendEntries(size_t senderID, size_t targetID,
                     const AppendEntriesArgs &args) = 0;
+
+  virtual bool forwardClientRequest(size_t senderID, size_t targetID,
+                                    const std::vector<ServerRequest> &reqs) = 0;
 };
 
 class SimulatedNetwork : public Network {
@@ -39,6 +42,8 @@ public:
                                    const RequestVoteArgs &args) override;
   AppendEntriesReply sendAppendEntries(size_t senderID, size_t targetID,
                                        const AppendEntriesArgs &args) override;
+  bool forwardClientRequest(size_t senderID, size_t targetID,
+                            const std::vector<ServerRequest> &reqs) override;
 
   void AddNode(RaftNode *node);
   void AddToPartioned(size_t nodeID);

@@ -163,6 +163,52 @@ TEST_F(LogReplicationTest, FullyReplicates100Entries) {
   }
 }
 
+TEST_F(LogReplicationTest, FollowersForwardClientRequests) {
+  auto res = WaitForCondition([this] { return ExactlyOneLeader(); }, 1000);
+  ASSERT_TRUE(res) << "single leader is not elected after 1 sec";
+
+  std::vector<ServerRequest> reqs;
+
+  for (auto i = 0; i < 3; i++) {
+    reqs.emplace_back(ServerRequest{ServerAction::Add, std::to_string(i), i});
+  }
+
+  RaftNode *follower;
+  RaftNode *leader;
+
+  for (auto &node : nodes) {
+    if (node->GetState() == NodeState::Follower) {
+      follower = node.get();
+    }
+    if (node->GetState() == NodeState::Leader) {
+      leader = node.get();
+    }
+  }
+
+  follower->SendRequest(reqs);
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+  ASSERT_NE(leader->GetLog().size(), 0)
+      << "leader's log is still empty after 1 sec";
+
+  auto leader_log = leader->GetLog();
+  for (auto &node : nodes) {
+    if (node->GetState() == NodeState::Leader) {
+      continue;
+    }
+
+    auto log = node->GetLog();
+    for (auto i = 0; i < log.size(); i++) {
+      if (log[i] != leader_log.at(i)) {
+        ASSERT_TRUE(false)
+            << "at least one of the nodes still does not have a replicated log "
+               "with the current leader";
+      }
+    }
+  }
+}
+
 TEST(LogReplicationLogic, HandlesBehindFollower) {
   std::random_device rd;
   SimulatedNetwork network;

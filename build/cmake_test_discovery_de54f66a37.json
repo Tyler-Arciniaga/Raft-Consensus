@@ -1,5 +1,5 @@
 {
-  "tests": 12,
+  "tests": 13,
   "name": "AllTests",
   "testsuites": [
     {
@@ -40,7 +40,7 @@
     },
     {
       "name": "LogReplicationTest",
-      "tests": 4,
+      "tests": 5,
       "testsuite": [
         {
           "name": "CommitsSingleRequestOnLeader",
@@ -61,6 +61,11 @@
           "name": "FullyReplicates100Entries",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
           "line": 117
+        },
+        {
+          "name": "FollowersForwardClientRequests",
+          "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
+          "line": 166
         }
       ]
     },
@@ -71,7 +76,7 @@
         {
           "name": "HandlesBehindFollower",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/log_replication_test.cpp",
-          "line": 166
+          "line": 212
         }
       ]
     },

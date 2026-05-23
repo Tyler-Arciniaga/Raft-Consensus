@@ -222,6 +222,11 @@ void RaftNode::SendAppendEntriesRPC(
 
 // for now assume this is only ever called on Leader node
 bool RaftNode::SendRequest(const std::vector<ServerRequest> &reqs) {
+  if (state.load() != NodeState::Leader) {
+    // TODO:
+    return network.forwardClientRequest(nodeID, currentLeader, reqs);
+  }
+
   AppendEntriesArgs arg;
   {
     std::lock_guard<std::mutex> lock(mtx);
@@ -352,6 +357,7 @@ RequestVoteReply RaftNode::RequestVote(const RequestVoteArgs &args) {
 
     if (reply.voteGranted) {
       votedFor = args.candidateID;
+      currentLeader = args.candidateID;
       heartbeat_received = true;
       heartbeat_cv.notify_one();
       Logger::getLogger().log("(VOTE) node " + std::to_string(nodeID) +
@@ -376,7 +382,7 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
   heartbeat_received = true;
   heartbeat_cv.notify_one();
 
-  // update currentTerm if higher and demote when necessary
+  // update currentTerm if received term is higher and demote when necessary
   if (args.leader_term == currentTerm && state == NodeState::Candidate) {
     // candidate must recognize incoming leader and demote...
     SwitchStateToFollower();
@@ -414,6 +420,7 @@ AppendEntriesReply RaftNode::AppendEntries(const AppendEntriesArgs &args) {
     state_machine_cv.notify_one();
   }
 
+  currentLeader = args.leaderID;
   return AppendEntriesReply{currentTerm, true};
 }
 
@@ -634,6 +641,7 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
 }
 
 void RaftNode::HandleLeaderState() {
+  currentLeader = nodeID;
   RefreshVolatileLeaderState();
 
   std::atomic<bool> stop{false};

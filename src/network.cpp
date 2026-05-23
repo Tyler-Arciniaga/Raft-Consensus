@@ -48,6 +48,16 @@ SimulatedNetwork::sendAppendEntries(size_t senderID, size_t targetID,
   return reply;
 }
 
+bool SimulatedNetwork::forwardClientRequest(
+    size_t senderID, size_t targetID, const std::vector<ServerRequest> &reqs) {
+  auto shouldDrop = SimulateNetworkIssues(senderID, targetID);
+  if (shouldDrop) {
+    return false;
+  }
+
+  return nodes[targetID]->SendRequest(reqs);
+}
+
 void SimulatedNetwork::AddNode(RaftNode *node) { nodes.push_back(node); }
 
 void SimulatedNetwork::SetDropRate(float rate) { dropRate = rate; }

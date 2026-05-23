@@ -40,6 +40,7 @@ private:
   std::atomic<NodeState> state{NodeState::Follower};
   const size_t nodeID;
   std::vector<size_t> peers;
+  std::atomic<size_t> currentLeader;
 
   std::vector<LogEntry> Log;
 
