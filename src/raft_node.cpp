@@ -220,10 +220,8 @@ void RaftNode::SendAppendEntriesRPC(
   advance_commit_index_cv->notify_one();
 }
 
-// for now assume this is only ever called on Leader node
 bool RaftNode::SendRequest(const std::vector<ServerRequest> &reqs) {
   if (state.load() != NodeState::Leader) {
-    // TODO:
     return network.forwardClientRequest(nodeID, currentLeader, reqs);
   }
 
@@ -233,15 +231,15 @@ bool RaftNode::SendRequest(const std::vector<ServerRequest> &reqs) {
     size_t prevLogIndex = Log.size() - 1;
     uint64_t prevLogTerm = Log[prevLogIndex].termReceived;
 
+    // leader appends to local log but does not commit until majority has
+    // replicated
     auto entries = AppendToLog(reqs);
 
     arg = AppendEntriesArgs{currentTerm, nodeID,  prevLogIndex,
                             prevLogTerm, entries, commitIndex};
   }
 
-  // std::vector<std::thread> append_entries_thread;
   auto shared_arg = std::make_shared<AppendEntriesArgs>(arg);
-  // std::condition_variable advance_commit_index_cv;
   auto shared_cv = std::make_shared<std::condition_variable>();
 
   {
@@ -257,15 +255,20 @@ bool RaftNode::SendRequest(const std::vector<ServerRequest> &reqs) {
 
   std::unique_lock<std::mutex> lock(mtx);
 
-  // TryAdvancingCommitIndex returns true when a majority of nodes have
+  // NOTE: TryAdvancingCommitIndex returns true when a majority of nodes have
   // replicated all of the new entries and thus the Leader can advance its
   // commit index to its new maximum
-  shared_cv->wait(lock, [this] {
-    return node_shutdown.load() || TryAdvancingCommitIndex();
-  });
+  //
+  // leader write request times out after 1.5 sec
+  auto non_timeout_wakeup = shared_cv->wait_until(
+      lock, std::chrono::system_clock::now() + std::chrono::milliseconds(1500),
+      [this] { return node_shutdown.load() || TryAdvancingCommitIndex(); });
   lock.unlock();
 
-  return true; // placeholder
+  if (non_timeout_wakeup) {
+    return true;
+  }
+  return false;
 }
 
 // converts reqs into Log entries and appends to back of log, then returns newly
@@ -505,7 +508,6 @@ void RaftNode::SendRequestVoteRPC(size_t targetID, VoteState &voteState,
 
     return;
   }
-  // maybe voteState.cv.notify_one()
 }
 
 void RaftNode::HandleCandidateState() {
@@ -550,12 +552,6 @@ void RaftNode::HandleCandidateState() {
           return false;
         });
 
-    // TODO: follow same pattern as sendAppendEntries where you vote
-    // reqVoteThreads ownership outside of HandleCandidateState and into node
-    // class itself, this would allow HandleCandidateState to continue once a
-    // majority of
-    //  votes have been reached (bypassing having to wait for the rest of the
-    //  Follower nodes to reply to RequestVote)
     for (auto &t : reqVoteThreads) {
       t.join();
     }

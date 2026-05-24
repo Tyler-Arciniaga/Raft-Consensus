@@ -88,3 +88,55 @@ TEST_F(ChaosTest, RecoversFromSinglePartititon) {
   ASSERT_TRUE(res) << "previously partioned follower does not have matching "
                       "commitIndex with leader after ~1.5 sec";
 }
+
+TEST_F(ChaosTest, HandlesPartitionedLeader) {
+  auto cond = [this] { return ExactlyOneLeader(); };
+  auto res = WaitForCondition(cond, 2000);
+  ASSERT_TRUE(res) << "Single leader invaraint does not hold after 2 sec";
+
+  size_t original_leader_id;
+  RaftNode *original_leader;
+  for (auto i = 0; i < nodes.size(); i++) {
+    if (nodes[i]->GetState() == NodeState::Leader) {
+      original_leader_id = i;
+      original_leader = nodes[i].get();
+      network.AddToPartioned(i);
+      break;
+    }
+  }
+
+  auto leader_per_partition = [this] {
+    size_t numLeaders = 0;
+    for (auto &node : nodes) {
+      if (node->GetState() == NodeState::Leader) {
+        numLeaders++;
+      }
+    }
+
+    return numLeaders == 2;
+  };
+
+  res = WaitForCondition(leader_per_partition, 2000);
+  ASSERT_TRUE(res) << "Single leader invariant does not apply for election "
+                      "after follower is partitioned";
+
+  auto partitioned_leader_write_req =
+      original_leader->SendRequest(std::vector<ServerRequest>{
+          ServerRequest{ServerAction::Add, "should not be replicated", 2}});
+
+  ASSERT_EQ(partitioned_leader_write_req, false)
+      << "partitioned leader write request times out and returns false to "
+         "client";
+
+  network.RemoveFromPartioned(original_leader_id);
+
+  res = WaitForCondition(cond, 2000);
+  ASSERT_TRUE(res) << "Single leader invariant holds after original leader is "
+                      "removed from partitioned set";
+
+  for (auto &node : nodes) {
+    ASSERT_EQ(node->GetLog().size(), 1)
+        << "previously partitioned leader's stale log was incorrectly "
+           "replicated";
+  }
+}

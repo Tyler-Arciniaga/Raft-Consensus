@@ -1,5 +1,5 @@
 {
-  "tests": 13,
+  "tests": 14,
   "name": "AllTests",
   "testsuites": [
     {
@@ -82,12 +82,17 @@
     },
     {
       "name": "ChaosTest",
-      "tests": 1,
+      "tests": 2,
       "testsuite": [
         {
           "name": "RecoversFromSinglePartititon",
           "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/chaos_test.cpp",
           "line": 17
+        },
+        {
+          "name": "HandlesPartitionedLeader",
+          "file": "\/Users\/tylerarciniaga\/Documents\/dev\/Raft_Consensus\/tests\/chaos_test.cpp",
+          "line": 92
         }
       ]
     }
