@@ -465,7 +465,7 @@ void RaftNode::HandleFollowerState() {
 }
 
 void RaftNode::SendRequestVoteRPC(size_t targetID, VoteState &voteState,
-                                  const std::atomic<bool> &stop) {
+                                  std::stop_token st) {
   RequestVoteArgs arg;
   {
     std::lock_guard<std::mutex> lock(mtx);
@@ -474,7 +474,7 @@ void RaftNode::SendRequestVoteRPC(size_t targetID, VoteState &voteState,
     arg = RequestVoteArgs{currentTerm, nodeID, lastLogIndex, lastLogTerm};
   }
 
-  while (!stop.load() && !node_shutdown.load()) {
+  while (!st.stop_requested() && !node_shutdown.load()) {
     auto reply = network.sendRequestVote(nodeID, targetID, arg);
 
     std::lock_guard<std::mutex> lock(mtx);
@@ -522,14 +522,14 @@ void RaftNode::HandleCandidateState() {
     }
 
     VoteState voteState(voting_cv);
-    std::atomic<bool> stop{false};
+    std::stop_source stop_source;
 
     std::vector<std::jthread> reqVoteThreads;
     for (auto targetID : peers) {
       if (targetID != nodeID) {
         reqVoteThreads.emplace_back(&RaftNode::SendRequestVoteRPC, this,
                                     targetID, std::ref(voteState),
-                                    std::ref(stop));
+                                    stop_source.get_token());
       }
     }
 
@@ -543,10 +543,10 @@ void RaftNode::HandleCandidateState() {
         lock,
         std::chrono::steady_clock::now() +
             std::chrono::milliseconds(randomizer.GetRandomElectionTimeout()),
-        [this, &voteState, &stop] {
+        [this, &voteState, &stop_source] {
           if (node_shutdown.load() || state.load() == NodeState::Follower ||
               voteState.votesReceived > uint32_t(peers.size() / 2)) {
-            stop = true;
+            stop_source.request_stop();
             return true;
           }
           return false;
@@ -581,13 +581,14 @@ void RaftNode::HandleCandidateState() {
   }
 }
 
-void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
+void RaftNode::SendHeartbeatRPCs(size_t targetID,
+                                 std::stop_source stop_source) {
   size_t prevLogIndex;
   uint64_t prevLogTerm;
   AppendEntriesArgs arg;
-  while (!stop.load()) {
+  while (!stop_source.stop_requested()) {
     if (node_shutdown.load() || state.load() != NodeState::Leader) {
-      stop = true;
+      stop_source.request_stop();
       return;
     }
 
@@ -615,7 +616,7 @@ void RaftNode::SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop) {
         std::lock_guard<std::mutex> lock(mtx);
         if (reply.term > currentTerm) {
           currentTerm = reply.term;
-          stop = true;
+          stop_source.request_stop();
           return;
         }
       }
@@ -640,12 +641,13 @@ void RaftNode::HandleLeaderState() {
   currentLeader = nodeID;
   RefreshVolatileLeaderState();
 
-  std::atomic<bool> stop{false};
+  // std::atomic<bool> stop{false};
+  std::stop_source stop_source;
   std::vector<std::jthread> heartbeatThreads;
   for (auto targetID : peers) {
     if (targetID != nodeID) {
       heartbeatThreads.emplace_back(&RaftNode::SendHeartbeatRPCs, this,
-                                    targetID, std::ref(stop));
+                                    targetID, stop_source);
     }
   }
 

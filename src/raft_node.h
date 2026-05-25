@@ -97,14 +97,14 @@ private:
   inline void RefreshVolatileLeaderState();
 
   void SendRequestVoteRPC(size_t targetID, VoteState &voteState,
-                          const std::atomic<bool> &stop);
+                          std::stop_token st);
 
   void CatchUpFollowerLog(AppendEntriesArgs followers_args, size_t targetID);
   void SendAppendEntriesRPC(
       std::shared_ptr<AppendEntriesArgs> arg, size_t targetID,
       std::shared_ptr<std::condition_variable> advance_commit_index_cv);
   void CleanUpReplicationThreads();
-  void SendHeartbeatRPCs(size_t targetID, std::atomic<bool> &stop);
+  void SendHeartbeatRPCs(size_t targetID, std::stop_source stop_source);
 
   void CatchUpLaggingFollower(size_t targetID);
 
