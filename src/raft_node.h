@@ -70,7 +70,7 @@ private:
   std::condition_variable voting_cv;
   std::condition_variable state_machine_cv;
 
-  std::vector<std::thread> peer_replication_threads;
+  std::vector<std::jthread> peer_replication_threads;
   std::mutex peer_replication_mtx;
   std::condition_variable peer_replication_cv;
   std::atomic<size_t> joinable_replication_threads;

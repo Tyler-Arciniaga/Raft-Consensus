@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
   }
 
   for (size_t i = 0; i < nodes.size(); i++) {
-    std::thread t(&RaftNode::StartNode, nodes[i].get());
+    std::jthread t(&RaftNode::StartNode, nodes[i].get());
     t.detach();
   }
 

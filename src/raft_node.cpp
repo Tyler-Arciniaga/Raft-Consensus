@@ -50,9 +50,9 @@ RaftNode::RaftNode(size_t nodeID, std::random_device &rd, Network &network)
 
 // RaftNode RPC functions
 void RaftNode::StartNode() {
-  std::thread state_machine_application_thread(&RaftNode::ApplyToStateMachine,
-                                               this);
-  std::thread peer_replication_cleanup_thread(
+  std::jthread state_machine_application_thread(&RaftNode::ApplyToStateMachine,
+                                                this);
+  std::jthread peer_replication_cleanup_thread(
       &RaftNode::CleanUpReplicationThreads, this);
 
   while (true) {
@@ -524,7 +524,7 @@ void RaftNode::HandleCandidateState() {
     VoteState voteState(voting_cv);
     std::atomic<bool> stop{false};
 
-    std::vector<std::thread> reqVoteThreads;
+    std::vector<std::jthread> reqVoteThreads;
     for (auto targetID : peers) {
       if (targetID != nodeID) {
         reqVoteThreads.emplace_back(&RaftNode::SendRequestVoteRPC, this,
@@ -641,7 +641,7 @@ void RaftNode::HandleLeaderState() {
   RefreshVolatileLeaderState();
 
   std::atomic<bool> stop{false};
-  std::vector<std::thread> heartbeatThreads;
+  std::vector<std::jthread> heartbeatThreads;
   for (auto targetID : peers) {
     if (targetID != nodeID) {
       heartbeatThreads.emplace_back(&RaftNode::SendHeartbeatRPCs, this,
